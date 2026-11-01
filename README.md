@@ -91,6 +91,12 @@ dotnet build ElementalIndustry.csproj -c Release
 
 **贴图**：`Textures/Items/` 是运行时贴图，`ArtSource/` 存 16× 源图与生成原稿，不进包。
 
+## 许可
+
+本项目以 [Functional Source License 1.1（MIT Future License）](LICENSE) 发布：可以自由使用、修改、分发，也可以拿去做自己的东西，但**不能把它做成与原版功能相同或近似的商业产品或服务出售**。每个版本发布满两年后，自动转为 MIT 许可。
+
+游戏本体、Unity 与官方 Mod SDK 不在本仓库授权范围内。
+
 ## English
 
 A *Probably Stolen* mod that adds a data-driven inorganic chemistry chain: gas cylinders, electrolysis, air separation, a chemistry module for the vanilla furnace, silicon and electronics, a night-time chemist shop, and a laboratory bay.
@@ -112,3 +118,5 @@ Requires the full release of the game (runtime version 0.46D). In development; n
 **Limits** — gases are a lightweight model with no pressure, temperature, mixing or pipes; non-gas outputs need their own free cells; the mod is still in development and does not migrate old saves.
 
 **Build** — `dotnet build ElementalIndustry.csproj -c Release`; output goes to `bin/` only. Enable the folder in the game's Mods menu and restart, then `F8` → `mod-scan elemental_industry`.
+
+**License** — [Functional Source License 1.1 (MIT Future License)](LICENSE): use, modify and redistribute freely, but do not sell it as a commercial product or service that substitutes for it. Each release becomes MIT-licensed two years after it ships.
