@@ -168,15 +168,9 @@ def main():
         save(name, fill_grid_sample_points(image))
     for name in CHEMICALS:
         save(name, pixel_chemical_bottle(name))
-    # An open-centre frame formerly sampled transparent and became a zero-cell item.
-    frame = Image.open(INPUT / "elem_machine_frame.png").convert("RGBA")
-    draw = ImageDraw.Draw(frame)
-    draw.line((5, 5, 10, 10), fill=(102, 121, 117, 255), width=1)
-    draw.line((10, 5, 5, 10), fill=(78, 91, 89, 255), width=1)
-    save("elem_machine_frame", fill_grid_sample_points(frame))
     machine_preview()
     chemical_preview()
-    print(f"Saved {len(MACHINES)} compact machines, {len(CHEMICALS)} bottles and one corrected frame")
+    print(f"Saved {len(MACHINES)} compact machines and {len(CHEMICALS)} bottles")
 
 
 if __name__ == "__main__":

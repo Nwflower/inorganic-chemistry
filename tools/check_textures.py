@@ -11,7 +11,6 @@ MAX_COLORS = 32
 EXPECTED = {
     "elem_electrolysis_cell.png": (48, 48),
     "elem_hydrogen_fuel_cell.png": (16, 32),
-    "elem_medicine_cabinet.png": (32, 32),
     "elem_laboratory_bay.png": (64, 64),
     "elem_hydrogen_cylinder.png": (32, 48),
     "elem_oxygen_cylinder.png": (32, 48),
@@ -24,12 +23,14 @@ EXPECTED = {
 for state in range(1, 5):
     EXPECTED[f"elem_laboratory_bay_{state}.png"] = (64, 64)
 for name in (
-    "elem_coke", "elem_salt",
-    "elem_brine", "elem_hydrogen_peroxide", "elem_bleaching_powder",
-    "elem_silicon", "elem_mod_chip", "elem_machine_frame",
+    "elem_coke", "elem_salt", "elem_hydrogen_peroxide",
+    "elem_silicon", "elem_mod_chip",
 ):
     EXPECTED[f"{name}.png"] = (16, 16)
-for name in ("elem_sodium_hydroxide", "elem_hydrochloric_acid", "elem_ammonia", "elem_nitric_acid"):
+for name in (
+    "elem_sodium_hydroxide", "elem_hydrochloric_acid", "elem_ammonia", "elem_nitric_acid",
+    "elem_brine", "elem_bleaching_powder",
+):
     EXPECTED[f"{name}.png"] = (16, 32)
 for name in (
     "elem_air_separator", "elem_oxyhydrogen_welder", "elem_rust_extractor",
