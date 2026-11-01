@@ -6,7 +6,7 @@
       "archetype": "processor",
       "sprite": "elem_electrolysis_cell",
       "value": 500,
-      "power": 10,
+      "power": 12,
       "efficiencyRatio": 2,
       "inputWidth": 2,
       "inputHeight": 2,

@@ -359,7 +359,7 @@
       "id": "elem_laboratory_bay",
       "module": "Core",
       "sprite": "elem_laboratory_bay",
-      "value": 1400,
+      "value": 1880,
       "itemTypes": [
         "STORAGE"
       ]

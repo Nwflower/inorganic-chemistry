@@ -96,9 +96,9 @@ def item_details(item):
     if item.get("hazards"):
         details.extend(HAZARD_LABELS.get(hazard, hazard) for hazard in item["hazards"])
     if item["id"] == "elem_medicine_cabinet":
-        details.append("12 个独立槽位")
+        details.append("旧式独立物品；已有存档可继续使用，商店停售")
     if item["id"] == "elem_laboratory_bay":
-        details.extend(("内部 14×18 格", "图标按收纳条目切换 0–4+ 件状态"))
+        details.extend(("主网格 14×18 格", "网格下方 12 个独立 2×2 药品格", "药品格模组物品同类堆叠至 99", "图标按两区物品条目总数切换 0–4+ 件状态"))
     if item.get("copySpriteFrom"):
         details.append("沿用原版模组贴图")
     return details

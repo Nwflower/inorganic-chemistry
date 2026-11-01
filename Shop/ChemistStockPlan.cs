@@ -40,7 +40,6 @@ internal static class ChemistStockPlan
         var offers = new List<ChemistOffer>
         {
             // Storage hardware is offered before small goods to preserve a large footprint.
-            new("id:elem_medicine_cabinet", "elem_medicine_cabinet", priority: 16),
             new("id:elem_laboratory_bay", "elem_laboratory_bay", priority: 16)
         };
         offers.AddRange(VanillaMachines.Select(id => new ChemistOffer("id:" + id, id, priority: 4)));

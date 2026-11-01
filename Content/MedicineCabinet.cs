@@ -9,6 +9,7 @@ internal static class MedicineCabinet
 {
     internal const string ItemId = "elem_medicine_cabinet";
     internal const string SlotPrefix = "elem_medicine_cabinet_slot_";
+    internal const string LaboratorySlotPrefix = "elem_laboratory_bay_medicine_slot_";
     internal const int SlotCount = 12;
     internal const int ModStackLimit = 99;
 
@@ -36,16 +37,32 @@ internal static class MedicineCabinet
         cabinet.SetSpriteAndShapeFromMod(Ids.ModId, "elem_medicine_cabinet");
         ModHelper.SetSource(cabinet, Ids.ModId, Ids.ModName);
 
+        var medicine = CreatePanels(cabinet, SlotPrefix);
+        PixelWindow window = MachineHelper.CreateMachineryWindow(canMove: true, medicine.Panels.ToArray());
+        if (window.childElement is MachineryPanelRow row)
+        {
+            row.SetColumns(3);
+        }
+        window.SetTitle(Loc.Get("item." + definition.id + ".name"));
+        window.Validate();
+        cabinet.SetContentWindow(window);
+        return cabinet;
+    }
+
+    internal static (List<MachineryPanel> Panels, List<GameSlotInventory> Slots) CreatePanels(
+        GameItem owner, string slotPrefix)
+    {
         var panels = new List<MachineryPanel>();
+        var slots = new List<GameSlotInventory>();
         for (int index = 0; index < SlotCount; index++)
         {
             int slotIndex = index;
             var slot = new GameSlotInventory(2, 2)
             {
-                identifier = SlotPrefix + slotIndex
+                identifier = slotPrefix + slotIndex
             };
-            slot.SetBackgroundFadeSprite("Items/items_tool", "screwdriver_s");
-            ContainerHelper.InitContainerItem(slot, cabinet, new List<string>
+            slot.SetBackgroundFadeSprite("Items/items_medical", "pill_bottle");
+            ContainerHelper.InitContainerItem(slot, owner, new List<string>
             {
                 "MEDICAL", "MEDICAL_SUPPLIES", "CHEMICAL_SUPPLIES", "NARCOTIC",
                 "CHEMICAL_PRODUCT_TAG", "LIQUID_CONTAINER_TAG", "WATER_PURIFICATION_SUPPLY"
@@ -55,17 +72,9 @@ internal static class MedicineCabinet
                 vanillaFilter?.Invoke(item, inventory) == true && CanStore(slot, item);
             slot.maxSlotAmountItemFunc = (item, _, _) => IsModStackableMedicine(item) ? ModStackLimit : 1;
             panels.Add(MachineHelper.Panel(Loc.Get("medicine_cabinet.slot", slotIndex + 1), slot, "medicine" + slotIndex));
+            slots.Add(slot);
         }
-
-        PixelWindow window = MachineHelper.CreateMachineryWindow(canMove: true, panels.ToArray());
-        if (window.childElement is MachineryPanelRow row)
-        {
-            row.SetColumns(3);
-        }
-        window.SetTitle(Loc.Get("item." + definition.id + ".name"));
-        window.Validate();
-        cabinet.SetContentWindow(window);
-        return cabinet;
+        return (panels, slots);
     }
 
     private static bool CanStore(GameSlotInventory slot, GameItem item)
@@ -87,11 +96,13 @@ internal static class MedicineCabinet
     internal static bool MayStackInCabinet(GameItem item, GameItem other)
     {
         return MedicineCabinetRules.MayStack(item.identifier, other.identifier,
-            IsModStackableMedicine(item), IsCabinetSlot(item.parentInventory));
+            IsModStackableMedicine(item), IsMedicineSlot(item.parentInventory));
     }
 
-    private static bool IsCabinetSlot(GameInventory? inventory)
+    private static bool IsMedicineSlot(GameInventory? inventory)
     {
-        return inventory?.identifier?.StartsWith(SlotPrefix, StringComparison.Ordinal) == true;
+        string? identifier = inventory?.identifier;
+        return identifier?.StartsWith(SlotPrefix, StringComparison.Ordinal) == true ||
+               identifier?.StartsWith(LaboratorySlotPrefix, StringComparison.Ordinal) == true;
     }
 }

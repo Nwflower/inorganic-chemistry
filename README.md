@@ -20,7 +20,7 @@ Core（数据库、工厂、通用配方执行器、公共 API）、GasProductio
 四种气体各有气瓶。`GAS_TYPE` 标记种类，物品数量就是克数；同种气体拖在一起即按克合并，不同气体不能合并。克数写在物品说明里，不盖住贴图；拆分时图标旁显示待取克数。新生成的气瓶默认 100 克。
 
 **电解与空气分离**
-电解器每晚基础耗电 10、耗水 1 升，产出 112 克氢和 888 克氧。空气分离机每晚基础耗电 6，产出 222 克氧和 778 克氮。效率改变耗电，性能提高每晚批次与处理水量，质量增加产氢量或产物估值。
+电解器每晚基础耗电 12、耗水 1 升，产出 112 克氢和 888 克氧。空气分离机每晚基础耗电 6，产出 222 克氧和 778 克氮。效率改变耗电，性能提高每晚批次与处理水量，质量增加产氢量或产物估值。
 
 **燃料能量电池**
 1×2 的初级违禁品，插在机器电池槽里当电源。每 10 克氢供 1 点电，不足 10 克的部分留着下次用。装了氧气和产水容器时，每 1 克氢搭配 8 克氧产出 9 毫升纯水；容器没空间就只供电、氧气留下。它不能给充电机、装备或飞船电源架用。
@@ -37,8 +37,8 @@ Core（数据库、工厂、通用配方执行器、公共 API）、GasProductio
 **芯片台**
 把硅切片做成集成电路、模组芯片、机器框架和催化剂。
 
-**实验区与药品柜**
-开局优先发放实验区：4×4 的金属架，内部 14×18 格，收纳设备不会让机器停机；架子图标按里面的物品条目数切换 0、1、2、3、4+ 件五种状态。药品柜有 12 个独立 2×2 槽位，每槽一种物品，模组的定量化学品与医疗品可在柜内同 ID 堆到 99。
+**实验区与药品格**
+开局优先发放实验区：4×4 的金属架，内部 14×18 格主网格，下方有 12 个独立 2×2 药品格；收纳设备不会让机器停机。架子图标按主网格与药品格中的物品条目总数切换 0、1、2、3、4+ 件五种状态。专用药品格每格一种物品，模组定量化学品与医疗品可按同 ID 堆到 99，原版药品保持单件。旧式独立药品柜保留给已有存档使用，不再由商店供应。
 
 **化学家商店**
 独立的夜间柜台，卖原版试剂、模组化学品、原版与模组机器、机器储藏区。较大的商品先尝试摆放，小件按游戏日期轮换；柜台被占用时本次不供货。商店不向发明家注入商品。
@@ -71,7 +71,7 @@ Core（数据库、工厂、通用配方执行器、公共 API）、GasProductio
 - 多产物处理对空间不足和扣电失败做了回滚，但无法保证第三方回调或后续扣水、销毁、充电抛异常时所有副作用都能回滚。
 - 实验区不是停机开关：装在里面的通电机器可能照常夜间工作，整理前应取出电池和投入物。
 - 熔炉化学模块和燃料电池接入游戏运行时，游戏更新后需要重新检查补丁目标。
-- 每批 112 克氢理论可供电 11.2，按整数结算先发 11 点、留 2 克氢；5 批用电 50、发电 56。装入氧气和足够大的容器时 5 批还能回收 4.995 升水。这些数字与模块组合的实际盈亏仍需实机核对。
+- 每批 112 克氢理论可供电 11.2，按整数结算可发 11 点、留 2 克氢；5 批基础电解耗电 60、燃料电池可供电 56。原版基础效率模块会把电解耗电降至 11，5 批净多 1 点。配入产物氧气时 5 批可回收 4.995 升水；这些数字与模块组合的实际盈亏仍需实机核对。
 
 ## 构建与校验
 
@@ -116,7 +116,7 @@ Requires the full release of the game (runtime version 0.46D). In development; n
 
 **Silicon and electronics** — smelt silica with coke, refine it step by step in the furnace, then slice wafers into circuits, module chips, machine frames and catalysts.
 
-**Shop and storage** — a separate night-time chemist counter, a 14×18 laboratory bay whose icon reflects how many items it holds, and a 12-slot medicine cabinet with per-slot stacking up to 99.
+**Shop and storage** — a separate night-time chemist counter and a 14×18 laboratory bay with 12 dedicated medicine slots below its main grid. Its icon reflects the combined item count; mod chemistry and medical items stack to 99 in these slots. Legacy standalone cabinets remain usable in existing saves but are no longer sold.
 
 **Limits** — gases are a lightweight model with no pressure, temperature, mixing or pipes; non-gas outputs need their own free cells; the mod is still in development and does not migrate old saves.
 

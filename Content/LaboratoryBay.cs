@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ElementalIndustry;
 
@@ -6,13 +8,34 @@ namespace ElementalIndustry;
 internal static class LaboratoryBay
 {
     internal const string ItemId = "elem_laboratory_bay";
+    internal const string MedicineSlotPrefix = MedicineCabinet.LaboratorySlotPrefix;
     internal static GameItem Create(ItemDefinition definition)
     {
-        (PixelWindow window, GameInventory inventory) = DirectoryUtils.CreateInventoryWindow(14, 18);
-        GameItem bay = ItemDirectory.CreateEmptyItem(definition.id).SetContentWindow(window);
+        GameGridInventory inventory = new GameGridInventory(14, 18).SetMachineryStyle();
+        GameItem bay = ItemDirectory.CreateEmptyItem(definition.id);
+        (List<MachineryPanel> medicinePanels, List<GameSlotInventory> medicineSlots) =
+            MedicineCabinet.CreatePanels(bay, MedicineSlotPrefix);
+        var medicineRow = new MachineryPanelRow(medicinePanels.ToArray());
+        medicineRow.SetColumns(6);
+        var layout = new GridPixelElement(1, 2, isCentered: true);
+        layout.Attach(inventory);
+        layout.Attach(medicineRow);
+        var window = new PixelWindow(true, null, WindowStyle.Machinery);
+        window.Attach(layout);
+        window.Validate();
+        bay.SetContentWindow(window);
         if (!string.IsNullOrEmpty(definition.sprite))
         {
-            SetAppearance(bay, definition.sprite, inventory.childItems.Count);
+            Action updateAppearance = () => SetAppearance(bay, definition.sprite,
+                inventory.childItems.Count + medicineSlots.Count(slot => slot.childItem != null));
+            updateAppearance();
+            inventory.onSlotAddItemEndFunc += (_, _, _) => updateAppearance();
+            inventory.onSlotRemoveItemEndFunc += (_, _, _) => updateAppearance();
+            foreach (GameSlotInventory slot in medicineSlots)
+            {
+                slot.onSlotAddItemEndFunc += (_, _, _) => updateAppearance();
+                slot.onSlotRemoveItemEndFunc += (_, _, _) => updateAppearance();
+            }
         }
         else
         {
@@ -35,11 +58,6 @@ internal static class LaboratoryBay
             if (parent != null && !GeneralHelper.IsItemOwned(parent)) return false;
             return !item.IsTag("STORAGE") || ContainerHelper.IsNestingAllowed(item, parent);
         };
-        if (!string.IsNullOrEmpty(definition.sprite))
-        {
-            inventory.onSlotAddItemEndFunc += (_, _, _) => SetAppearance(bay, definition.sprite, inventory.childItems.Count);
-            inventory.onSlotRemoveItemEndFunc += (_, _, _) => SetAppearance(bay, definition.sprite, inventory.childItems.Count);
-        }
         ModHelper.SetSource(bay, Ids.ModId, Loc.Get("mod.name"));
         return bay;
     }

@@ -3,7 +3,7 @@
     {
       "id": "elec_water",
       "machine": "elem_electrolysis_cell",
-      "power": 10,
+      "power": 12,
       "water": 1000000,
       "inputs": [],
       "outputs": [
