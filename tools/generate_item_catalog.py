@@ -28,6 +28,7 @@ HAZARD_LABELS = {
 }
 COPY_SPRITES = {
     "furnace_module_junk": "long_module3.png",
+    "water_tablet": "water_tablet.png",
 }
 
 
@@ -87,6 +88,8 @@ def item_details(item):
         details.extend((f"气体 {item['gas']}", "新购含量 100 克", "同种气体可堆叠合并"))
     if item.get("chemLiquid"):
         details.append(f"溶液包 {item.get('chemML', 0)} 毫升")
+    if item.get("chemicalProductIngredient"):
+        details.append("原版化学品等级表示纯度")
     if item.get("stackable") and not item.get("gas"):
         details.append("可堆叠")
     if item.get("ingot"):
@@ -99,6 +102,8 @@ def item_details(item):
         details.append("旧式独立物品；已有存档可继续使用，商店停售")
     if item["id"] == "elem_laboratory_bay":
         details.extend(("主网格 14×18 格", "网格下方 12 个独立 2×2 药品格", "药品格模组物品同类堆叠至 99", "图标按两区物品条目总数切换 0–4+ 件状态"))
+    if item.get("legacyOnly"):
+        details.append("仅为旧存档兼容；不再出售或由配方产出")
     if item.get("copySpriteFrom"):
         details.append("沿用原版模组贴图")
     return details
@@ -108,6 +113,9 @@ def item_entry(item, locale, module_names):
     image, footprint = image_info(item.get("sprite"), item.get("copySpriteFrom"))
     item_id = item["id"]
     price = f"每 100 克 {item['value']}" if item.get("gas") else f"{item['value']}"
+    legacy_only = item.get("legacyOnly", False)
+    if legacy_only:
+        price = f"旧存档估值 {item['value']}"
     variants = []
     if item_id == "elem_laboratory_bay":
         variants = [
@@ -116,7 +124,7 @@ def item_entry(item, locale, module_names):
             for state in range(5)
         ]
     return {
-        "kind": "物品",
+        "kind": "兼容物品" if legacy_only else "物品",
         "id": item_id,
         "name": localized(locale, f"item.{item_id}.name"),
         "effect": localized(locale, f"item.{item_id}.desc"),
@@ -243,7 +251,7 @@ PAGE = r'''<!doctype html>
   <main>
     <div class="controls">
       <input id="search" type="search" placeholder="搜索名称、编号或效果" aria-label="搜索名称、编号或效果">
-      <select id="kind" aria-label="条目类型"><option value="">全部条目</option><option>物品</option><option>设备</option></select>
+      <select id="kind" aria-label="条目类型"><option value="">全部条目</option><option>物品</option><option>兼容物品</option><option>设备</option></select>
       <select id="category" aria-label="物品类别"><option value="">全部类别</option></select>
       <select id="sort" aria-label="排序"><option value="name">按名称</option><option value="price">价值从高到低</option><option value="footprint">占格从大到小</option></select>
     </div>

@@ -85,6 +85,15 @@ internal static class ItemFactory
             }
         }
 
+        if (!string.IsNullOrEmpty(definition.chemicalProductIngredient))
+        {
+            ChemicalHelper.InitChemItem(item, definition.blendable, definition.soluble);
+            // Grade only after the vanilla extractor transfers the selected liquid.
+            item.EnableTag(ChemicalProductHelper.CHEMICAL_PRODUCT_TAG);
+            item.ModifyTag(ChemicalProductHelper.ACTIVATE_INGREDIENT_TAG,
+                state => state.Enable().SetString(definition.chemicalProductIngredient));
+        }
+
         if (definition.ingot)
         {
             IngotPurityHelper.InitIngotItem(item);

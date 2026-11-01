@@ -86,14 +86,14 @@
       "module": "ChemicalProcessing",
       "sprite": "elem_salt",
       "value": 18,
+      "chemicalProductIngredient": "mineral",
       "itemTypes": [
         "MATERIAL",
         "BASIC_MATERIAL"
       ],
       "tags": [
         "ELEM_SALT"
-      ],
-      "canSpawnInLoot": true
+      ]
     },
     {
       "id": "elem_brine",
@@ -234,7 +234,8 @@
     {
       "id": "elem_water_tablet",
       "module": "ChemicalProcessing",
-      "sprite": "elem_water_tablet",
+      "copySpriteFrom": "water_tablet",
+      "legacyOnly": true,
       "value": 35,
       "itemTypes": [
         "CHEMICAL_SUPPLIES",
@@ -276,32 +277,6 @@
       "ingot": true
     },
     {
-      "id": "elem_silicon_wafer",
-      "module": "Electronics",
-      "sprite": "elem_silicon_wafer",
-      "value": 180,
-      "itemTypes": [
-        "MATERIAL",
-        "BASIC_MATERIAL"
-      ],
-      "tags": [
-        "ELEM_SILICON_WAFER"
-      ]
-    },
-    {
-      "id": "elem_integrated_circuit",
-      "module": "Electronics",
-      "sprite": "elem_integrated_circuit",
-      "value": 320,
-      "itemTypes": [
-        "MATERIAL",
-        "BASIC_MATERIAL"
-      ],
-      "tags": [
-        "ELEM_INTEGRATED_CIRCUIT"
-      ]
-    },
-    {
       "id": "elem_mod_chip",
       "module": "Electronics",
       "sprite": "elem_mod_chip",
@@ -328,20 +303,6 @@
         "CONSTRUCTION_MATERIAL_TAG",
         "ELEM_MACHINE_FRAME"
       ]
-    },
-    {
-      "id": "elem_catalyst",
-      "module": "ChemicalProcessing",
-      "sprite": "elem_catalyst",
-      "value": 120,
-      "itemTypes": [
-        "MATERIAL",
-        "BASIC_MATERIAL"
-      ],
-      "tags": [
-        "ELEM_CATALYST"
-      ],
-      "canSpawnInLoot": true
     },
     {
       "id": "elem_medicine_cabinet",

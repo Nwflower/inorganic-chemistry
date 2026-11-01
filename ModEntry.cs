@@ -190,6 +190,8 @@ public sealed class ModEntry : IMod
             machines++;
         }
 
+        SaltExtraction.RegisterVanillaChemicalFinisherRecipe();
+
         _log?.Log($"Registered {items} item and {machines} machine factories.");
     }
 

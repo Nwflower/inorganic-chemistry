@@ -111,11 +111,8 @@
       "batterySlot": true,
       "moduleBay": true,
       "recipeIds": [
-        "silicon_wafers",
-        "integrated_circuits",
         "mod_chip",
-        "machine_frame",
-        "catalyst"
+        "machine_frame"
       ]
     }
   ]

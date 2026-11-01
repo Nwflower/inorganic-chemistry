@@ -11,6 +11,7 @@ internal static class Ids
 
     public const string HydrogenCylinder = "elem_hydrogen_cylinder";
     public const string OxygenCylinder = "elem_oxygen_cylinder";
+    public const string Salt = "elem_salt";
 
     public const string ElectrolysisCell = "elem_electrolysis_cell";
     public const string FuelCell = "elem_hydrogen_fuel_cell";

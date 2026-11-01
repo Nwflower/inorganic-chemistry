@@ -148,25 +148,6 @@
       ]
     },
     {
-      "id": "silicon_wafers",
-      "machine": "elem_chip_fab",
-      "power": 8,
-      "inputs": [
-        {
-          "id": "elem_silicon",
-          "count": 1,
-          "purity": "INGOT_PURITY_HIGH",
-          "minimumPurity": true
-        }
-      ],
-      "outputs": [
-        {
-          "id": "elem_silicon_wafer",
-          "count": 4
-        }
-      ]
-    },
-    {
       "id": "brine_from_salt",
       "machine": "elem_chemical_reactor",
       "power": 4,
@@ -350,52 +331,23 @@
       ],
       "outputs": [
         {
-          "id": "elem_water_tablet",
+          "id": "water_tablet",
           "count": 4
-        }
-      ]
-    },
-    {
-      "id": "integrated_circuits",
-      "machine": "elem_chip_fab",
-      "power": 12,
-      "inputs": [
-        {
-          "id": "elem_silicon_wafer",
-          "count": 1
-        },
-        {
-          "id": "common_electronic",
-          "count": 2
-        },
-        {
-          "id": "wire",
-          "count": 2
-        }
-      ],
-      "outputs": [
-        {
-          "id": "elem_integrated_circuit",
-          "count": 1
         }
       ]
     },
     {
       "id": "mod_chip",
       "machine": "elem_chip_fab",
-      "power": 8,
+      "power": 10,
       "inputs": [
         {
-          "id": "elem_integrated_circuit",
-          "count": 1
+          "id": "common_electronic",
+          "count": 2
         },
         {
-          "id": "blank_module",
-          "count": 1
-        },
-        {
-          "id": "elem_catalyst",
-          "count": 1
+          "id": "metal_ingot",
+          "count": 2
         }
       ],
       "outputs": [
@@ -422,27 +374,6 @@
       "outputs": [
         {
           "id": "elem_machine_frame",
-          "count": 1
-        }
-      ]
-    },
-    {
-      "id": "catalyst",
-      "machine": "elem_chip_fab",
-      "power": 6,
-      "inputs": [
-        {
-          "id": "metal_ingot",
-          "count": 1
-        },
-        {
-          "id": "common_electronic",
-          "count": 1
-        }
-      ],
-      "outputs": [
-        {
-          "id": "elem_catalyst",
           "count": 1
         }
       ]

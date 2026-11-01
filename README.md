@@ -9,10 +9,10 @@
 ## 内容
 
 **七个模块**
-Core（数据库、工厂、通用配方执行器、公共 API）、GasProduction（氢/氧/氮/氯气瓶、水电解、空气分离）、Energy（可插拔燃料能量电池）、Metallurgy（铁锈提取、原版熔炉化学模块、焦炭）、ChemicalProcessing（氯碱到净水片、药品柜）、Electronics（硅砂到模组芯片）、WorldIntegration（掉落、化学家商店、起始方案、手册）。
+Core（数据库、工厂、通用配方执行器、公共 API）、GasProduction（氢/氧/氮/氯气瓶、水电解、空气分离）、Energy（可插拔燃料能量电池）、Metallurgy（铁锈提取、原版熔炉化学模块、焦炭）、ChemicalProcessing（氯碱流程至原版净水药片、药品柜）、Electronics（硅砂到模组芯片）、WorldIntegration（掉落、化学家商店、起始方案、手册）。
 
 **规模**
-26 件数据物品、6 台机器、1 块燃料能量电池、22 条配方，另有可生成的手册和每台机器自带的说明卡。
+23 件数据物品（含 1 个旧存档兼容项）、6 台设备（含燃料能量电池）、19 条配方，另有可生成的手册和每台机器自带的说明卡。
 
 ## 玩法
 
@@ -32,10 +32,12 @@ Core（数据库、工厂、通用配方执行器、公共 API）、GasProductio
 能放进接受滤芯的水容器和水产设备，沿用原版滤芯耐久与颗粒过滤，并有限量吸附化学污染物的作用。它不杀菌。当熔炉助剂时整件消耗。
 
 **电子烧杯**
-负责气体反应、化学品合成和净水片压制。每批耗电列在设备说明卡里，气体用量按化学计量暂定；游戏化学品包的体积不构成完整质量守恒。
+负责气体反应、化学品合成和原版净水药片压制。配方直接产出游戏的 `water_tablet`，沿用原版贴图、占格、分类和净化行为。每批耗电列在设备说明卡里，气体用量按化学计量暂定；游戏化学品包的体积不构成完整质量守恒。旧版模组净水片 ID 仅保留为旧存档兼容项。
+
+盐由原版化学制剂制成机从含矿物质的液体中提取，沿用原版化学品等级表示纯度；直接掉落不再提供盐。
 
 **芯片台**
-把硅切片做成集成电路、模组芯片、机器框架和催化剂。
+用 2 个原版电子元件和 2 个金属锭直接装配模组芯片；也可用 4 个金属锭和 2 张钢板制造机器框架。
 
 **实验区与药品格**
 开局优先发放实验区：4×4 的金属架，内部 14×18 格主网格，下方有 12 个独立 2×2 药品格；收纳设备不会让机器停机。架子图标按主网格与药品格中的物品条目总数切换 0、1、2、3、4+ 件五种状态。专用药品格每格一种物品，模组定量化学品与医疗品可按同 ID 堆到 99，原版药品保持单件。旧式独立药品柜保留给已有存档使用，不再由商店供应。
@@ -114,11 +116,13 @@ Requires the full release of the game (runtime version 0.46D). In development; n
 
 **Vanilla furnace** — with the chemistry module installed, the furnace accepts iron oxide, coke, silica, silicon and junk. Coke raises ingot purity by one step per successful vanilla smelt and stacks with vanilla flux.
 
-**Silicon and electronics** — smelt silica with coke, refine it step by step in the furnace, then slice wafers into circuits, module chips, machine frames and catalysts.
+**Silicon and electronics** — smelt silica with coke and refine it step by step in the furnace. The chip fabricator assembles module chips directly from electronics and ingots, and makes machine frames from ingots and steel sheets.
 
 **Shop and storage** — a separate night-time chemist counter and a 14×18 laboratory bay with 12 dedicated medicine slots below its main grid. Its icon reflects the combined item count; mod chemistry and medical items stack to 99 in these slots. Legacy standalone cabinets remain usable in existing saves but are no longer sold.
 
 **Limits** — gases are a lightweight model with no pressure, temperature, mixing or pipes; non-gas outputs need their own free cells; the mod is still in development and does not migrate old saves.
+
+**Salt** — extracted from mineral-bearing liquids by the vanilla chemical preparation machine and graded with the game's chemical purity feature.
 
 **Build** — `dotnet build ElementalIndustry.csproj -c Release`; output goes to `bin/` only. Enable the folder in the game's Mods menu and restart, then `F8` → `mod-scan elemental_industry`.
 

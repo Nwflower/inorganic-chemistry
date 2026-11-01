@@ -6,6 +6,7 @@ native 16-pixel grid; runtime sprites and enlarged editable sources match exactl
 from pathlib import Path
 from PIL import Image, ImageDraw
 import random
+import sys
 from generate_gas_bottles import generate as generate_gas_cylinders
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -47,28 +48,41 @@ def generated_icon(master_name, size, crop_bounds=None):
     icon.alpha_composite(colors, ((size - target[0]) // 2, (size - target[1]) // 2))
     return icon
 
-gas_images = generate_gas_cylinders()
 
-# The vanilla converter is already a 1x2 plug-in power item.
-cell = base('current_converter')
-d = ImageDraw.Draw(cell)
-d.rectangle((5, 5, 10, 7), fill='#6a9995')
-d.rectangle((6, 13, 9, 15), fill='#73b7a6')
-d.rectangle((6, 23, 9, 25), fill='#c1a15f')
-save('elem_hydrogen_fuel_cell', cell)
+def generate_fertilizer():
+    image = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    outline = '#292735'
+    draw.polygon(((7, 2), (24, 2), (23, 6), (28, 10), (30, 24), (26, 29),
+                  (6, 29), (2, 24), (4, 10), (9, 6)), fill='#b69a69', outline=outline)
+    draw.polygon(((9, 5), (23, 5), (26, 10), (6, 10)), fill='#d1b982', outline=outline)
+    draw.polygon(((4, 11), (8, 12), (8, 26), (6, 27), (3, 24)), fill='#8f7650')
+    draw.polygon(((24, 11), (28, 11), (29, 24), (26, 27), (24, 25)), fill='#d0b783')
 
-# Minerals are the vanilla ore sprite rotated into the portrait 2x3 footprint the
-# item asks for. Two cells are empty after the rotation, so a small chip of the same
-# ore is dropped into each; the tint alone tells silica sand from iron oxide.
-ORE_CELL = 16
+    for y in (12, 25, 27):
+        draw.line((8, y, 24, y), fill='#a3875b')
+    for x in (9, 12, 15, 24, 26):
+        draw.line((x, 11, x, 27), fill='#c8ad79')
+    for x, y in ((10, 13), (13, 13), (21, 13), (11, 26), (17, 26), (23, 26)):
+        draw.point((x, y), fill='#e0ca96')
+
+    draw.rectangle((10, 15, 22, 23), fill='#d6d1a8', outline=outline)
+    draw.line((13, 21, 16, 18, 20, 20), fill='#61745b', width=2)
+    draw.point((14, 18), fill='#839466')
+    draw.point((18, 17), fill='#9aa36a')
+    draw.point((20, 20), fill='#9aa36a')
+
+    TEX.mkdir(parents=True, exist_ok=True)
+    HIGH.mkdir(parents=True, exist_ok=True)
+    PREVIEW.mkdir(parents=True, exist_ok=True)
+    save('elem_fertilizer', image)
+    preview = Image.new('RGB', (160, 160), '#282e36')
+    preview.paste(image.resize((128, 128), RESAMPLE), (16, 8), image.resize((128, 128), RESAMPLE))
+    preview.save(PREVIEW / 'nitrogen-fertilizer.png')
 
 
-def cell_map(image):
-    return {(x // ORE_CELL, y // ORE_CELL): image.getpixel((x, y))[3] > 0
-            for y in range(ORE_CELL // 2, image.height, ORE_CELL)
-            for x in range(ORE_CELL // 2, image.width, ORE_CELL)}
-
-
+# Minerals keep the native ore's landscape 3x2 silhouette, including its two
+# transparent top corners.
 def tint_mineral(image, tint):
     pixels = image.load()
     for y in range(image.height):
@@ -80,21 +94,53 @@ def tint_mineral(image, tint):
     return image
 
 
-def fill_empty_cells(image, chip_box):
-    chip = image.crop(chip_box).transpose(Image.Transpose.FLIP_TOP_BOTTOM)
-    for (cx, cy), filled in cell_map(image).items():
-        if not filled:
-            image.paste(chip, (cx * ORE_CELL + 3, cy * ORE_CELL + 3), chip)
-    image.putalpha(image.getchannel('A').point(lambda value: 255 if value >= 128 else 0))
-    return image
+def generate_minerals():
+    ore = base('ore1')
+    TEX.mkdir(parents=True, exist_ok=True)
+    HIGH.mkdir(parents=True, exist_ok=True)
+    minerals = []
+    for name, tint in (('elem_silica', (205, 198, 168)), ('elem_iron_oxide', (172, 104, 80))):
+        image = tint_mineral(ore.copy(), tint)
+        save(name, image)
+        minerals.append((name, image))
+    return ore, minerals
 
 
-ore = base('ore1')
-minerals = []
-for name, tint in (('elem_silica', (205, 198, 168)), ('elem_iron_oxide', (172, 104, 80))):
-    image = tint_mineral(ore.transpose(Image.Transpose.ROTATE_90), tint)
-    save(name, fill_empty_cells(image, (3, 20, 15, 30)))
-    minerals.append((name, image))
+def save_mineral_preview(ore, minerals):
+    PREVIEW.mkdir(parents=True, exist_ok=True)
+    preview = Image.new('RGB', (3 * 220, 280), '#282e36')
+    draw = ImageDraw.Draw(preview)
+    for index, (name, image) in enumerate([('vanilla ore', ore)] + minerals):
+        scale = 3 if name == 'vanilla ore' else 4
+        sprite = image.resize((image.width * scale, image.height * scale), RESAMPLE)
+        preview.paste(sprite, (index * 220 + (220 - sprite.width) // 2, 22), sprite)
+        draw.text((index * 220 + 10, 258), name.removeprefix('elem_'), fill='white')
+    preview.save(PREVIEW / 'vanilla-inspired-minerals.png')
+
+
+if __name__ == '__main__' and '--minerals-only' in sys.argv:
+    ore, minerals = generate_minerals()
+    save_mineral_preview(ore, minerals)
+    print('Wrote silica and iron oxide as landscape 3x2 mineral sprites.')
+    sys.exit(0)
+
+if __name__ == '__main__' and '--fertilizer-only' in sys.argv:
+    generate_fertilizer()
+    print('Wrote nitrogen fertilizer as a 2x2 woven cloth sack.')
+    sys.exit(0)
+
+
+gas_images = generate_gas_cylinders()
+
+# The vanilla converter is already a 1x2 plug-in power item.
+cell = base('current_converter')
+d = ImageDraw.Draw(cell)
+d.rectangle((5, 5, 10, 7), fill='#6a9995')
+d.rectangle((6, 13, 9, 15), fill='#73b7a6')
+d.rectangle((6, 23, 9, 25), fill='#c1a15f')
+save('elem_hydrogen_fuel_cell', cell)
+
+ore, minerals = generate_minerals()
 
 # Coke reuses the vanilla flux silhouette, recoloured into a black carbon ramp.
 flux = base('flux_agent')
@@ -179,14 +225,7 @@ for i, image in enumerate(gas_images + [cell]):
     sprite = image.resize((image.width * 4, image.height * 4), RESAMPLE)
     preview.paste(sprite, (i * 150 + (150 - sprite.width) // 2, 20), sprite)
 preview.save(PREVIEW / 'vanilla-inspired-gases-and-cell.png')
-preview = Image.new('RGB', (3 * 220, 280), '#282e36')
-d = ImageDraw.Draw(preview)
-for i, (name, image) in enumerate([('vanilla ore', ore)] + minerals):
-    scale = 3 if name == 'vanilla ore' else 4
-    sprite = image.resize((image.width * scale, image.height * scale), RESAMPLE)
-    preview.paste(sprite, (i * 220 + (220 - sprite.width) // 2, 22), sprite)
-    d.text((i * 220 + 10, 258), name.removeprefix('elem_'), fill='white')
-preview.save(PREVIEW / 'vanilla-inspired-minerals.png')
+save_mineral_preview(ore, minerals)
 lab_preview = Image.new('RGB', (5 * 200, 246), '#282e36')
 draw = ImageDraw.Draw(lab_preview)
 for index, (label, image) in enumerate(laboratory_states):

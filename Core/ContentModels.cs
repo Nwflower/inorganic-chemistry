@@ -47,8 +47,10 @@ public sealed class ItemDefinition
     public int chemML = 0;
     public bool soluble = false;
     public bool blendable = false;
+    public string chemicalProductIngredient = "";
     public bool ingot = false;
     public bool canSpawnInLoot = false;
+    public bool legacyOnly = false;
 }
 
 [Serializable]
