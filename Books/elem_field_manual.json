@@ -1,0 +1,71 @@
+{
+  "id": "elem_field_manual",
+  "title": "无机化学基础手册",
+  "width": 640,
+  "height": 820,
+  "designWidth": 640,
+  "designHeight": 820,
+  "pages": [
+    {
+      "name": "Page 1",
+      "elements": [
+        {
+          "type": "text",
+          "x": 24,
+          "y": 24,
+          "w": 592,
+          "h": 740,
+          "style": "body",
+          "fontSize": 18,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.page1"
+        }
+      ]
+    },
+    {
+      "name": "Page 2",
+      "elements": [
+        {
+          "type": "text",
+          "x": 24,
+          "y": 24,
+          "w": 592,
+          "h": 740,
+          "style": "body",
+          "fontSize": 18,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.page2"
+        }
+      ]
+    },
+    {
+      "name": "Page 3",
+      "elements": [
+        {
+          "type": "text",
+          "x": 24,
+          "y": 24,
+          "w": 592,
+          "h": 740,
+          "style": "body",
+          "fontSize": 18,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.page3"
+        }
+      ]
+    }
+  ],
+  "item": {
+    "id": "elem_field_manual",
+    "name": "无机化学基础手册",
+    "nameLoc": "manual.elem_field_manual.title",
+    "description": "无机化学基础的工艺手册。",
+    "descriptionLoc": "manual.elem_field_manual.body",
+    "sprite": "items_misc/manual1",
+    "value": 50,
+    "important": true
+  }
+}

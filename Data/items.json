@@ -1,0 +1,377 @@
+{
+  "items": [
+    {
+      "id": "elem_hydrogen_cylinder",
+      "module": "GasProduction",
+      "sprite": "elem_hydrogen_cylinder",
+      "value": 60,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "gas": "H2",
+      "stackable": true
+    },
+    {
+      "id": "elem_oxygen_cylinder",
+      "module": "GasProduction",
+      "sprite": "elem_oxygen_cylinder",
+      "value": 5,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL",
+        "OXYGEN_SUPPLY"
+      ],
+      "gas": "O2",
+      "stackable": true
+    },
+    {
+      "id": "elem_nitrogen_cylinder",
+      "module": "GasProduction",
+      "sprite": "elem_nitrogen_cylinder",
+      "value": 3,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "gas": "N2",
+      "stackable": true
+    },
+    {
+      "id": "elem_chlorine_cylinder",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_chlorine_cylinder",
+      "value": 90,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "hazards": [
+        "TOXIC",
+        "CORROSIVE"
+      ],
+      "gas": "CL2",
+      "stackable": true
+    },
+    {
+      "id": "elem_iron_oxide",
+      "module": "Metallurgy",
+      "sprite": "elem_iron_oxide",
+      "value": 25,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "tags": [
+        "ELEM_IRON_OXIDE"
+      ],
+      "canSpawnInLoot": true
+    },
+    {
+      "id": "elem_coke",
+      "module": "Metallurgy",
+      "sprite": "elem_coke",
+      "value": 20,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "tags": [
+        "ELEM_CARBON"
+      ],
+      "canSpawnInLoot": true
+    },
+    {
+      "id": "elem_salt",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_salt",
+      "value": 18,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "tags": [
+        "ELEM_SALT"
+      ],
+      "canSpawnInLoot": true
+    },
+    {
+      "id": "elem_brine",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_brine",
+      "value": 22,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "tags": [
+        "ELEM_BRINE"
+      ],
+      "canSpawnInLoot": true
+    },
+    {
+      "id": "elem_sodium_hydroxide",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_sodium_hydroxide",
+      "value": 45,
+      "itemTypes": [
+        "CHEMICAL_SUPPLIES"
+      ],
+      "tags": [
+        "ELEM_CAUSTIC"
+      ],
+      "hazards": [
+        "CORROSIVE"
+      ],
+      "chemLiquid": "base",
+      "chemML": 1000,
+      "soluble": true
+    },
+    {
+      "id": "elem_hydrochloric_acid",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_hydrochloric_acid",
+      "value": 55,
+      "itemTypes": [
+        "CHEMICAL_SUPPLIES"
+      ],
+      "tags": [
+        "ELEM_ACID"
+      ],
+      "hazards": [
+        "CORROSIVE"
+      ],
+      "chemLiquid": "acid",
+      "chemML": 1000,
+      "soluble": true
+    },
+    {
+      "id": "elem_ammonia",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_ammonia",
+      "value": 65,
+      "itemTypes": [
+        "CHEMICAL_SUPPLIES"
+      ],
+      "tags": [
+        "ELEM_AMMONIA"
+      ],
+      "hazards": [
+        "TOXIC"
+      ],
+      "chemLiquid": "base",
+      "chemML": 1000,
+      "soluble": true
+    },
+    {
+      "id": "elem_nitric_acid",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_nitric_acid",
+      "value": 75,
+      "itemTypes": [
+        "CHEMICAL_SUPPLIES"
+      ],
+      "tags": [
+        "ELEM_NITRIC_ACID"
+      ],
+      "hazards": [
+        "CORROSIVE",
+        "TOXIC"
+      ],
+      "chemLiquid": "acid",
+      "chemML": 1000,
+      "soluble": true
+    },
+    {
+      "id": "elem_fertilizer",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_fertilizer",
+      "value": 80,
+      "itemTypes": [
+        "CHEMICAL_SUPPLIES",
+        "FARMING_SUPPLIES"
+      ],
+      "tags": [
+        "ELEM_FERTILIZER"
+      ],
+      "chemLiquid": "mineral",
+      "chemML": 1000,
+      "soluble": true
+    },
+    {
+      "id": "elem_hydrogen_peroxide",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_hydrogen_peroxide",
+      "value": 60,
+      "itemTypes": [
+        "CHEMICAL_SUPPLIES"
+      ],
+      "tags": [
+        "ELEM_DISINFECTANT"
+      ],
+      "chemLiquid": "water",
+      "chemML": 1000,
+      "soluble": true
+    },
+    {
+      "id": "elem_bleaching_powder",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_bleaching_powder",
+      "value": 50,
+      "itemTypes": [
+        "CHEMICAL_SUPPLIES"
+      ],
+      "tags": [
+        "ELEM_BLEACH"
+      ],
+      "hazards": [
+        "CORROSIVE"
+      ],
+      "chemLiquid": "chlorine",
+      "chemML": 500,
+      "soluble": true
+    },
+    {
+      "id": "elem_water_tablet",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_water_tablet",
+      "value": 35,
+      "itemTypes": [
+        "CHEMICAL_SUPPLIES",
+        "MEDICAL_SUPPLIES"
+      ],
+      "tags": [
+        "ELEM_WATER_TABLET"
+      ],
+      "chemLiquid": "chlorine",
+      "chemML": 15,
+      "soluble": true
+    },
+    {
+      "id": "elem_silica",
+      "module": "Electronics",
+      "sprite": "elem_silica",
+      "value": 22,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "tags": [
+        "ELEM_SILICA"
+      ],
+      "canSpawnInLoot": true
+    },
+    {
+      "id": "elem_silicon",
+      "module": "Electronics",
+      "sprite": "elem_silicon",
+      "value": 80,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "tags": [
+        "ELEM_SILICON"
+      ],
+      "ingot": true
+    },
+    {
+      "id": "elem_silicon_wafer",
+      "module": "Electronics",
+      "sprite": "elem_silicon_wafer",
+      "value": 180,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "tags": [
+        "ELEM_SILICON_WAFER"
+      ]
+    },
+    {
+      "id": "elem_integrated_circuit",
+      "module": "Electronics",
+      "sprite": "elem_integrated_circuit",
+      "value": 320,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "tags": [
+        "ELEM_INTEGRATED_CIRCUIT"
+      ]
+    },
+    {
+      "id": "elem_mod_chip",
+      "module": "Electronics",
+      "sprite": "elem_mod_chip",
+      "value": 650,
+      "itemTypes": [
+        "MODULE"
+      ],
+      "tags": [
+        "MODULE_TAG",
+        "MODULE_TYPE_UNIVERSAL",
+        "ELEM_MOD_CHIP"
+      ]
+    },
+    {
+      "id": "elem_machine_frame",
+      "module": "Core",
+      "sprite": "elem_machine_frame",
+      "value": 160,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "tags": [
+        "CONSTRUCTION_MATERIAL_TAG",
+        "ELEM_MACHINE_FRAME"
+      ]
+    },
+    {
+      "id": "elem_catalyst",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_catalyst",
+      "value": 120,
+      "itemTypes": [
+        "MATERIAL",
+        "BASIC_MATERIAL"
+      ],
+      "tags": [
+        "ELEM_CATALYST"
+      ],
+      "canSpawnInLoot": true
+    },
+    {
+      "id": "elem_medicine_cabinet",
+      "module": "ChemicalProcessing",
+      "sprite": "elem_medicine_cabinet",
+      "value": 480,
+      "itemTypes": [
+        "STORAGE"
+      ],
+      "tags": [
+        "ELEM_MEDICINE_CABINET"
+      ]
+    },
+    {
+      "id": "elem_laboratory_bay",
+      "module": "Core",
+      "copySpriteFrom": "machine_bay_ext",
+      "value": 1400,
+      "itemTypes": [
+        "STORAGE"
+      ]
+    },
+    {
+      "id": "elem_furnace_chem_module",
+      "module": "Metallurgy",
+      "copySpriteFrom": "furnace_module_junk",
+      "value": 160,
+      "itemTypes": [
+        "MODULE"
+      ]
+    }
+  ]
+}

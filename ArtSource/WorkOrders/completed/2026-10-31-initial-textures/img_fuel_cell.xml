@@ -1,0 +1,4 @@
+<item status="已修复" type="IMAGE" path="/generated-assets/elemental-industry" title="氢燃料电池底图 80x32" brief="5x2 机器格版本：四列空电池插槽 + 第五列氢气罐位，顶盖/接口由单独 overlay 负责；透明背景像素图标，生成源文件 1280x512">
+  <size width="1280" height="512"/>
+  <asset url="https://aka.doubaocdn.com/s/LPZtervTbL"/>
+</item>

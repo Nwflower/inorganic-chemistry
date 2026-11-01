@@ -1,0 +1,32 @@
+{
+  "buildings": [
+    {
+      "id": "elem_electrolysis_cell",
+      "defaultEnabled": true
+    },
+    {
+      "id": "elem_air_separator",
+      "defaultEnabled": true
+    },
+    {
+      "id": "elem_hydrogen_fuel_cell",
+      "defaultEnabled": true
+    },
+    {
+      "id": "elem_oxyhydrogen_welder",
+      "defaultEnabled": true
+    },
+    {
+      "id": "elem_rust_extractor",
+      "defaultEnabled": true
+    },
+    {
+      "id": "elem_chemical_reactor",
+      "defaultEnabled": true
+    },
+    {
+      "id": "elem_chip_fab",
+      "defaultEnabled": true
+    }
+  ]
+}

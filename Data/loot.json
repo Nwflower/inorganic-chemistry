@@ -1,0 +1,42 @@
+{
+  "patches": [
+    {
+      "table": "materialTable",
+      "weight": 2.0,
+      "add": [
+        {
+          "id": "elem_silica",
+          "count": 1
+        },
+        {
+          "id": "elem_salt",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "table": "materialTable",
+      "weight": 0.8,
+      "add": [
+        {
+          "id": "elem_brine",
+          "count": 1
+        },
+        {
+          "id": "elem_catalyst",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "table": "junkTable",
+      "weight": 1.0,
+      "add": [
+        {
+          "id": "elem_iron_oxide",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

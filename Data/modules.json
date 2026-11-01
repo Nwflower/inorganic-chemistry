@@ -1,0 +1,11 @@
+{
+  "modules": [
+    { "id": "Core", "nameKey": "module.core.name", "defaultEnabled": true, "dependsOn": [] },
+    { "id": "GasProduction", "nameKey": "module.gas.name", "defaultEnabled": true, "dependsOn": ["Core"] },
+    { "id": "Energy", "nameKey": "module.energy.name", "defaultEnabled": true, "dependsOn": ["Core", "GasProduction"] },
+    { "id": "Metallurgy", "nameKey": "module.metallurgy.name", "defaultEnabled": true, "dependsOn": ["Core", "GasProduction"] },
+    { "id": "ChemicalProcessing", "nameKey": "module.chemical.name", "defaultEnabled": true, "dependsOn": ["Core", "GasProduction"] },
+    { "id": "Electronics", "nameKey": "module.electronics.name", "defaultEnabled": true, "dependsOn": ["Core", "Metallurgy", "ChemicalProcessing"] },
+    { "id": "WorldIntegration", "nameKey": "module.world.name", "defaultEnabled": true, "dependsOn": ["Core"] }
+  ]
+}

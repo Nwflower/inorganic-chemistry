@@ -1,0 +1,15 @@
+<item status="已修复" type="TEXT" path="/brief" title="设计 Brief" brief="元素工业 Mod 六张物品像素图标/overlay 的重绘任务 Brief">
+  <size width="900" height="980"/>
+  <inline>
+    <contents>
+      <content bold="true" line_break="true">元素工业：物品图标重绘 Brief</content>
+      <content line_break="true">主题：为 Elemental Industry Mod 重绘 6 张与《深空当铺》风格一致的像素/UI 物品图标，粗描边、冷色工业风、低饱和金属色，避免写实照片感；全部透明背景、无画布外投影。</content>
+      <content line_break="true">交付物：电解槽 elem_electrolysis_cell（48x48，深灰金属方箱，正面玻璃观察窗内蓝/橙两根电极与气泡，3x3 机器格）；氢燃料电池 elem_hydrogen_fuel_cell（80x32，深灰金属方箱，正面四个空电池插槽 + 第五列氢气罐位，5x2 机器格）；燃料电池顶盖 elem_hydrogen_fuel_cell_top（80x32，透明顶盖/侧轨/接口 overlay，1280x512 生成）；空钢瓶 elem_empty_cylinder（16x32，灰色金属高压空瓶，1x2）；氢气瓶 elem_hydrogen_cylinder（16x32，蓝色高压钢瓶，浅蓝顶盖与简单标签，1x2）；氧气瓶 elem_oxygen_cylinder（16x32，青绿色高压钢瓶，浅色顶盖与简单标签，1x2）。</content>
+      <content line_break="true">参考图：全部使用原版物品 Sprite 的整数倍 NEAREST 放大图，不使用游戏截图。机器参考 furnace / chem_finisher / evaporator / recharger_base，气瓶参考 battery100 / water_ration_small / water_bottle；只继承轮廓、描边、配色、像素密度与材质语言，不复制具体物品结构。</content>
+      <content line_break="true">视觉命题：第一焦点为居中的机器/钢瓶主体，第二阅读层为电极气泡、四个电池插槽或瓶身标签等细节，收束于完整外轮廓；主体居中，四周留 1px 透明边，避免被物品格裁切。</content>
+      <content line_break="true">验收：生图输出为 16× 大尺寸（电解槽 768x768、燃料电池 1280x512、气瓶 256x512），再按 1/16 NEAREST 缩回精确 16x32/48x48/80x32 的透明 PNG，文件名与目标路径不变，像素边缘硬、无抗锯齿杂边、无半透明残边；生成后通过回读逐项核验尺寸、alpha 边界与画面效果。</content>
+      <content>生产路线：pure-image，Seedream 5.0 Pro，I2I 参考三张原版物品 Sprite；先生成大尺寸，再 1/16 NEAREST 缩回运行时尺寸。</content>
+    </contents>
+    <style font_size="26" font_family="Source Han Sans SC VF" font_weight="400" color="#E8EDF2" align="left" line_height="38" vertical_align="top"/>
+  </inline>
+</item>

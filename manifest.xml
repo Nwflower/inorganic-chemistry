@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Manifest>
+  <ID>elemental_industry</ID>
+  <Name>Inorganic Chemistry Basics / 无机化学基础</Name>
+  <Author>Nwflower（千川白浪）</Author>
+  <ModVersion>1.0.0</ModVersion>
+  <Description>无机化学基础：气体、燃料能量电池、原版熔炉化学模块、净水、硅与化工工艺。 / Inorganic Chemistry Basics: gases, a fuel power cell, vanilla furnace chemistry, water filtration, silicon and chemical processes.</Description>
+  <GameVersions>
+    <Version>0.46</Version>
+  </GameVersions>
+  <Prerequisites />
+  <Assemblies>
+    <Assembly>ElementalIndustry.dll</Assembly>
+  </Assemblies>
+  <Capabilities />
+</Manifest>

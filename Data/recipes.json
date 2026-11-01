@@ -1,0 +1,424 @@
+{
+  "recipes": [
+    {
+      "id": "elec_water",
+      "machine": "elem_electrolysis_cell",
+      "power": 10,
+      "water": 1000000,
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "elem_hydrogen_cylinder",
+          "count": 112
+        },
+        {
+          "id": "elem_oxygen_cylinder",
+          "count": 888
+        }
+      ]
+    },
+    {
+      "id": "air_separation",
+      "machine": "elem_air_separator",
+      "power": 6,
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "elem_nitrogen_cylinder",
+          "count": 778
+        },
+        {
+          "id": "elem_oxygen_cylinder",
+          "count": 222
+        }
+      ]
+    },
+    {
+      "id": "rust_from_mineral",
+      "machine": "elem_rust_extractor",
+      "power": 8,
+      "water": 100000,
+      "waterContaminant": "mineral",
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "elem_iron_oxide",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "rust_from_metal",
+      "machine": "elem_rust_extractor",
+      "power": 8,
+      "water": 100000,
+      "waterContaminant": "heavy_metal",
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "elem_iron_oxide",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "coke_from_junk",
+      "machine": "furnace",
+      "power": 8,
+      "inputs": [
+        {
+          "id": "junk",
+          "count": 3
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_coke",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "industrial_silicon",
+      "machine": "furnace",
+      "power": 16,
+      "inputs": [
+        {
+          "id": "elem_silica",
+          "count": 2
+        },
+        {
+          "id": "elem_coke",
+          "count": 2
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_silicon",
+          "count": 1,
+          "purity": "INGOT_PURITY_LOW"
+        }
+      ]
+    },
+    {
+      "id": "purify_silicon",
+      "machine": "elem_chip_fab",
+      "power": 16,
+      "inputs": [
+        {
+          "id": "elem_silicon",
+          "count": 1,
+          "purity": "INGOT_PURITY_FAIR",
+          "maximumPurity": true
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_silicon",
+          "count": 1,
+          "purity": "INGOT_PURITY_HIGH"
+        }
+      ]
+    },
+    {
+      "id": "silicon_wafers",
+      "machine": "elem_chip_fab",
+      "power": 8,
+      "inputs": [
+        {
+          "id": "elem_silicon",
+          "count": 1,
+          "purity": "INGOT_PURITY_HIGH",
+          "minimumPurity": true
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_silicon_wafer",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "id": "brine_from_salt",
+      "machine": "elem_chemical_reactor",
+      "power": 4,
+      "water": 1000000,
+      "inputs": [
+        {
+          "id": "elem_salt",
+          "count": 2
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_brine",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "chlor_alkali",
+      "machine": "elem_chemical_reactor",
+      "power": 12,
+      "inputs": [
+        {
+          "id": "elem_brine",
+          "count": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_chlorine_cylinder",
+          "count": 71
+        },
+        {
+          "id": "elem_hydrogen_cylinder",
+          "count": 2
+        },
+        {
+          "id": "elem_sodium_hydroxide",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "hydrochloric_acid",
+      "machine": "elem_chemical_reactor",
+      "power": 6,
+      "inputs": [
+        {
+          "id": "elem_hydrogen_cylinder",
+          "count": 2
+        },
+        {
+          "id": "elem_chlorine_cylinder",
+          "count": 71
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_hydrochloric_acid",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "ammonia_synthesis",
+      "machine": "elem_chemical_reactor",
+      "power": 10,
+      "inputs": [
+        {
+          "id": "elem_nitrogen_cylinder",
+          "count": 28
+        },
+        {
+          "id": "elem_hydrogen_cylinder",
+          "count": 6
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_ammonia",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "nitric_acid",
+      "machine": "elem_chemical_reactor",
+      "power": 10,
+      "water": 500000,
+      "inputs": [
+        {
+          "id": "elem_ammonia",
+          "count": 1
+        },
+        {
+          "id": "elem_oxygen_cylinder",
+          "count": 128
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_nitric_acid",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "fertilizer",
+      "machine": "elem_chemical_reactor",
+      "power": 6,
+      "inputs": [
+        {
+          "id": "elem_ammonia",
+          "count": 1
+        },
+        {
+          "id": "elem_nitric_acid",
+          "count": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_fertilizer",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "hydrogen_peroxide",
+      "machine": "elem_chemical_reactor",
+      "power": 8,
+      "water": 500000,
+      "inputs": [
+        {
+          "id": "elem_hydrogen_cylinder",
+          "count": 2
+        },
+        {
+          "id": "elem_oxygen_cylinder",
+          "count": 32
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_hydrogen_peroxide",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "bleaching_powder",
+      "machine": "elem_chemical_reactor",
+      "power": 6,
+      "inputs": [
+        {
+          "id": "elem_chlorine_cylinder",
+          "count": 71
+        },
+        {
+          "id": "elem_sodium_hydroxide",
+          "count": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_bleaching_powder",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "water_tablets",
+      "machine": "elem_chemical_reactor",
+      "power": 4,
+      "water": 500000,
+      "inputs": [
+        {
+          "id": "elem_bleaching_powder",
+          "count": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_water_tablet",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "id": "integrated_circuits",
+      "machine": "elem_chip_fab",
+      "power": 12,
+      "inputs": [
+        {
+          "id": "elem_silicon_wafer",
+          "count": 1
+        },
+        {
+          "id": "common_electronic",
+          "count": 2
+        },
+        {
+          "id": "wire",
+          "count": 2
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_integrated_circuit",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "mod_chip",
+      "machine": "elem_chip_fab",
+      "power": 8,
+      "inputs": [
+        {
+          "id": "elem_integrated_circuit",
+          "count": 1
+        },
+        {
+          "id": "blank_module",
+          "count": 1
+        },
+        {
+          "id": "elem_catalyst",
+          "count": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_mod_chip",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "machine_frame",
+      "machine": "elem_chip_fab",
+      "power": 8,
+      "inputs": [
+        {
+          "id": "metal_ingot",
+          "count": 4
+        },
+        {
+          "id": "steel_sheet",
+          "count": 2
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_machine_frame",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "catalyst",
+      "machine": "elem_chip_fab",
+      "power": 6,
+      "inputs": [
+        {
+          "id": "metal_ingot",
+          "count": 1
+        },
+        {
+          "id": "common_electronic",
+          "count": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_catalyst",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

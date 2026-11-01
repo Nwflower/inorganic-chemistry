@@ -1,0 +1,137 @@
+{
+  "machines": [
+    {
+      "id": "elem_electrolysis_cell",
+      "module": "GasProduction",
+      "archetype": "processor",
+      "sprite": "elem_electrolysis_cell",
+      "value": 500,
+      "power": 10,
+      "efficiencyRatio": 2,
+      "inputWidth": 2,
+      "inputHeight": 2,
+      "outputWidth": 2,
+      "outputHeight": 2,
+      "waterSlot": true,
+      "batterySlot": true,
+      "moduleBay": true,
+      "recipeIds": [
+        "elec_water"
+      ]
+    },
+    {
+      "id": "elem_air_separator",
+      "module": "GasProduction",
+      "archetype": "processor",
+      "sprite": "elem_air_separator",
+      "value": 620,
+      "power": 6,
+      "inputWidth": 2,
+      "inputHeight": 2,
+      "outputWidth": 2,
+      "outputHeight": 2,
+      "waterSlot": false,
+      "batterySlot": true,
+      "moduleBay": true,
+      "recipeIds": [
+        "air_separation"
+      ]
+    },
+    {
+      "id": "elem_hydrogen_fuel_cell",
+      "module": "Energy",
+      "archetype": "fuel_cell",
+      "sprite": "elem_hydrogen_fuel_cell",
+      "value": 800,
+      "power": 0,
+      "inputWidth": 1,
+      "inputHeight": 1,
+      "outputWidth": 1,
+      "outputHeight": 1,
+      "waterSlot": false,
+      "batterySlot": false,
+      "moduleBay": false
+    },
+    {
+      "id": "elem_oxyhydrogen_welder",
+      "module": "Energy",
+      "archetype": "welder",
+      "sprite": "elem_oxyhydrogen_welder",
+      "value": 700,
+      "power": 8,
+      "inputWidth": 5,
+      "inputHeight": 4,
+      "outputWidth": 5,
+      "outputHeight": 4,
+      "batterySlot": true,
+      "moduleBay": true
+    },
+    {
+      "id": "elem_rust_extractor",
+      "module": "Metallurgy",
+      "archetype": "processor",
+      "sprite": "elem_rust_extractor",
+      "value": 550,
+      "power": 8,
+      "inputWidth": 2,
+      "inputHeight": 2,
+      "outputWidth": 3,
+      "outputHeight": 2,
+      "waterSlot": true,
+      "batterySlot": true,
+      "moduleBay": true,
+      "recipeIds": [
+        "rust_from_mineral",
+        "rust_from_metal"
+      ]
+    },
+    {
+      "id": "elem_chemical_reactor",
+      "module": "ChemicalProcessing",
+      "archetype": "processor",
+      "sprite": "elem_chemical_reactor",
+      "value": 900,
+      "power": 8,
+      "inputWidth": 3,
+      "inputHeight": 3,
+      "outputWidth": 3,
+      "outputHeight": 3,
+      "waterSlot": true,
+      "batterySlot": true,
+      "moduleBay": true,
+      "recipeIds": [
+        "brine_from_salt",
+        "chlor_alkali",
+        "hydrochloric_acid",
+        "ammonia_synthesis",
+        "nitric_acid",
+        "fertilizer",
+        "hydrogen_peroxide",
+        "bleaching_powder",
+        "water_tablets"
+      ]
+    },
+    {
+      "id": "elem_chip_fab",
+      "module": "Electronics",
+      "archetype": "processor",
+      "sprite": "elem_chip_fab",
+      "value": 1600,
+      "power": 12,
+      "inputWidth": 9,
+      "inputHeight": 6,
+      "outputWidth": 3,
+      "outputHeight": 3,
+      "batterySlot": true,
+      "moduleBay": true,
+      "recipeIds": [
+        "purify_silicon",
+        "silicon_wafers",
+        "integrated_circuits",
+        "mod_chip",
+        "machine_frame",
+        "catalyst"
+      ]
+    }
+  ]
+}
