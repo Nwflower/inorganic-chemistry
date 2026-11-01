@@ -13,12 +13,15 @@ OUTPUT = ROOT / "item-catalog.html"
 TYPE_LABELS = {
     "MATERIAL": "材料",
     "BASIC_MATERIAL": "基础材料",
+    "HOUSEHOLD_GOOD": "生活用品",
     "CHEMICAL_SUPPLIES": "化学品",
     "MEDICAL_SUPPLIES": "医疗用品",
     "FARMING_SUPPLIES": "农业用品",
     "OXYGEN_SUPPLY": "助燃气体",
     "MODULE": "模块",
     "STORAGE": "收纳",
+    "WATER_PURIFICATION_SUPPLY": "净水用品",
+    "LUXURY_ITEM": "奢侈品",
 }
 HAZARD_LABELS = {
     "TOXIC": "有毒",
@@ -71,6 +74,10 @@ def item_category(item):
         return "收纳"
     if "MODULE" in types:
         return "模块"
+    if "LUXURY_ITEM" in types:
+        return "奢侈品"
+    if "WATER_PURIFICATION_SUPPLY" in types:
+        return "净水用品"
     if "CHEMICAL_SUPPLIES" in types and "MEDICAL_SUPPLIES" in types:
         return "化学品 / 医疗"
     if "CHEMICAL_SUPPLIES" in types:
@@ -89,23 +96,17 @@ def item_details(item):
     if item.get("chemLiquid"):
         details.append(f"溶液包 {item.get('chemML', 0)} 毫升")
     if item.get("chemicalProductIngredient"):
-        details.append("原版化学品等级表示纯度")
+        details.append("纯度随原料品质变化")
     if item.get("stackable") and not item.get("gas"):
         details.append("可堆叠")
     if item.get("ingot"):
         details.append("实际价值随纯度变化")
     if item.get("canSpawnInLoot"):
-        details.append("可从原版掉落获得")
+        details.append("可在物资中找到")
     if item.get("hazards"):
         details.extend(HAZARD_LABELS.get(hazard, hazard) for hazard in item["hazards"])
-    if item["id"] == "elem_medicine_cabinet":
-        details.append("旧式独立物品；已有存档可继续使用，商店停售")
     if item["id"] == "elem_laboratory_bay":
-        details.extend(("主网格 14×18 格", "网格下方 12 个独立 2×2 药品格", "药品格模组物品同类堆叠至 99", "图标按两区物品条目总数切换 0–4+ 件状态"))
-    if item.get("legacyOnly"):
-        details.append("仅为旧存档兼容；不再出售或由配方产出")
-    if item.get("copySpriteFrom"):
-        details.append("沿用游戏原版物品贴图" if item.get("copySpriteFrom") == "water_tablet" else "沿用原版模组贴图")
+        details.extend(("14×18 储物格", "12 个独立药品格", "药品格内的同类化学品可堆叠至 99 件"))
     return details
 
 
@@ -113,9 +114,6 @@ def item_entry(item, locale, module_names):
     image, footprint = image_info(item.get("sprite"), item.get("copySpriteFrom"))
     item_id = item["id"]
     price = f"每 100 克 {item['value']}" if item.get("gas") else f"{item['value']}"
-    legacy_only = item.get("legacyOnly", False)
-    if legacy_only:
-        price = f"旧存档估值 {item['value']}"
     variants = []
     if item_id == "elem_laboratory_bay":
         variants = [
@@ -124,7 +122,7 @@ def item_entry(item, locale, module_names):
             for state in range(5)
         ]
     return {
-        "kind": "兼容物品" if legacy_only else "物品",
+        "kind": "物品",
         "id": item_id,
         "name": localized(locale, f"item.{item_id}.name"),
         "effect": localized(locale, f"item.{item_id}.desc"),
@@ -251,7 +249,7 @@ PAGE = r'''<!doctype html>
   <main>
     <div class="controls">
       <input id="search" type="search" placeholder="搜索名称、编号或效果" aria-label="搜索名称、编号或效果">
-      <select id="kind" aria-label="条目类型"><option value="">全部条目</option><option>物品</option><option>兼容物品</option><option>设备</option></select>
+      <select id="kind" aria-label="条目类型"><option value="">全部条目</option><option>物品</option><option>设备</option></select>
       <select id="category" aria-label="物品类别"><option value="">全部类别</option></select>
       <select id="sort" aria-label="排序"><option value="name">按名称</option><option value="price">价值从高到低</option><option value="footprint">占格从大到小</option></select>
     </div>
