@@ -26,10 +26,6 @@ internal static class ItemFactory
 
     public static GameItem Create(ItemDefinition definition)
     {
-        if (definition.id == MedicineCabinet.ItemId)
-        {
-            return MedicineCabinet.Create(definition);
-        }
         if (definition.id == LaboratoryBay.ItemId)
         {
             return LaboratoryBay.Create(definition);
@@ -118,10 +114,12 @@ internal static class ItemFactory
             GasUses.ConfigureOxygenCylinder(item);
         }
 
-        if (MedicineCabinet.IsModStackableMedicine(definition))
+        if (MedicineSlots.IsModStackableMedicine(definition))
         {
-            item.mayStackItemFunc = MedicineCabinet.MayStackInCabinet;
+            item.mayStackItemFunc = MedicineSlots.MayStackInLaboratorySlot;
         }
+
+        if (definition.id == PureWaterTablet.ItemId) PureWaterTablet.Configure(item);
 
         ModHelper.SetSource(item, Ids.ModId, Loc.Get("mod.name"));
         return item;

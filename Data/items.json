@@ -232,21 +232,19 @@
       "soluble": true
     },
     {
-      "id": "elem_water_tablet",
+      "id": "elem_pure_water_tablet",
       "module": "ChemicalProcessing",
       "copySpriteFrom": "water_tablet",
-      "legacyOnly": true,
       "value": 35,
       "itemTypes": [
-        "CHEMICAL_SUPPLIES",
-        "MEDICAL_SUPPLIES"
+        "HOUSEHOLD_GOOD",
+        "WATER_PURIFICATION_SUPPLY",
+        "LUXURY_ITEM"
       ],
       "tags": [
-        "ELEM_WATER_TABLET"
-      ],
-      "chemLiquid": "chlorine",
-      "chemML": 15,
-      "soluble": true
+        "ELEM_PURE_WATER_TABLET",
+        "WATER_PURIFICATION_TABLET"
+      ]
     },
     {
       "id": "elem_silica",
@@ -288,32 +286,6 @@
         "MODULE_TAG",
         "MODULE_TYPE_UNIVERSAL",
         "ELEM_MOD_CHIP"
-      ]
-    },
-    {
-      "id": "elem_machine_frame",
-      "module": "Core",
-      "sprite": "elem_machine_frame",
-      "value": 160,
-      "itemTypes": [
-        "MATERIAL",
-        "BASIC_MATERIAL"
-      ],
-      "tags": [
-        "CONSTRUCTION_MATERIAL_TAG",
-        "ELEM_MACHINE_FRAME"
-      ]
-    },
-    {
-      "id": "elem_medicine_cabinet",
-      "module": "ChemicalProcessing",
-      "sprite": "elem_medicine_cabinet",
-      "value": 480,
-      "itemTypes": [
-        "STORAGE"
-      ],
-      "tags": [
-        "ELEM_MEDICINE_CABINET"
       ]
     },
     {

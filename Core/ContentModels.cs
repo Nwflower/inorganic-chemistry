@@ -50,7 +50,6 @@ public sealed class ItemDefinition
     public string chemicalProductIngredient = "";
     public bool ingot = false;
     public bool canSpawnInLoot = false;
-    public bool legacyOnly = false;
 }
 
 [Serializable]

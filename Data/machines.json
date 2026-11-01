@@ -111,8 +111,7 @@
       "batterySlot": true,
       "moduleBay": true,
       "recipeIds": [
-        "mod_chip",
-        "machine_frame"
+        "mod_chip"
       ]
     }
   ]

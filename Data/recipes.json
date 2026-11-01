@@ -331,7 +331,7 @@
       ],
       "outputs": [
         {
-          "id": "water_tablet",
+          "id": "elem_pure_water_tablet",
           "count": 4
         }
       ]
@@ -353,27 +353,6 @@
       "outputs": [
         {
           "id": "elem_mod_chip",
-          "count": 1
-        }
-      ]
-    },
-    {
-      "id": "machine_frame",
-      "machine": "elem_chip_fab",
-      "power": 8,
-      "inputs": [
-        {
-          "id": "metal_ingot",
-          "count": 4
-        },
-        {
-          "id": "steel_sheet",
-          "count": 2
-        }
-      ],
-      "outputs": [
-        {
-          "id": "elem_machine_frame",
           "count": 1
         }
       ]

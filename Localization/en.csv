@@ -43,60 +43,55 @@ gas.o2,Oxygen
 gas.n2,Nitrogen
 gas.cl2,Chlorine
 item.elem_hydrogen_cylinder.name,Hydrogen Bottle
-item.elem_hydrogen_cylinder.desc,Hydrogen measured by mass. Same-gas stacks merge; purchased bottles start at 100 g.
+item.elem_hydrogen_cylinder.desc,Compressed hydrogen for fuel power cells and a range of synthesis reactions.
 item.elem_oxygen_cylinder.name,Oxygen Bottle
-item.elem_oxygen_cylinder.desc,Oxygen measured by mass. Same-gas stacks merge; purchased bottles start at 100 g.
+item.elem_oxygen_cylinder.desc,Oxygen for combustion and chemical synthesis and for screening seeds.
 item.elem_nitrogen_cylinder.name,Nitrogen Bottle
-item.elem_nitrogen_cylinder.desc,Nitrogen measured by mass. Same-gas stacks merge; purchased bottles start at 100 g.
+item.elem_nitrogen_cylinder.desc,Stable inert nitrogen used to synthesize ammonia and fertilizer.
 item.elem_chlorine_cylinder.name,Chlorine Bottle
-item.elem_chlorine_cylinder.desc,Toxic and corrosive chlorine measured by mass. Purchased bottles start at 100 g.
+item.elem_chlorine_cylinder.desc,Toxic and corrosive chlorine for disinfectants and hydrochloric acid.
 item.elem_iron_oxide.name,Iron Oxide
-item.elem_iron_oxide.desc,Oxide extracted from contaminated water. A furnace fitted with the chemistry module accepts it as ordinary ore.
+item.elem_iron_oxide.desc,Iron-bearing mineral recovered from polluted water and ready for smelting.
 item.elem_coke.name,Coke
-item.elem_coke.desc,Carbonized junk. A furnace chemistry module consumes one piece to improve ingot purity. It also works as a finite water filter and adsorbs chemical contamination; it does not disinfect.
+item.elem_coke.desc,Porous carbon made from scrap. It aids smelting and metal refining and can adsorb chemical contaminants from water.
 item.elem_salt.name,Salt
-item.elem_salt.desc,Extracted from mineral-bearing liquid; purity depends on mineral content and processing loss. Used to prepare brine.
+item.elem_salt.desc,Crystallized from mineral-rich solution and used to prepare concentrated brine.
 item.elem_brine.name,Concentrated Brine
-item.elem_brine.desc,Chlor-alkali feedstock stored as a chemical pack instead of a new liquid type.
+item.elem_brine.desc,Concentrated salt solution used to produce chlorine hydrogen and caustic soda.
 item.elem_sodium_hydroxide.name,Caustic Soda
-item.elem_sodium_hydroxide.desc,A strong base used in solution or to make bleaching powder.
+item.elem_sodium_hydroxide.desc,A strongly alkaline solution used in cleaners and chemical production.
 item.elem_hydrochloric_acid.name,Hydrochloric Acid
-item.elem_hydrochloric_acid.desc,A strong acid synthesized from hydrogen and chlorine.
+item.elem_hydrochloric_acid.desc,A strong acid made from hydrogen and chlorine that dissolves many minerals and metal residues.
 item.elem_ammonia.name,Ammonia
-item.elem_ammonia.desc,Ammonia synthesized from nitrogen and hydrogen; feedstock for fertilizer and nitric acid.
+item.elem_ammonia.desc,A nitrogen compound made from nitrogen and hydrogen for fertilizer and nitric acid production.
 item.elem_nitric_acid.name,Nitric Acid
-item.elem_nitric_acid.desc,A strong acid used in fertilizer and advanced chemistry.
+item.elem_nitric_acid.desc,A strong acid produced by oxidizing ammonia for fertilizer and fine chemical production.
 item.elem_fertilizer.name,Nitrogen Fertilizer
-item.elem_fertilizer.desc,A soluble mineral nutrient in a cloth sack for hydroponic crops.
+item.elem_fertilizer.desc,Soluble mineral nutrients in a cloth sack to nourish hydroponic crops.
 item.elem_hydrogen_peroxide.name,Hydrogen Peroxide
-item.elem_hydrogen_peroxide.desc,Dilute hydrogen peroxide for disinfection and oxidation.
+item.elem_hydrogen_peroxide.desc,A mild oxidizer for cleaning and disinfection.
 item.elem_bleaching_powder.name,Bleaching Powder
-item.elem_bleaching_powder.desc,Chlorine-bearing powder that can be pressed into the vanilla water tablet.
-item.elem_water_tablet.name,Legacy Water Tablet (Compatibility)
-item.elem_water_tablet.desc,Retained only for old saves; new recipes produce the game's vanilla water tablet.
+item.elem_bleaching_powder.desc,A chlorine-based disinfectant powder used to make residue-free purification tablets.
+item.elem_pure_water_tablet.name,Residue-Free Water Tablet
+item.elem_pure_water_tablet.desc,An advanced tablet that removes more microbes and chemical contamination without adding chlorine to water.
 item.elem_silica.name,Silica Sand
-item.elem_silica.desc,Silica-rich ore occupying three cells by two. Smelt it with coke in a furnace, then refine it step by step with more coke.
+item.elem_silica.desc,Pale silica-rich mineral that can be reduced to silicon in a furnace.
 item.elem_silicon.name,Silicon
-item.elem_silicon.desc,Silicon reduced from silica sand with coke. It can be further refined in a furnace, with value changing by purity.
+item.elem_silicon.desc,A silvery-gray silicon ingot for high-performance electronic components.
 item.elem_mod_chip.name,Module Chip
-item.elem_mod_chip.desc,A craftable chip compatible with the vanilla universal module slot.
-item.elem_machine_frame.name,Machine Frame
-item.elem_machine_frame.desc,A heavy general-purpose metal frame for machinery.
-item.elem_medicine_cabinet.name,Medicine Cabinet
-item.elem_medicine_cabinet.desc,Legacy standalone cabinet; existing saved cabinets remain usable. New shop stock uses the laboratory bay with built-in medicine slots.
-medicine_cabinet.slot,Medicine slot {0}
+item.elem_mod_chip.desc,A finished universal module chip ready to install in an equipment module slot.
 machine.elem_electrolysis_cell.name,Electrolyzer
-machine.elem_electrolysis_cell.desc,Per night: 12 base power and 1 L water produce 112 g hydrogen and 888 g oxygen. Efficiency modules apply at a 1:2 ratio.
+machine.elem_electrolysis_cell.desc,Separates water into hydrogen and oxygen for fuel power and chemical synthesis.
 machine.elem_air_separator.name,Air Separator
-machine.elem_air_separator.desc,Per night at base settings: 6 power for 222 g oxygen and 778 g nitrogen.
+machine.elem_air_separator.desc,Separates oxygen and nitrogen from air to supply gas feedstock.
 machine.elem_hydrogen_fuel_cell.name,Fuel Power Cell
-machine.elem_hydrogen_fuel_cell.desc,Low-level contraband. Every 10 g hydrogen supplies 1 energy. With 8 g oxygen and a container it also produces 9 mL pure water.
+machine.elem_hydrogen_fuel_cell.desc,Low-level contraband that converts hydrogen into power and can produce pure water when oxygen and a container are supplied.
 machine.elem_rust_extractor.name,Rust Extractor
-machine.elem_rust_extractor.desc,Extracts iron oxide from mineral or heavy-metal contaminated water and restores the volume as clean water.
+machine.elem_rust_extractor.desc,Recovers iron oxide from polluted water and replaces the treated liquid with water.
 machine.elem_chemical_reactor.name,Electronic Beaker
-machine.elem_chemical_reactor.desc,Uses an electrode-equipped lab beaker for gas reactions, chemical synthesis and vanilla water tablets. Matches supplied materials each night.
+machine.elem_chemical_reactor.desc,A precision lab beaker for gas reactions, chemical synthesis and water purification supplies.
 machine.elem_chip_fab.name,Chip Fabricator
-machine.elem_chip_fab.desc,Assembles module chips directly from electronics and metal ingots, and makes machine frames from ingots and steel sheets.
+machine.elem_chip_fab.desc,Packages electronics and metal ingots into equipment module chips.
 shop.chemist.title,Inorganic Chemistry Shop
 shop.chemist.leave_warning,Pack purchased items before leaving. Items left out may be lost if your storage is full. Leave now?
 scenario.elem_industry.title,Inorganic Chemistry Start
@@ -107,19 +102,20 @@ manual.elem_field_manual.title,Inorganic Chemistry Basics Manual
 manual.elem_field_manual.body,Basic processes and instructions for the vanilla furnace integration.
 panel.fuel,Fuel
 item.elem_laboratory_bay.name,Laboratory Bay
-item.elem_laboratory_bay.desc,A metal rack of flasks and beakers holding colored liquids, with a 14 by 18 grid and 12 dedicated 2 by 2 medicine slots below. Mod chemistry and medical items stack by type up to 99 in these slots; vanilla medicines remain single items. Stored machinery keeps running.
+item.elem_laboratory_bay.desc,A metal lab rack lined with flasks and beakers of colored liquids and drawers for equipment reagents and medicine.
+laboratory.medicine_slot,Medicine slot {0}
 item.elem_furnace_chem_module.name,Furnace Chemistry Module
-item.elem_furnace_chem_module.desc,Install in a vanilla furnace to smelt iron oxide with coke for higher ingot purity, turn junk into coke, or smelt silica into silicon and refine it step by step with coke.
+item.elem_furnace_chem_module.desc,A chemistry attachment for smelting iron oxide and silica and refining metals with coke.
 manual.note.title,{0} Instructions
 manual.note.short,Equipment operating instructions.
 machine.elem_electrolysis_cell.manual,Insert a power cell and water container. Each night at base settings use 12 power and 1 L water to produce 112 g hydrogen and 888 g oxygen.\nEfficiency applies at a 1:2 ratio: +16% reduces power to 11. Performance increases water processing and both gases: +16% uses 1.16 L to produce 130 g hydrogen and 1030 g oxygen. Quality adds hydrogen without extra water: at base performance +8% produces 121 g hydrogen and 888 g oxygen. Gas masses round to whole grams; the machine stops if water is insufficient.\nThe status panel shows recipe selection, current throughput and the reason the last run stopped.
 machine.elem_air_separator.manual,Insert a power cell and leave space. At base settings each night uses 6 power and produces 222 g oxygen and 778 g nitrogen for a total of 1 kg. Efficiency changes power use; performance changes batches per night; quality changes gas value. The status panel reports capacity and stop reasons.
 machine.elem_rust_extractor.manual,Each base batch uses 8 power to extract 100 mL of minerals or heavy metals as iron oxide and replace the volume with water. Leave a 3 by 2 output space. Efficiency changes power; performance changes batches; quality changes product value.\nThe status panel selects the contaminant pathway and reports why a run stopped.
-machine.elem_chemical_reactor.manual,Power costs per batch are in parentheses. Solid and chemical units are game abstractions; gas masses are provisional stoichiometric estimates and liquid-package volumes are not fully mass balanced.\nSalt is extracted from mineral-bearing liquid by the vanilla chemical preparation machine; its purity uses the vanilla chemical grade.\n2 salt + 1 L water → 2 brine (4)\nBrine → 71 g chlorine + 2 g hydrogen + caustic soda (12)\n2 g hydrogen + 71 g chlorine → hydrochloric acid (6)\n28 g nitrogen + 6 g hydrogen → ammonia (10)\nAmmonia + 128 g oxygen + 0.5 L water → nitric acid (10)\nAmmonia + nitric acid → fertilizer (6)\n2 g hydrogen + 32 g oxygen + 0.5 L water → 2 peroxide (8)\n71 g chlorine + caustic soda → 2 bleaching powder (6)\nBleaching powder + 0.5 L water → 4 vanilla water tablets (4)\nEfficiency changes power; performance changes batches; quality changes product value.\nRecipes can be disabled individually; the selection persists on that machine.
-machine.elem_chip_fab.manual,Base costs per batch in parentheses.\n2 electronics + 2 metal ingots → module chip (10)\n4 ingots + 2 steel sheets → machine frame (8)\nEfficiency changes power; performance changes batches; quality changes product value.\nRecipes can be disabled individually; the selection persists on that machine.
+machine.elem_chemical_reactor.manual,Base power per batch appears in parentheses. Gas amounts are provisional stoichiometric estimates.\nExtract salt from mineral-rich liquid; its quality follows the starting material.\n2 salt + 1 L water → 2 brine (4)\nBrine → 71 g chlorine + 2 g hydrogen + caustic soda (12)\n2 g hydrogen + 71 g chlorine → hydrochloric acid (6)\n28 g nitrogen + 6 g hydrogen → ammonia (10)\nAmmonia + 128 g oxygen + 0.5 L water → nitric acid (10)\nAmmonia + nitric acid → fertilizer (6)\n2 g hydrogen + 32 g oxygen + 0.5 L water → 2 peroxide (8)\n71 g chlorine + caustic soda → 2 bleaching powder (6)\nBleaching powder + 0.5 L water → 4 residue-free water tablets (4)\nEfficiency modules reduce power use; performance modules increase throughput; quality modules improve product grade or value.\nDisable recipes from the status panel; the machine performs one reaction per batch.
+machine.elem_chip_fab.manual,Base power per batch appears in parentheses.\n2 electronics + 2 metal ingots → module chip (10)\nEfficiency modules reduce power use; performance modules increase throughput; quality modules improve product value.\nDisable the recipe from the status panel when needed.
 manual.page1,Inorganic Chemistry Basics\n\nThe laboratory stores machines without switching them off. Each machine includes a removable instruction note.\n\nEach night the electrolyzer uses 12 base power and 1 L water to produce 112 g hydrogen and 888 g oxygen. Efficiency reduces power; performance increases water throughput; quality adds hydrogen without extra water. Efficiency applies at a 1:2 ratio. The separator uses 6 power per base batch to produce 222 g oxygen and 778 g nitrogen. Same-gas stacks merge. Purchased bottles contain 100 g.\n\nThe fuel power cell is low-level contraband. Every 10 g hydrogen supplies 1 energy. Smaller remainders are saved for later. With oxygen and an output container every 1 g hydrogen combines with 8 g oxygen to produce 9 mL pure water. If the container lacks space the cell still uses hydrogen for power and keeps the unused oxygen. Produced water mixes with existing liquid.
-manual.page2,Metallurgy and water\n\nInstall a chemistry module in a vanilla furnace to accept iron oxide, coke, silica and junk. Three junk use 8 energy to make two coke; two silica and two coke use 16 energy to make industrial silicon.\n\nCoke improves ingot purity and can be combined with vanilla flux. It also fits water-filter slots and adsorbs chemical contamination while losing durability; it does not kill microbes.
-manual.page3,Other processes\n\nThe chip fabricator assembles module chips directly from electronics and ingots, and also makes machine frames. The furnace retains a separate silica reduction and silicon refining process. The electronic beaker handles gas reactions; its gas quantities are provisional stoichiometric estimates. Salt can be extracted from mineral-bearing liquid in the vanilla chemical preparation machine; the product grade shows its purity.\n\nEfficiency modifies power, performance modifies throughput, and quality changes electrolyzer hydrogen output, other product value or silicon purity. See each instruction note for base recipes.
+manual.page2,Metallurgy and water\n\nInstall the furnace chemistry module to smelt iron oxide silica and scrap. Three scrap use 8 energy to make two coke; two silica and two coke use 16 energy to make industrial silicon.\n\nCoke improves ingot purity and can be combined with flux. It also fits water-filter slots and adsorbs chemical contamination as it wears down. It does not kill microbes.
+manual.page3,Other processes\n\nThe chip fabricator packages electronics and ingots into module chips. The furnace chemistry module reduces silica to silicon and can refine it further. The electronic beaker makes acids bases fertilizer disinfectants and purification tablets.\n\nEfficiency modules reduce power use; performance modules increase throughput; quality modules improve product grade or value. Each equipment note lists its recipes and controls.
 tooltip.gas_mass,Gas mass: {0} g
 tooltip.product_quality,Process quality: {0}%
 panel.control,Status
@@ -151,6 +147,5 @@ recipe.nitric_acid.name,Nitric Acid Production
 recipe.fertilizer.name,Fertilizer Production
 recipe.hydrogen_peroxide.name,Hydrogen Peroxide Production
 recipe.bleaching_powder.name,Bleaching Powder Production
-recipe.water_tablets.name,Vanilla Water Tablet Pressing
+recipe.water_tablets.name,Residue-Free Tablet Pressing
 recipe.mod_chip.name,Module Chip Assembly
-recipe.machine_frame.name,Machine Frame Fabrication

@@ -8,13 +8,13 @@ namespace ElementalIndustry;
 internal static class LaboratoryBay
 {
     internal const string ItemId = "elem_laboratory_bay";
-    internal const string MedicineSlotPrefix = MedicineCabinet.LaboratorySlotPrefix;
+    internal const string MedicineSlotPrefix = MedicineSlots.LaboratorySlotPrefix;
     internal static GameItem Create(ItemDefinition definition)
     {
         GameGridInventory inventory = new GameGridInventory(14, 18).SetMachineryStyle();
         GameItem bay = ItemDirectory.CreateEmptyItem(definition.id);
         (List<MachineryPanel> medicinePanels, List<GameSlotInventory> medicineSlots) =
-            MedicineCabinet.CreatePanels(bay, MedicineSlotPrefix);
+            MedicineSlots.CreatePanels(bay, MedicineSlotPrefix);
         var medicineRow = new MachineryPanelRow(medicinePanels.ToArray());
         medicineRow.SetColumns(6);
         var layout = new GridPixelElement(1, 2, isCentered: true);

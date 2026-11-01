@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ElementalIndustry;
 
-internal static class MedicineCabinetRules
+internal static class MedicineSlotRules
 {
     private static readonly HashSet<string> MedicalTags = new(StringComparer.Ordinal)
     {
@@ -16,7 +16,8 @@ internal static class MedicineCabinetRules
 
     internal static bool IsModStackable(ItemDefinition definition) =>
         definition.itemTypes.Contains("CHEMICAL_SUPPLIES") ||
-        definition.itemTypes.Contains("MEDICAL_SUPPLIES");
+        definition.itemTypes.Contains("MEDICAL_SUPPLIES") ||
+        definition.itemTypes.Contains("WATER_PURIFICATION_SUPPLY");
 
     internal static bool CanShareSlot(string? currentId, string incomingId, bool stackable,
         bool itemPairMayStack, int currentCount, int maximum)
@@ -26,6 +27,6 @@ internal static class MedicineCabinetRules
     }
 
     internal static bool MayStack(string leftId, string rightId, bool stackable,
-        bool existingItemIsInCabinetSlot) =>
-        stackable && leftId == rightId && existingItemIsInCabinetSlot;
+        bool existingItemIsInLaboratorySlot) =>
+        stackable && leftId == rightId && existingItemIsInLaboratorySlot;
 }

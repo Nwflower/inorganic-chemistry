@@ -81,7 +81,7 @@ internal sealed class ChemistShopLocation : AfterhourLocation
             .Where(machine => ContentDatabase.IsContentEnabled(machine.module, machine.id))
             .Select(machine => machine.id);
         var chemicals = ContentDatabase.Items.Values
-            .Where(item => !item.legacyOnly && ContentDatabase.IsModuleEnabled(item.module) &&
+            .Where(item => ContentDatabase.IsModuleEnabled(item.module) &&
                 (item.id == FurnaceChemistry.ModuleId || item.module == "ChemicalProcessing" ||
                  item.itemTypes.Contains("CHEMICAL_SUPPLIES") ||
                  item.itemTypes.Contains("MEDICAL_SUPPLIES")))
