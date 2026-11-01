@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>无机化学基础 | 物品目录</title>
+  <style>
+    :root { color-scheme: light; --ink:#202b29; --muted:#687570; --line:#d9e0dd; --paper:#f2f5f3; --white:#fff; --green:#276c5d; --blue:#32758b; --amber:#a86a16; --red:#a7433e; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:14px/1.5 "Segoe UI", "Microsoft YaHei", sans-serif; }
+    header { background:var(--white); border-bottom:1px solid var(--line); }
+    .header-inner, main { max-width:1480px; margin:0 auto; padding:18px 24px; }
+    .header-inner { display:flex; align-items:end; justify-content:space-between; gap:18px; }
+    h1 { margin:0; font-size:23px; line-height:1.25; font-weight:650; }
+    .subtitle { color:var(--muted); margin-top:5px; }
+    .totals { color:var(--muted); white-space:nowrap; font-variant-numeric:tabular-nums; }
+    .controls { display:grid; grid-template-columns:minmax(200px,1fr) 170px 190px 190px; gap:10px; padding:14px 0 16px; }
+    input, select { min-width:0; height:40px; border:1px solid #cbd5d1; border-radius:5px; padding:0 11px; background:white; color:var(--ink); font:inherit; }
+    input:focus, select:focus { outline:2px solid #73aa9b; outline-offset:1px; }
+    .result-line { display:flex; align-items:center; justify-content:space-between; margin:0 0 12px; color:var(--muted); }
+    .catalog { display:grid; grid-template-columns:repeat(auto-fill,minmax(285px,1fr)); gap:12px; align-items:stretch; }
+    .entry { min-width:0; background:var(--white); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+    .entry-top { min-height:99px; display:grid; grid-template-columns:80px minmax(0,1fr); align-items:center; gap:13px; padding:12px; border-bottom:1px solid #e7ece9; }
+    .image-stage { width:80px; height:74px; display:flex; align-items:center; justify-content:center; border:1px solid #e0e5e2; border-radius:4px; background-color:#f5f6f4; background-image:linear-gradient(45deg,#e8ece9 25%,transparent 25%),linear-gradient(-45deg,#e8ece9 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e8ece9 75%),linear-gradient(-45deg,transparent 75%,#e8ece9 75%); background-position:0 0,0 6px,6px -6px,-6px 0; background-size:12px 12px; }
+    .image-stage img { width:64px; height:64px; object-fit:contain; image-rendering:pixelated; }
+    .title-line { display:flex; align-items:start; justify-content:space-between; gap:8px; }
+    h2 { margin:0; font-size:16px; line-height:1.3; font-weight:650; }
+    .kind { flex:none; color:var(--green); background:#e8f2ee; border-radius:3px; padding:2px 6px; font-size:11px; }
+    .entry.machine .kind { color:var(--blue); background:#eaf2f4; }
+    code { display:block; margin-top:4px; color:#66726f; font:11px/1.3 Consolas, monospace; overflow-wrap:anywhere; }
+    .tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:7px; }
+    .tag { border:1px solid #e1e6e3; border-radius:3px; padding:1px 5px; color:#596661; font-size:11px; }
+    .entry-body { padding:11px 13px 13px; }
+    .facts { display:flex; flex-wrap:wrap; gap:6px 13px; margin-bottom:8px; font-size:12px; }
+    .facts b { color:var(--muted); font-weight:500; margin-right:3px; }
+    .effect { margin:0; color:#303c38; }
+    .details { display:flex; flex-wrap:wrap; gap:5px; margin-top:9px; }
+    .detail { display:inline-block; border-radius:3px; padding:2px 6px; background:#f0f3f1; color:#4d5b56; font-size:11px; }
+    .manual { margin-top:10px; border-top:1px solid #e7ece9; padding-top:8px; }
+    .manual summary { color:var(--blue); cursor:pointer; font-size:12px; }
+    .manual-text { margin:7px 0 0; color:#46534e; font-size:12px; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .detail.warning { background:#fbefeb; color:var(--red); }
+    .variants { display:flex; gap:3px; align-items:center; margin:8px -1px 0; padding-top:8px; border-top:1px solid #e7ece9; }
+    .variant { display:flex; min-width:0; flex:1; flex-direction:column; align-items:center; gap:1px; color:var(--muted); font-size:10px; }
+    .variant img { width:42px; height:42px; object-fit:contain; image-rendering:pixelated; }
+    .empty { grid-column:1/-1; padding:40px; text-align:center; color:var(--muted); background:var(--white); border:1px solid var(--line); border-radius:6px; }
+    @media (max-width:850px) { .controls { grid-template-columns:1fr 1fr; } }
+    @media (max-width:560px) { .header-inner, main { padding-left:14px; padding-right:14px; } .header-inner { align-items:start; flex-direction:column; gap:5px; } .controls { grid-template-columns:1fr; } .catalog { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div><h1>无机化学基础</h1><div class="subtitle">物品与设备目录</div></div>
+      <div class="totals" id="totals"></div>
+    </div>
+  </header>
+  <main>
+    <div class="controls">
+      <input id="search" type="search" placeholder="搜索名称、编号或效果" aria-label="搜索名称、编号或效果">
+      <select id="kind" aria-label="条目类型"><option value="">全部条目</option><option>物品</option><option>设备</option></select>
+      <select id="category" aria-label="物品类别"><option value="">全部类别</option></select>
+      <select id="sort" aria-label="排序"><option value="name">按名称</option><option value="price">价值从高到低</option><option value="footprint">占格从大到小</option></select>
+    </div>
+    <div class="result-line"><span id="result-count"></span><span>标价为基础物品价值；气体按 100 克计</span></div>
+    <section id="catalog" class="catalog" aria-live="polite"></section>
+  </main>
+  <script>
+    const entries = [{"kind": "物品", "id": "elem_hydrogen_cylinder", "name": "氢气瓶", "effect": "按克计量的氢气。同种气体可合并；新购气瓶含 100 克。用于燃料电池及化工。", "category": "材料", "types": ["材料", "基础材料"], "module": "气体生产", "price": "每 100 克 60", "priceValue": 60, "footprint": "2×3", "image": "Textures/Items/elem_hydrogen_cylinder.png", "details": ["气体 H2", "新购含量 100 克", "同种气体可堆叠合并"], "variants": []}, {"kind": "物品", "id": "elem_oxygen_cylinder", "name": "氧气瓶", "effect": "按克计量的氧气。同种气体可合并；新购气瓶含 100 克。可助燃、净水和筛选种子。", "category": "材料", "types": ["材料", "基础材料", "助燃气体"], "module": "气体生产", "price": "每 100 克 5", "priceValue": 5, "footprint": "2×3", "image": "Textures/Items/elem_oxygen_cylinder.png", "details": ["气体 O2", "新购含量 100 克", "同种气体可堆叠合并"], "variants": []}, {"kind": "物品", "id": "elem_nitrogen_cylinder", "name": "氮气瓶", "effect": "按克计量的氮气。同种气体可合并；新购气瓶含 100 克。用于合成氨。", "category": "材料", "types": ["材料", "基础材料"], "module": "气体生产", "price": "每 100 克 3", "priceValue": 3, "footprint": "2×3", "image": "Textures/Items/elem_nitrogen_cylinder.png", "details": ["气体 N2", "新购含量 100 克", "同种气体可堆叠合并"], "variants": []}, {"kind": "物品", "id": "elem_chlorine_cylinder", "name": "氯气瓶", "effect": "按克计量的有毒腐蚀性氯气。同种气体可合并；新购气瓶含 100 克。", "category": "材料", "types": ["材料", "基础材料"], "module": "化工", "price": "每 100 克 90", "priceValue": 90, "footprint": "2×3", "image": "Textures/Items/elem_chlorine_cylinder.png", "details": ["气体 CL2", "新购含量 100 克", "同种气体可堆叠合并", "有毒", "腐蚀"], "variants": []}, {"kind": "物品", "id": "elem_iron_oxide", "name": "氧化铁", "effect": "从含矿物或重金属的水中提取的氧化铁。安装熔炉化学模块后可像原版矿石一样投入熔炉。", "category": "材料", "types": ["材料", "基础材料"], "module": "冶金", "price": "25", "priceValue": 25, "footprint": "2×3", "image": "Textures/Items/elem_iron_oxide.png", "details": ["可从原版掉落获得"], "variants": []}, {"kind": "物品", "id": "elem_coke", "name": "焦炭", "effect": "由废料干馏制得。熔炉化学模块可消耗一份焦炭提高金属锭纯度；也可作为有耐久的净水滤材吸附化学污染物，不会杀菌。", "category": "材料", "types": ["材料", "基础材料"], "module": "冶金", "price": "20", "priceValue": 20, "footprint": "1×1", "image": "Textures/Items/elem_coke.png", "details": ["可从原版掉落获得"], "variants": []}, {"kind": "物品", "id": "elem_salt", "name": "粗盐", "effect": "含杂质的盐，可加工成盐水供氯碱电解。", "category": "材料", "types": ["材料", "基础材料"], "module": "化工", "price": "18", "priceValue": 18, "footprint": "1×1", "image": "Textures/Items/elem_salt.png", "details": ["可从原版掉落获得"], "variants": []}, {"kind": "物品", "id": "elem_brine", "name": "浓缩盐水", "effect": "氯碱电解的原料；以化学品包形式保存，不新增液体类型。", "category": "材料", "types": ["材料", "基础材料"], "module": "化工", "price": "22", "priceValue": 22, "footprint": "1×1", "image": "Textures/Items/elem_brine.png", "details": ["可从原版掉落获得"], "variants": []}, {"kind": "物品", "id": "elem_sodium_hydroxide", "name": "烧碱", "effect": "强碱性化学品，可溶解使用或用于制取漂白粉。", "category": "化学品", "types": ["化学品"], "module": "化工", "price": "45", "priceValue": 45, "footprint": "1×2", "image": "Textures/Items/elem_sodium_hydroxide.png", "details": ["溶液包 1000 毫升", "腐蚀"], "variants": []}, {"kind": "物品", "id": "elem_hydrochloric_acid", "name": "盐酸", "effect": "由氢气和氯气合成的强酸，可溶解使用。", "category": "化学品", "types": ["化学品"], "module": "化工", "price": "55", "priceValue": 55, "footprint": "1×2", "image": "Textures/Items/elem_hydrochloric_acid.png", "details": ["溶液包 1000 毫升", "腐蚀"], "variants": []}, {"kind": "物品", "id": "elem_ammonia", "name": "氨", "effect": "由氮气和氢气合成的氨，是化肥与硝酸的上游。", "category": "化学品", "types": ["化学品"], "module": "化工", "price": "65", "priceValue": 65, "footprint": "1×2", "image": "Textures/Items/elem_ammonia.png", "details": ["溶液包 1000 毫升", "有毒"], "variants": []}, {"kind": "物品", "id": "elem_nitric_acid", "name": "硝酸", "effect": "氨氧化得到的强酸，用于化肥和高级化工。", "category": "化学品", "types": ["化学品"], "module": "化工", "price": "75", "priceValue": 75, "footprint": "1×2", "image": "Textures/Items/elem_nitric_acid.png", "details": ["溶液包 1000 毫升", "腐蚀", "有毒"], "variants": []}, {"kind": "物品", "id": "elem_fertilizer", "name": "氮肥", "effect": "可溶的矿物肥料，用于水培作物。", "category": "化学品", "types": ["化学品", "农业用品"], "module": "化工", "price": "80", "priceValue": 80, "footprint": "1×1", "image": "Textures/Items/elem_fertilizer.png", "details": ["溶液包 1000 毫升"], "variants": []}, {"kind": "物品", "id": "elem_hydrogen_peroxide", "name": "双氧水", "effect": "稀释的过氧化氢，可作消毒剂和氧化剂。", "category": "化学品", "types": ["化学品"], "module": "化工", "price": "60", "priceValue": 60, "footprint": "1×1", "image": "Textures/Items/elem_hydrogen_peroxide.png", "details": ["溶液包 1000 毫升"], "variants": []}, {"kind": "物品", "id": "elem_bleaching_powder", "name": "漂白粉", "effect": "含氯消毒粉，可进一步压制成净水片。", "category": "化学品", "types": ["化学品"], "module": "化工", "price": "50", "priceValue": 50, "footprint": "1×1", "image": "Textures/Items/elem_bleaching_powder.png", "details": ["溶液包 500 毫升", "腐蚀"], "variants": []}, {"kind": "物品", "id": "elem_water_tablet", "name": "净水片", "effect": "可直接投入水中杀菌的含氯药片。", "category": "化学品 / 医疗", "types": ["化学品", "医疗用品"], "module": "化工", "price": "35", "priceValue": 35, "footprint": "1×1", "image": "Textures/Items/elem_water_tablet.png", "details": ["溶液包 15 毫升"], "variants": []}, {"kind": "物品", "id": "elem_silica", "name": "硅砂", "effect": "富含二氧化硅的矿砂，占两格宽三格高；可用焦炭在熔炉里炼成硅，再用焦炭逐档提纯。", "category": "材料", "types": ["材料", "基础材料"], "module": "电子", "price": "22", "priceValue": 22, "footprint": "2×3", "image": "Textures/Items/elem_silica.png", "details": ["可从原版掉落获得"], "variants": []}, {"kind": "物品", "id": "elem_silicon", "name": "硅", "effect": "硅砂用焦炭还原得到的硅。纯度决定用途：低纯度是工业硅，提纯后可切片。", "category": "材料", "types": ["材料", "基础材料"], "module": "电子", "price": "80", "priceValue": 80, "footprint": "1×1", "image": "Textures/Items/elem_silicon.png", "details": ["实际价值随纯度变化"], "variants": []}, {"kind": "物品", "id": "elem_silicon_wafer", "name": "硅片", "effect": "电子级硅片，是集成电路的基材。", "category": "材料", "types": ["材料", "基础材料"], "module": "电子", "price": "180", "priceValue": 180, "footprint": "1×1", "image": "Textures/Items/elem_silicon_wafer.png", "details": [], "variants": []}, {"kind": "物品", "id": "elem_integrated_circuit", "name": "集成电路", "effect": "封装好的通用电路，可装配成模块芯片。", "category": "材料", "types": ["材料", "基础材料"], "module": "电子", "price": "320", "priceValue": 320, "footprint": "1×1", "image": "Textures/Items/elem_integrated_circuit.png", "details": [], "variants": []}, {"kind": "物品", "id": "elem_mod_chip", "name": "模组芯片", "effect": "兼容原版通用模块插槽的自制芯片。", "category": "模块", "types": ["模块"], "module": "电子", "price": "650", "priceValue": 650, "footprint": "1×1", "image": "Textures/Items/elem_mod_chip.png", "details": [], "variants": []}, {"kind": "物品", "id": "elem_machine_frame", "name": "机器框架", "effect": "重型机器的通用金属框架。", "category": "材料", "types": ["材料", "基础材料"], "module": "核心", "price": "160", "priceValue": 160, "footprint": "1×1", "image": "Textures/Items/elem_machine_frame.png", "details": [], "variants": []}, {"kind": "物品", "id": "elem_catalyst", "name": "催化剂", "effect": "化工与电子工艺需要的通用催化剂。", "category": "材料", "types": ["材料", "基础材料"], "module": "化工", "price": "120", "priceValue": 120, "footprint": "1×1", "image": "Textures/Items/elem_catalyst.png", "details": ["可从原版掉落获得"], "variants": []}, {"kind": "物品", "id": "elem_medicine_cabinet", "name": "药品柜", "effect": "12 个独立药品格；模组化学与医疗用品可在柜内按同类堆叠，原版药品保持单件。", "category": "收纳", "types": ["收纳"], "module": "化工", "price": "480", "priceValue": 480, "footprint": "2×2", "image": "Textures/Items/elem_medicine_cabinet.png", "details": ["12 个独立槽位"], "variants": []}, {"kind": "物品", "id": "elem_laboratory_bay", "name": "实验区", "effect": "金属架上摆放着装有不同颜色液体的烧瓶和烧杯；内部为 14×18 格，可收纳设备和材料。收纳不会自动关闭机器。", "category": "收纳", "types": ["收纳"], "module": "核心", "price": "1400", "priceValue": 1400, "footprint": "4×4", "image": "Textures/Items/elem_laboratory_bay.png", "details": ["内部 14×18 格", "图标按收纳条目切换 0–4+ 件状态"], "variants": [{"image": "Textures/Items/elem_laboratory_bay.png", "label": "0 件"}, {"image": "Textures/Items/elem_laboratory_bay_1.png", "label": "1 件"}, {"image": "Textures/Items/elem_laboratory_bay_2.png", "label": "2 件"}, {"image": "Textures/Items/elem_laboratory_bay_3.png", "label": "3 件"}, {"image": "Textures/Items/elem_laboratory_bay_4.png", "label": "4+ 件"}]}, {"kind": "物品", "id": "elem_furnace_chem_module", "name": "熔炉化学模块", "effect": "装入原版熔炉后可冶炼氧化铁，用焦炭提升炼锭纯度；也可把废料制成焦炭，或用焦炭把硅砂炼成硅并逐档提纯。", "category": "模块", "types": ["模块"], "module": "冶金", "price": "160", "priceValue": 160, "footprint": "1×4", "image": "ArtSource/References/native/long_module3.png", "details": ["沿用原版模组贴图"], "variants": []}, {"kind": "设备", "id": "elem_electrolysis_cell", "name": "电解器", "effect": "每晚基础耗电 10 点，将 1 升水分解成 112 克氢气和 888 克氧气。效率模块效果按 1:2 计算。", "manual": "装入电池和盛水容器并留出产物空间。基础每晚耗电 10 点，消耗 1 升水，产出 112 克氢气和 888 克氧气。\n效率效果按 1:2 计算；效率 +16% 时耗电 9。性能提高处理水量和氢氧产量，例如 +16% 时需 1.16 升水，产 130 克氢和 1030 克氧。质量只额外增加氢气，不额外耗水；例如基础状态下质量 +8% 产 121 克氢和 888 克氧。气体数量按克四舍五入，水量不足时不运行。\n状态面板显示配方选择、当前处理量和上次停止原因。", "category": "机器", "types": ["生产设备"], "module": "气体生产", "price": "500", "priceValue": 500, "footprint": "3×3", "image": "Textures/Items/elem_electrolysis_cell.png", "details": ["配方耗电 10 点 / 批", "原料槽 2×2", "产物槽 4×3", "水槽", "电池槽", "模组槽"], "variants": []}, {"kind": "设备", "id": "elem_air_separator", "name": "空气分离机", "effect": "每晚基础消耗 6 点电，分离出 222 克氧气和 778 克氮气。", "manual": "装入电池并留出产物空间。基础状态每晚消耗 6 点电，产出 222 克氧气和 778 克氮气，共 1 千克。\n效率改变耗电；性能改变每晚批次；质量改变气体估值。状态面板显示每晚能力与停止原因。", "category": "机器", "types": ["生产设备"], "module": "气体生产", "price": "620", "priceValue": 620, "footprint": "3×3", "image": "Textures/Items/elem_air_separator.png", "details": ["配方耗电 6 点 / 批", "原料槽 2×2", "产物槽 4×3", "电池槽", "模组槽"], "variants": []}, {"kind": "设备", "id": "elem_hydrogen_fuel_cell", "name": "燃料能量电池", "effect": "初级违禁品。每 10 克氢提供 1 点电。每 1 克氢配 8 克氧可产生 9 毫升纯水，需放入容器。", "manual": "", "category": "能源电池", "types": ["能源"], "module": "能源", "price": "800", "priceValue": 800, "footprint": "1×2", "image": "Textures/Items/elem_hydrogen_fuel_cell.png", "details": ["初级违禁品", "氢燃料槽 · 可选氧化剂槽 · 产水容器槽"], "variants": []}, {"kind": "设备", "id": "elem_rust_extractor", "name": "铁锈提取机", "effect": "从含矿物质或重金属的液体中提取氧化铁，并把剩余体积补回水。", "manual": "装入电池和含矿物质或重金属的水。基础每批从中取出 100 毫升污染物，消耗 8 点电，产出氧化铁并以水补回体积。产物需留出 3×2 空间。效率改变耗电；性能改变每晚批次；质量改变产物估值。\n状态面板可按污染物选择配方，并显示停止原因。", "category": "机器", "types": ["生产设备"], "module": "冶金", "price": "550", "priceValue": 550, "footprint": "3×3", "image": "Textures/Items/elem_rust_extractor.png", "details": ["配方耗电 8 点 / 批", "原料槽 2×2", "产物槽 3×2", "水槽", "电池槽", "模组槽"], "variants": []}, {"kind": "设备", "id": "elem_chemical_reactor", "name": "电子烧杯", "effect": "用带电极的实验烧杯进行气体反应、化学合成和净水片压制；每晚按投入材料自动匹配配方。", "manual": "每批配方的基础耗电列于括号。化学品按游戏中的一份物品计算，气体克数按化学比例估算并暂定；包装物和溶液体积尚非完整质量守恒。\n2 粗盐 + 1 升水 → 2 盐水（4）\n盐水 → 71 克氯 + 2 克氢 + 烧碱（12）\n2 克氢 + 71 克氯 → 盐酸（6）\n28 克氮 + 6 克氢 → 氨（10）\n氨 + 128 克氧 + 0.5 升水 → 硝酸（10）\n氨 + 硝酸 → 化肥（6）\n2 克氢 + 32 克氧 + 0.5 升水 → 2 双氧水（8）\n71 克氯 + 烧碱 → 2 漂白粉（6）\n漂白粉 + 0.5 升水 → 4 净水片（4）\n效率改变耗电；性能改变每晚批次；质量改变产物估值。\n状态面板可逐条停用配方并保存选择；勾选只限制可执行的反应，不会把其他反应产物混入本批。", "category": "机器", "types": ["生产设备"], "module": "化工", "price": "900", "priceValue": 900, "footprint": "3×3", "image": "Textures/Items/elem_chemical_reactor.png", "details": ["配方耗电 4–12 点 / 批", "原料槽 4×3", "产物槽 5×3", "水槽", "电池槽", "模组槽"], "variants": []}, {"kind": "设备", "id": "elem_chip_fab", "name": "芯片封装台", "effect": "把工业硅提纯成电子级硅、切片，并制造集成电路、模组芯片、机器框架和催化剂。", "manual": "每批配方基础耗电列于括号。\n高纯度及以上硅 → 4 硅片（8）\n硅片 + 2 电子元件 + 2 电线 → 集成电路（12）\n集成电路 + 空白模块 + 催化剂 → 模组芯片（8）\n4 金属锭 + 2 钢板 → 机器框架（8）\n金属锭 + 电子元件 → 催化剂（6）\n效率改变耗电；性能改变每晚批次；质量改变硅纯度或其他产物估值。\n状态面板可逐条停用配方并保存选择；勾选只限制可执行的反应，不会把其他反应产物混入本批。", "category": "机器", "types": ["生产设备"], "module": "电子", "price": "1600", "priceValue": 1600, "footprint": "3×3", "image": "Textures/Items/elem_chip_fab.png", "details": ["配方耗电 6–12 点 / 批", "原料槽 9×6", "产物槽 3×3", "电池槽", "模组槽"], "variants": []}];
+    const catalog = document.getElementById("catalog");
+    const search = document.getElementById("search");
+    const kind = document.getElementById("kind");
+    const category = document.getElementById("category");
+    const sort = document.getElementById("sort");
+    const totals = document.getElementById("totals");
+    const resultCount = document.getElementById("result-count");
+    const uniqueCategories = [...new Set(entries.map(entry => entry.category))].sort((a, b) => a.localeCompare(b, "zh-CN"));
+    for (const label of uniqueCategories) {
+      const option = document.createElement("option");
+      option.value = label;
+      option.textContent = label;
+      category.append(option);
+    }
+    totals.textContent = `${entries.filter(entry => entry.kind === "物品").length} 件物品 · ${entries.filter(entry => entry.kind === "设备").length} 台设备`;
+
+    function makeEntry(entry) {
+      const card = document.createElement("article");
+      card.className = `entry ${entry.kind === "设备" ? "machine" : "item"}`;
+      const top = document.createElement("div");
+      top.className = "entry-top";
+      const stage = document.createElement("div");
+      stage.className = "image-stage";
+      const picture = document.createElement("img");
+      picture.src = entry.image;
+      picture.alt = `${entry.name} 贴图`;
+      picture.loading = "lazy";
+      stage.append(picture);
+      const heading = document.createElement("div");
+      const titleLine = document.createElement("div");
+      titleLine.className = "title-line";
+      const title = document.createElement("h2");
+      title.textContent = entry.name;
+      const kindBadge = document.createElement("span");
+      kindBadge.className = "kind";
+      kindBadge.textContent = entry.kind;
+      titleLine.append(title, kindBadge);
+      const id = document.createElement("code");
+      id.textContent = entry.id;
+      const tags = document.createElement("div");
+      tags.className = "tags";
+      for (const label of [...entry.types, entry.module]) {
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = label;
+        tags.append(tag);
+      }
+      heading.append(titleLine, id, tags);
+      top.append(stage, heading);
+
+      const body = document.createElement("div");
+      body.className = "entry-body";
+      const facts = document.createElement("div");
+      facts.className = "facts";
+      for (const [label, value] of [["价值", entry.price], ["占格", entry.footprint]]) {
+        const fact = document.createElement("span");
+        const name = document.createElement("b");
+        name.textContent = `${label}：`;
+        fact.append(name, document.createTextNode(value));
+        facts.append(fact);
+      }
+      const effect = document.createElement("p");
+      effect.className = "effect";
+      effect.textContent = entry.effect;
+      const details = document.createElement("div");
+      details.className = "details";
+      for (const label of entry.details) {
+        const detail = document.createElement("span");
+        detail.className = "detail" + (label.includes("违禁") || label.includes("有毒") || label.includes("腐蚀") ? " warning" : "");
+        detail.textContent = label;
+        details.append(detail);
+      }
+      body.append(facts, effect, details);
+      if (entry.manual) {
+        const manual = document.createElement("details");
+        manual.className = "manual";
+        const summary = document.createElement("summary");
+        summary.textContent = "设备说明书";
+        const text = document.createElement("p");
+        text.className = "manual-text";
+        text.textContent = entry.manual;
+        manual.append(summary, text);
+        body.append(manual);
+      }
+      if (entry.variants.length) {
+        const variants = document.createElement("div");
+        variants.className = "variants";
+        for (const variant of entry.variants) {
+          const cell = document.createElement("div");
+          cell.className = "variant";
+          const image = document.createElement("img");
+          image.src = variant.image;
+          image.alt = `${entry.name}：${variant.label}`;
+          image.loading = "lazy";
+          const caption = document.createElement("span");
+          caption.textContent = variant.label;
+          cell.append(image, caption);
+          variants.append(cell);
+        }
+        body.append(variants);
+      }
+      card.append(top, body);
+      return card;
+    }
+
+    function render() {
+      const query = search.value.trim().toLocaleLowerCase("zh-CN");
+      let visible = entries.filter(entry => {
+        const matchesQuery = !query || [entry.name, entry.id, entry.category, entry.module, entry.effect, ...entry.types].join(" ").toLocaleLowerCase("zh-CN").includes(query);
+        return matchesQuery && (!kind.value || entry.kind === kind.value) && (!category.value || entry.category === category.value);
+      });
+      if (sort.value === "price") visible.sort((a, b) => b.priceValue - a.priceValue || a.name.localeCompare(b.name, "zh-CN"));
+      else if (sort.value === "footprint") visible.sort((a, b) => area(b.footprint) - area(a.footprint) || a.name.localeCompare(b.name, "zh-CN"));
+      else visible.sort((a, b) => a.name.localeCompare(b.name, "zh-CN"));
+      catalog.replaceChildren();
+      resultCount.textContent = `显示 ${visible.length} / ${entries.length} 项`;
+      if (!visible.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "没有匹配条目";
+        catalog.append(empty);
+      } else {
+        catalog.append(...visible.map(makeEntry));
+      }
+    }
+
+    function area(value) {
+      const [width, height] = value.split("×").map(Number);
+      return width * height;
+    }
+    search.addEventListener("input", render);
+    kind.addEventListener("change", render);
+    category.addEventListener("change", render);
+    sort.addEventListener("change", render);
+    render();
+  </script>
+</body>
+</html>

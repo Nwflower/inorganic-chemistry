@@ -77,9 +77,12 @@ Core（数据库、工厂、通用配方执行器、公共 API）、GasProductio
 
 ```powershell
 dotnet build ElementalIndustry.csproj -c Release
+python tools/generate_item_catalog.py
 ```
 
-构建只写入本工程的 `bin/`，不会自动安装。
+构建只写入本工程的 `bin/`，不会自动安装。目录命令会在本目录生成 `item-catalog.html`，列出物品与设备的贴图、效果、类别、模组、价值和占格；机器条目可展开查看说明书，实验区会展示所有收纳状态贴图。
+
+[查看现有物品与设备目录](item-catalog.html)
 
 ## 数据与代码结构
 
@@ -118,5 +121,7 @@ Requires the full release of the game (runtime version 0.46D). In development; n
 **Limits** — gases are a lightweight model with no pressure, temperature, mixing or pipes; non-gas outputs need their own free cells; the mod is still in development and does not migrate old saves.
 
 **Build** — `dotnet build ElementalIndustry.csproj -c Release`; output goes to `bin/` only. Enable the folder in the game's Mods menu and restart, then `F8` → `mod-scan elemental_industry`.
+
+**Item catalog** — `python tools/generate_item_catalog.py` creates `item-catalog.html` with item and machine artwork, effects, category, module, value and footprint. Machine manuals can be expanded, and all laboratory-bay storage states are shown.
 
 **License** — [Functional Source License 1.1 (MIT Future License)](LICENSE): use, modify and redistribute freely, but do not sell it as a commercial product or service that substitutes for it. Each release becomes MIT-licensed two years after it ships.
