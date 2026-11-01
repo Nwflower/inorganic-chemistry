@@ -17,9 +17,10 @@ PREVIEW = ROOT / "ArtSource/Previews"
 MACHINES = (
     "elem_electrolysis_cell", "elem_air_separator", "elem_oxyhydrogen_welder",
     "elem_rust_extractor", "elem_reduction_furnace",
-    "elem_blast_furnace", "elem_chemical_reactor",
+    "elem_blast_furnace",
     "elem_arc_furnace", "elem_chip_fab",
 )
+# The electronic beaker uses a generated master in generate_vanilla_inspired_art.py.
 SMALL_MACHINE_SIZES = {
     "elem_rust_extractor": (32, 16),
     "elem_chip_fab": (32, 16),

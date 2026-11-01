@@ -12,13 +12,16 @@ EXPECTED = {
     "elem_electrolysis_cell.png": (48, 48),
     "elem_hydrogen_fuel_cell.png": (16, 32),
     "elem_medicine_cabinet.png": (32, 32),
+    "elem_laboratory_bay.png": (64, 64),
     "elem_hydrogen_cylinder.png": (32, 48),
     "elem_oxygen_cylinder.png": (32, 48),
     "elem_nitrogen_cylinder.png": (32, 48),
     "elem_chlorine_cylinder.png": (32, 48),
-    "elem_iron_oxide.png": (48, 32),
-    "elem_silica.png": (48, 32),
+    "elem_iron_oxide.png": (32, 48),
+    "elem_silica.png": (32, 48),
 }
+for state in range(1, 5):
+    EXPECTED[f"elem_laboratory_bay_{state}.png"] = (64, 64)
 for name in (
     "elem_coke", "elem_salt",
     "elem_brine", "elem_fertilizer", "elem_hydrogen_peroxide", "elem_bleaching_powder",
@@ -74,7 +77,8 @@ for name, (w, h) in EXPECTED.items():
     # The game's mod-sprite shape loader samples the center of each 16x16 cell.
     # Vanilla ore has an irregular shape; gas tanks set a full 2x3 shape in code
     # because their valves do not fill both cells of the first row.
-    uses_explicit_shape = name in ("elem_iron_oxide.png", "elem_silica.png") or name.endswith("_cylinder.png")
+    uses_explicit_shape = (name.startswith("elem_laboratory_bay")
+                           or name.endswith("_cylinder.png"))
     if not uses_explicit_shape and size_ok:
         missing_cells = [(x // 16, y // 16) for y in range(8, h, 16) for x in range(8, w, 16)
                          if im.getpixel((x, y))[3] == 0]
@@ -84,11 +88,12 @@ for name, (w, h) in EXPECTED.items():
 
     print(f"{name:38} {im.size[0]}x{im.size[1]:<4} {colors:<6} {str(hard_alpha):6} {high_note:14} {status}")
 
+# Minerals are a portrait 2x3 pile: every one of the six cells must be occupied.
 for name in ("elem_iron_oxide.png", "elem_silica.png"):
     im = Image.open(TEX / name).convert("RGBA")
-    mask = tuple(im.getpixel((x, y))[3] > 0 for y in (8, 24) for x in (8, 24, 40))
-    if mask != (False, True, False, True, True, True):
-        failures.append(f"{name}: vanilla ore footprint changed: {mask}")
+    mask = tuple(im.getpixel((x, y))[3] > 0 for y in (8, 24, 40) for x in (8, 24))
+    if mask != (True,) * 6:
+        failures.append(f"{name}: 2x3 mineral footprint changed: {mask}")
 
 print()
 if failures:
