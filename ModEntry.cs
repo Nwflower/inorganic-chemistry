@@ -12,6 +12,7 @@ namespace ElementalIndustry;
 /// </summary>
 public sealed class ModEntry : IMod
 {
+    private ModManifest? _manifest;
     private ModLog? _log;
     private bool _ready;
     private bool _hooked;
@@ -21,6 +22,7 @@ public sealed class ModEntry : IMod
 
     public void Init(ModManifest manifest)
     {
+        _manifest = manifest;
         _log = new ModLog(manifest);
         _log.Log($"{manifest.Name} v{manifest.ModVersion} initialized.");
     }
@@ -33,12 +35,20 @@ public sealed class ModEntry : IMod
         }
 
         _harmony = new Harmony("elemental_industry.gameplay");
-        _harmony.PatchAll(typeof(ModEntry).Assembly);
+        ApplyPatches();
+        DeferredPatchRunner.Schedule("ElementalIndustry.CokeFilter", () =>
+        {
+            if (_hooked && _harmony != null) FurnaceChemistry.CokeFilterPatch.Apply(_harmony);
+        });
 
         ModHook.OnModItemDirectoryInit += OnModItemDirectoryInit;
         ModHook.OnCreateTooltipLate += OnCreateTooltipLate;
         ModHook.OnLootTablesLoaded += OnLootTablesLoaded;
         ModHook.OnNewGameStarted += OnNewGameStarted;
+
+        // 模组名跟着语言走：语言就绪后再改 manifest.Name，不能在 OnEnable 里判定语言。
+        if (_manifest != null) LocalizedModName.Schedule(_manifest);
+
         _hooked = true;
 
         // The loader registers this mod only after OnEnable, so this first attempt is
@@ -46,8 +56,42 @@ public sealed class ModEntry : IMod
         TryInitialize();
     }
 
+    /// <summary>
+    /// 装配程序集里所有带 <c>[HarmonyPatch]</c> 的补丁类。注意加载器在
+    /// <c>ModLoader.Awake</c> 阶段已经对整个程序集 <c>PatchAll</c> 过一次，所以带特性的补丁
+    /// 无论如何都会在加载期生效；会 JIT 到「静态构造里取本地化字符串」的类型的补丁必须
+    /// 去掉特性、改走 <see cref="DeferredPatchRunner"/>（见
+    /// docs/experience/harmony-patch-jit-triggers-localization-ctor.md）。
+    /// </summary>
+    private void ApplyPatches()
+    {
+        int applied = 0;
+        foreach (Type type in typeof(ModEntry).Assembly.GetTypes())
+        {
+            if (type.GetCustomAttributes(typeof(HarmonyPatch), inherit: false).Length == 0) continue;
+            if (ApplyPatch(type)) applied++;
+        }
+        _log?.Log($"Harmony: {applied} patch class(es) applied.");
+    }
+
+    private bool ApplyPatch(Type type)
+    {
+        try
+        {
+            _harmony?.CreateClassProcessor(type).Patch();
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError($"[{Ids.ModId}] cannot patch {type.FullName}: {exception.Message}");
+            return false;
+        }
+    }
+
     public void OnDisable()
     {
+        DeferredPatchRunner.Cancel();
+        LocalizedModName.Reset();
         ModHook.OnModItemDirectoryInit -= OnModItemDirectoryInit;
         ModHook.OnCreateTooltipLate -= OnCreateTooltipLate;
         ModHook.OnLootTablesLoaded -= OnLootTablesLoaded;

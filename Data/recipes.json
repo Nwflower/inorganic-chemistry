@@ -101,15 +101,42 @@
       ]
     },
     {
-      "id": "purify_silicon",
-      "machine": "elem_chip_fab",
-      "power": 16,
+      "id": "refine_silicon_fair",
+      "machine": "furnace",
+      "power": 12,
       "inputs": [
         {
           "id": "elem_silicon",
           "count": 1,
-          "purity": "INGOT_PURITY_FAIR",
+          "purity": "INGOT_PURITY_LOW",
           "maximumPurity": true
+        },
+        {
+          "id": "elem_coke",
+          "count": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "elem_silicon",
+          "count": 1,
+          "purity": "INGOT_PURITY_FAIR"
+        }
+      ]
+    },
+    {
+      "id": "refine_silicon_high",
+      "machine": "furnace",
+      "power": 12,
+      "inputs": [
+        {
+          "id": "elem_silicon",
+          "count": 1,
+          "purity": "INGOT_PURITY_FAIR"
+        },
+        {
+          "id": "elem_coke",
+          "count": 1
         }
       ],
       "outputs": [

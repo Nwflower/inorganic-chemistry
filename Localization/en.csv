@@ -75,7 +75,7 @@ item.elem_bleaching_powder.desc,Chlorine-bearing powder that can be pressed into
 item.elem_water_tablet.name,Water Tablet
 item.elem_water_tablet.desc,A chlorine water-treatment tablet that dissolves directly into a container.
 item.elem_silica.name,Silica Sand
-item.elem_silica.desc,Silica-rich ore sized like vanilla ore. Reduce it with coke to produce silicon.
+item.elem_silica.desc,Silica-rich ore occupying two cells by three. Smelt it with coke in a furnace, then refine it step by step with more coke.
 item.elem_silicon.name,Silicon
 item.elem_silicon.desc,Silicon reduced from silica sand with coke. Purity decides its use: low grade is industrial silicon, purified grade can be sliced.
 item.elem_silicon_wafer.name,Silicon Wafer
@@ -99,8 +99,8 @@ machine.elem_hydrogen_fuel_cell.name,Fuel Power Cell
 machine.elem_hydrogen_fuel_cell.desc,Low-level contraband. Every 10 g hydrogen supplies 1 energy. With 8 g oxygen and a container it also produces 9 mL pure water.
 machine.elem_rust_extractor.name,Rust Extractor
 machine.elem_rust_extractor.desc,Extracts iron oxide from mineral or heavy-metal contaminated water and restores the volume as clean water.
-machine.elem_chemical_reactor.name,Chemical Reactor
-machine.elem_chemical_reactor.desc,Handles chlor-alkali electrolysis, chemical synthesis and water tablets. Matches the supplied materials each night.
+machine.elem_chemical_reactor.name,Electronic Beaker
+machine.elem_chemical_reactor.desc,Uses an electrode-equipped lab beaker for gas reactions, chemical synthesis and water tablets. Matches supplied materials each night.
 machine.elem_chip_fab.name,Chip Fabricator
 machine.elem_chip_fab.desc,Purifies industrial silicon into electronic grade, slices wafers, and makes integrated circuits, module chips, machine frames and catalysts.
 shop.chemist.title,Inorganic Chemistry Shop
@@ -113,19 +113,19 @@ manual.elem_field_manual.title,Inorganic Chemistry Basics Manual
 manual.elem_field_manual.body,Basic processes and instructions for the vanilla furnace integration.
 panel.fuel,Fuel
 item.elem_laboratory_bay.name,Laboratory Bay
-item.elem_laboratory_bay.desc,A 14 by 18 work area based on the extended machine bay. Storing machinery does not switch it off.
+item.elem_laboratory_bay.desc,A metal rack of flasks and beakers holding colored liquids, with a 14 by 18 storage grid. Stored machinery keeps running.
 item.elem_furnace_chem_module.name,Furnace Chemistry Module
-item.elem_furnace_chem_module.desc,Install in a vanilla furnace to smelt iron oxide with coke for higher ingot purity, convert junk to coke or reduce silica to silicon.
+item.elem_furnace_chem_module.desc,Install in a vanilla furnace to smelt iron oxide with coke for higher ingot purity, turn junk into coke, or smelt silica into silicon and refine it step by step with coke.
 manual.note.title,{0} Instructions
 manual.note.short,Equipment operating instructions.
 machine.elem_electrolysis_cell.manual,Insert a power cell and water container. Each night at base settings use 10 power and 1 L water to produce 112 g hydrogen and 888 g oxygen.\nEfficiency applies at a 1:2 ratio: +16% reduces power to 9. Performance increases water processing and both gases: +16% uses 1.16 L to produce 130 g hydrogen and 1030 g oxygen. Quality adds hydrogen without extra water: at base performance +8% produces 121 g hydrogen and 888 g oxygen. Gas masses round to whole grams; the machine stops if water is insufficient.\nThe status panel shows recipe selection, current throughput and the reason the last run stopped.
 machine.elem_air_separator.manual,Insert a power cell and leave space. At base settings each night uses 6 power and produces 222 g oxygen and 778 g nitrogen for a total of 1 kg. Efficiency changes power use; performance changes batches per night; quality changes gas value. The status panel reports capacity and stop reasons.
 machine.elem_rust_extractor.manual,Each base batch uses 8 power to extract 100 mL of minerals or heavy metals as iron oxide and replace the volume with water. Leave a 3 by 2 output space. Efficiency changes power; performance changes batches; quality changes product value.\nThe status panel selects the contaminant pathway and reports why a run stopped.
 machine.elem_chemical_reactor.manual,Power costs per batch are in parentheses. Solid and chemical units are game abstractions; gas masses are provisional stoichiometric estimates and liquid-package volumes are not fully mass balanced.\n2 salt + 1 L water → 2 brine (4)\nBrine → 71 g chlorine + 2 g hydrogen + caustic soda (12)\n2 g hydrogen + 71 g chlorine → hydrochloric acid (6)\n28 g nitrogen + 6 g hydrogen → ammonia (10)\nAmmonia + 128 g oxygen + 0.5 L water → nitric acid (10)\nAmmonia + nitric acid → fertilizer (6)\n2 g hydrogen + 32 g oxygen + 0.5 L water → 2 peroxide (8)\n71 g chlorine + caustic soda → 2 bleaching powder (6)\nBleaching powder + 0.5 L water → 4 water tablets (4)\nEfficiency changes power; performance changes batches; quality changes product value.\nRecipes can be disabled individually; the selection persists on that machine.
-machine.elem_chip_fab.manual,Base costs per batch in parentheses.\nFair-purity or lower silicon → high-purity silicon (16)\nHigh-purity or better silicon → 4 wafers (8)\nWafer + 2 electronics + 2 wire → integrated circuit (12)\nCircuit + blank module + catalyst → module chip (8)\n4 ingots + 2 steel sheets → machine frame (8)\nIngot + electronics → catalyst (6)\nEfficiency changes power; performance changes batches; quality changes silicon purity or other product value.\nRecipes can be disabled individually; the selection persists on that machine.
+machine.elem_chip_fab.manual,Base costs per batch in parentheses.\nHigh-purity or better silicon → 4 wafers (8)\nWafer + 2 electronics + 2 wire → integrated circuit (12)\nCircuit + blank module + catalyst → module chip (8)\n4 ingots + 2 steel sheets → machine frame (8)\nIngot + electronics → catalyst (6)\nEfficiency changes power; performance changes batches; quality changes silicon purity or other product value.\nRecipes can be disabled individually; the selection persists on that machine.
 manual.page1,Inorganic Chemistry Basics\n\nThe laboratory stores machines without switching them off. Each machine includes a removable instruction note.\n\nEach night the electrolyzer uses 10 base power and 1 L water to produce 112 g hydrogen and 888 g oxygen. Efficiency reduces power; performance increases water throughput; quality adds hydrogen without extra water. Efficiency applies at a 1:2 ratio. The separator uses 6 power per base batch to produce 222 g oxygen and 778 g nitrogen. Same-gas stacks merge. Purchased bottles contain 100 g.\n\nThe fuel power cell is low-level contraband. Every 10 g hydrogen supplies 1 energy. Smaller remainders are saved for later. With oxygen and an output container every 1 g hydrogen combines with 8 g oxygen to produce 9 mL pure water. If the container lacks space the cell still uses hydrogen for power and keeps the unused oxygen. Produced water mixes with existing liquid.
 manual.page2,Metallurgy and water\n\nInstall a chemistry module in a vanilla furnace to accept iron oxide, coke, silica and junk. Three junk use 8 energy to make two coke; two silica and two coke use 16 energy to make industrial silicon.\n\nCoke improves ingot purity and can be combined with vanilla flux. It also fits water-filter slots and adsorbs chemical contamination while losing durability; it does not kill microbes.
-manual.page3,Other processes\n\nThe chip fabricator purifies silicon and makes electronics. The chemical reactor handles gas reactions; its gas quantities are provisional stoichiometric estimates.\n\nEfficiency modifies power, performance modifies throughput, and quality changes electrolyzer hydrogen output, other product value or silicon purity. See each instruction note for base recipes.
+manual.page3,Other processes\n\nThe chip fabricator purifies silicon and makes electronics. The electronic beaker handles gas reactions; its gas quantities are provisional stoichiometric estimates.\n\nEfficiency modifies power, performance modifies throughput, and quality changes electrolyzer hydrogen output, other product value or silicon purity. See each instruction note for base recipes.
 tooltip.gas_mass,Gas mass: {0} g
 tooltip.product_quality,Process quality: {0}%
 panel.control,Status
@@ -146,8 +146,9 @@ recipe.air_separation.name,Air Separation
 recipe.rust_from_mineral.name,Mineral Extraction
 recipe.rust_from_metal.name,Heavy-Metal Extraction
 recipe.coke_from_junk.name,Junk Carbonization
-recipe.industrial_silicon.name,Industrial Silicon Reduction
-recipe.purify_silicon.name,Silicon Purification
+recipe.industrial_silicon.name,Silica Smelting
+recipe.refine_silicon_fair.name,Silicon Refining (Fair)
+recipe.refine_silicon_high.name,Silicon Refining (High)
 recipe.silicon_wafers.name,Wafer Slicing
 recipe.brine_from_salt.name,Brine Preparation
 recipe.chlor_alkali.name,Chlor-Alkali Electrolysis

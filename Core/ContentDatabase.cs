@@ -173,7 +173,13 @@ internal static class ContentDatabase
         {
             // Native furnace recipes are enabled only by the installed chemistry module.
             return Recipes.Values.Where(recipe => recipe.machine == machineId)
-                .OrderBy(recipe => recipe.id == "industrial_silicon" ? 0 : 1);
+                .OrderBy(recipe => recipe.id switch
+                {
+                    "industrial_silicon" => 0,
+                    "refine_silicon_fair" => 1,
+                    "refine_silicon_high" => 2,
+                    _ => 3
+                });
         }
         if (!Machines.TryGetValue(machineId, out MachineDefinition machine))
         {

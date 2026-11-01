@@ -358,7 +358,7 @@
     {
       "id": "elem_laboratory_bay",
       "module": "Core",
-      "copySpriteFrom": "machine_bay_ext",
+      "sprite": "elem_laboratory_bay",
       "value": 1400,
       "itemTypes": [
         "STORAGE"

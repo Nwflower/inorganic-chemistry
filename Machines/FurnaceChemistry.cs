@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 
@@ -8,8 +9,6 @@ namespace ElementalIndustry;
 internal static class FurnaceChemistry
 {
     internal const string ModuleId = "elem_furnace_chem_module";
-    [ThreadStatic] private static bool _boostPurity;
-    [ThreadStatic] private static int _ingotsProduced;
 
     private static bool HasModule(GameInventory modules) =>
         GraphUtils.FindAllChildrenType<GameItem>(modules).Any(item => item.identifier == ModuleId);
@@ -34,7 +33,8 @@ internal static class FurnaceChemistry
                 (originalFilter?.Invoke(item, inv) ?? false) ||
                 (item != null && GeneralHelper.IsItemOwned(item) && HasModule(modules) &&
                  (item.identifier == "elem_iron_oxide" || item.identifier == "elem_coke" ||
-                  item.identifier == "elem_silica" || item.identifier == "junk"));
+                  item.identifier == "elem_silica" || item.identifier == "elem_silicon" ||
+                  item.identifier == "junk"));
             var originalCycle = __result.onCycleEndSlotItemFunc;
             __result.onCycleEndSlotItemFunc = (item, inventory, slot) =>
             {
@@ -57,43 +57,68 @@ internal static class FurnaceChemistry
                 var contents = GraphUtils.FindAllChildrenType<GameItem>(input);
                 var oxide = contents.Where(x => x.identifier == "elem_iron_oxide").ToList();
                 GameItem? coke = contents.FirstOrDefault(x => x.identifier == "elem_coke");
-                bool priorBoost = _boostPurity;
-                int priorProduced = _ingotsProduced;
+                var beforeOutput = new HashSet<GameItem>(GraphUtils.FindAllChildrenType<GameItem>(output));
                 try
                 {
                     // The native furnace selects ore by ID. Temporarily present oxide as
                     // common ore so the native input, power, module and output rules apply.
                     foreach (GameItem ore in oxide) ore.identifier = "common_ore";
-                    _boostPurity = coke != null;
-                    _ingotsProduced = 0;
                     originalCycle?.Invoke(item, inventory, slot);
-                    if (coke != null && _ingotsProduced > 0) GasContainer.Consume(coke);
+                    if (coke != null && BoostProducedIngots(output, beforeOutput) > 0) GasContainer.Consume(coke);
                 }
                 finally
                 {
                     foreach (GameItem ore in oxide)
                         if (ore is not GameItemElement element || !element.IsDestroyed()) ore.identifier = "elem_iron_oxide";
-                    _boostPurity = priorBoost;
-                    _ingotsProduced = priorProduced;
                 }
             };
         }
     }
 
-    [HarmonyPatch(typeof(IngotPurityHelper), nameof(IngotPurityHelper.SetPurityFromInput))]
-    internal static class PurityPatch
+    /// <summary>
+    /// Coke raises the ingot one purity grade above what the native furnace computed, and the
+    /// number of boosted ingots decides whether a coke is consumed.
+    /// <para>
+    /// This deliberately does not patch <see cref="IngotPurityHelper"/>: that type builds its
+    /// static <c>ingotPurities</c> table (including the localized <c>ItemCondition.display</c>
+    /// strings) the first time it is touched. A Harmony patch targets the type at load time,
+    /// long before the language tables are ready, so every ingot of the session — including the
+    /// vanilla metal ingot — would bake the English strings and serialize them into the save.
+    /// The native cycle always calls <c>SetPurityFromInput</c> before the ingot reaches the
+    /// output grid, so adding one grade afterwards is equivalent to the old flux-level bump.
+    /// </para>
+    /// </summary>
+    private static int BoostProducedIngots(GameGridInventory output, HashSet<GameItem> before)
     {
-        private static void Prefix(ref int fluxLevel)
+        int produced = 0;
+        foreach (GameItem ingot in GraphUtils.FindAllChildrenType<GameItem>(output))
         {
-            if (!_boostPurity) return;
-            fluxLevel++;
-            _ingotsProduced++;
+            if (before.Contains(ingot) || !ingot.IsTag("INGOT_PURITY_TAG")) continue;
+            produced++;
+            IngotPurityHelper.SetPurity(ingot,
+                IngotPurityHelper.GetPurityConst(IngotPurityHelper.GetPurity(ingot), 1));
         }
+        return produced;
     }
 
-    [HarmonyPatch(typeof(WaterHelper), nameof(WaterHelper.HandleFilter))]
+    /// <summary>
+    /// 可乐作为有限耐久的水过滤材料。
+    /// <para>
+    /// 这里刻意<strong>不</strong>加 <c>[HarmonyPatch]</c>：加载器在 <c>ModLoader.Awake</c> 阶段
+    /// 会对整个模组程序集 <c>PatchAll</c>，而 JIT <see cref="WaterHelper.HandleFilter"/> 会提前执行
+    /// <c>Liquid</c> 的静态构造——那时 locale 还是默认 en，液体显示名会被固化成英文并随存档保存。
+    /// 因此改由 <see cref="ModEntry"/> 在语言就绪后手动装配。
+    /// </para>
+    /// </summary>
     internal static class CokeFilterPatch
     {
+        internal static void Apply(Harmony harmony)
+        {
+            harmony.Patch(
+                AccessTools.Method(typeof(WaterHelper), nameof(WaterHelper.HandleFilter)),
+                postfix: new HarmonyMethod(typeof(CokeFilterPatch), nameof(Postfix)));
+        }
+
         private static void Postfix(string identifier, GameItem filter, ref int __result)
         {
             if (filter == null || filter.identifier != "elem_coke" ||

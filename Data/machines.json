@@ -111,7 +111,6 @@
       "batterySlot": true,
       "moduleBay": true,
       "recipeIds": [
-        "purify_silicon",
         "silicon_wafers",
         "integrated_circuits",
         "mod_chip",
