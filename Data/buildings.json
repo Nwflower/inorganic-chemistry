@@ -13,10 +13,6 @@
       "defaultEnabled": true
     },
     {
-      "id": "elem_oxyhydrogen_welder",
-      "defaultEnabled": true
-    },
-    {
       "id": "elem_rust_extractor",
       "defaultEnabled": true
     },

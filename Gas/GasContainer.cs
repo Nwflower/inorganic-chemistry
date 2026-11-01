@@ -13,6 +13,9 @@ internal static class GasContainer
 
     public static void Init(GameItem item, string gasType)
     {
+        // The valve is narrower than the tank: reserve the complete 2x3 area
+        // instead of deriving an irregular shape from sampled sprite pixels.
+        item.SetShape(new GridShapeBuilder(2, 3).SetData(new byte[] { 1, 1, 1, 1, 1, 1 }, 2));
         item.EnableTag(GasContainerTag, skipValidate: true);
         // Reads use modifiedState in the game; publish both tags before using them.
         item.ModifyTag(GasTypeTag, state => state.Enable().SetString(gasType ?? ""));

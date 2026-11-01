@@ -104,10 +104,10 @@ for i, (name, image) in enumerate(machines):
     preview.paste(sprite, (i * 180 + 10, 30), sprite)
     d.text((i * 180 + 10, 185), name.removeprefix('elem_'), fill='white')
 preview.save(PREVIEW / 'vanilla-inspired-machines.png')
-preview = Image.new('RGB', (5 * 100, 220), '#282e36')
+preview = Image.new('RGB', (5 * 150, 235), '#282e36')
 for i, image in enumerate(gas_images + [cell]):
-    sprite = image.resize((80, 160), RESAMPLE)
-    preview.paste(sprite, (i * 100 + 10, 20), sprite)
+    sprite = image.resize((image.width * 4, image.height * 4), RESAMPLE)
+    preview.paste(sprite, (i * 150 + (150 - sprite.width) // 2, 20), sprite)
 preview.save(PREVIEW / 'vanilla-inspired-gases-and-cell.png')
 preview = Image.new('RGB', (3 * 220, 190), '#282e36')
 d = ImageDraw.Draw(preview)

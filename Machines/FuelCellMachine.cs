@@ -13,8 +13,8 @@ internal static class FuelCellMachine
 
     public static GameItem Create(MachineDefinition definition)
     {
-        var fuel = new GameSlotInventory { identifier = "elem_fuel_slot" };
-        var oxidizer = new GameSlotInventory { identifier = "elem_oxidizer_slot" };
+        var fuel = new GameSlotInventory(2, 3) { identifier = "elem_fuel_slot" };
+        var oxidizer = new GameSlotInventory(2, 3) { identifier = "elem_oxidizer_slot" };
         var waterOutput = new GameSlotInventory { identifier = "elem_water_output_slot" };
         fuel.mayInventoryAddItemFunc = (item, _) => GasContainer.Is(item, "H2") && GeneralHelper.IsItemOwned(item);
         oxidizer.mayInventoryAddItemFunc = (item, _) => GasContainer.Is(item, "O2") && GeneralHelper.IsItemOwned(item);

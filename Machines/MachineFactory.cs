@@ -30,7 +30,6 @@ internal static class MachineFactory
         return definition.archetype switch
         {
             "fuel_cell" => FuelCellMachine.Create(definition),
-            "welder" => WelderMachine.Create(definition),
             _ => ProcessMachineFactory.Create(definition)
         };
     }

@@ -12,10 +12,10 @@ EXPECTED = {
     "elem_electrolysis_cell.png": (48, 48),
     "elem_hydrogen_fuel_cell.png": (16, 32),
     "elem_medicine_cabinet.png": (32, 32),
-    "elem_hydrogen_cylinder.png": (16, 32),
-    "elem_oxygen_cylinder.png": (16, 32),
-    "elem_nitrogen_cylinder.png": (16, 32),
-    "elem_chlorine_cylinder.png": (16, 32),
+    "elem_hydrogen_cylinder.png": (32, 48),
+    "elem_oxygen_cylinder.png": (32, 48),
+    "elem_nitrogen_cylinder.png": (32, 48),
+    "elem_chlorine_cylinder.png": (32, 48),
     "elem_iron_oxide.png": (48, 32),
     "elem_silica.png": (48, 32),
 }
@@ -72,8 +72,10 @@ for name, (w, h) in EXPECTED.items():
         status += "/NOSOURCE"
         failures.append(f"{name}: high-res source missing, wrong size, or does not reproduce runtime ({high_note})")
     # The game's mod-sprite shape loader samples the center of each 16x16 cell.
-    # Vanilla ore has a deliberate irregular occupied shape (four of six cells).
-    if name not in ("elem_iron_oxide.png", "elem_silica.png") and size_ok:
+    # Vanilla ore has an irregular shape; gas tanks set a full 2x3 shape in code
+    # because their valves do not fill both cells of the first row.
+    uses_explicit_shape = name in ("elem_iron_oxide.png", "elem_silica.png") or name.endswith("_cylinder.png")
+    if not uses_explicit_shape and size_ok:
         missing_cells = [(x // 16, y // 16) for y in range(8, h, 16) for x in range(8, w, 16)
                          if im.getpixel((x, y))[3] == 0]
         if missing_cells:
