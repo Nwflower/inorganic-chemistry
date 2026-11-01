@@ -105,7 +105,7 @@ def item_details(item):
     if item.get("legacyOnly"):
         details.append("仅为旧存档兼容；不再出售或由配方产出")
     if item.get("copySpriteFrom"):
-        details.append("沿用原版模组贴图")
+        details.append("沿用游戏原版物品贴图" if item.get("copySpriteFrom") == "water_tablet" else "沿用原版模组贴图")
     return details
 
 
