@@ -13,8 +13,9 @@ internal static class FuelCellMachine
 
     public static GameItem Create(MachineDefinition definition)
     {
-        var fuel = new GameSlotInventory(2, 3) { identifier = "elem_fuel_slot" };
-        var oxidizer = new GameSlotInventory(2, 3) { identifier = "elem_oxidizer_slot" };
+        // Both slots accept 16x48 gas bottles, so their empty footprint matches them.
+        var fuel = new GameSlotInventory(1, 3) { identifier = "elem_fuel_slot" };
+        var oxidizer = new GameSlotInventory(1, 3) { identifier = "elem_oxidizer_slot" };
         var waterOutput = new GameSlotInventory { identifier = "elem_water_output_slot" };
         fuel.mayInventoryAddItemFunc = (item, _) => GasContainer.Is(item, "H2") && GeneralHelper.IsItemOwned(item);
         oxidizer.mayInventoryAddItemFunc = (item, _) => GasContainer.Is(item, "O2") && GeneralHelper.IsItemOwned(item);
@@ -28,6 +29,12 @@ internal static class FuelCellMachine
             .SetName(Loc.Get("machine." + definition.id + ".name"));
         cell.shortDescription = Loc.Get("machine." + definition.id + ".desc");
         cell.SetSpriteAndShapeFromMod(Ids.ModId, definition.sprite);
+        SetFootprint(cell);
+        fuel.onSlotAddItemEndFunc += (_, _, _) => UpdateAppearance(cell);
+        fuel.onSlotRemoveItemEndFunc += (_, _, _) => UpdateAppearance(cell);
+        oxidizer.onSlotAddItemEndFunc += (_, _, _) => UpdateAppearance(cell);
+        oxidizer.onSlotRemoveItemEndFunc += (_, _, _) => UpdateAppearance(cell);
+        cell.onOneSecondItemFunc = (_, _, _) => UpdateAppearance(cell);
         cell.unitValue = definition.value;
         cell.EnableTag("CONTAINER_TAG", skipValidate: true);
         PowerHelper.InitPowerSourceItem(cell, 0, 0);
@@ -47,6 +54,24 @@ internal static class FuelCellMachine
 
     internal static bool IsCell(GameItem? item) => item != null && item.identifier == Ids.FuelCell;
     private static GameSlotInventory? Slot(GameItem cell, int index) => MachineHelper.GetBodyStorage(cell, index) as GameSlotInventory;
+
+    private static void SetFootprint(GameItem cell) =>
+        cell.SetShape(new GridShapeBuilder(4, 2).SetData(new byte[]
+        {
+            1, 1, 1, 1,
+            1, 1, 1, 1
+        }, 4));
+
+    private static void UpdateAppearance(GameItem cell)
+    {
+        bool hydrogen = GasContainer.Is(Slot(cell, 0)?.childItem, "H2");
+        bool oxygen = hydrogen && GasContainer.Is(Slot(cell, 1)?.childItem, "O2");
+        string sprite = Ids.FuelCell + (oxygen ? "_h2_o2" : hydrogen ? "_h2" : "");
+        if (cell.spritePath == sprite) return;
+        cell.SetSpriteAndShapeFromMod(Ids.ModId, sprite);
+        SetFootprint(cell);
+    }
+
     internal static int Reserve(GameItem cell) => Math.Max(0, cell.GetTagReadonly(ReserveTag).GetInt());
 
     internal static long AvailableEnergy(GameItem cell)
@@ -96,6 +121,7 @@ internal static class FuelCellMachine
             GasContainer.Consume(fuel, fuelGrams);
         }
         cell.ModifyTag(ReserveTag, s => s.Enable().SetInt(reserve));
+        UpdateAppearance(cell);
         return true;
     }
 
