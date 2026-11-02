@@ -9,10 +9,10 @@
 ## 内容
 
 **七个模块**
-Core（数据库、工厂、通用配方执行器、公共 API）、GasProduction（氢/氧/氮/氯气瓶、水电解、空气分离）、Energy（可插拔燃料能量电池）、Metallurgy（铁锈提取、熔炉化学模块、焦炭）、ChemicalProcessing（氯碱流程与无残净水片）、Electronics（硅砂到模组芯片）、WorldIntegration（掉落、化学家商店、起始方案、手册）。
+Core（数据库、工厂、通用配方执行器、公共 API）、GasProduction（氢/氧/氮/氯气瓶、水电解、空气分离）、Energy（可插拔燃料能量电池）、Metallurgy（铁锈提取、熔炉化学模块、焦炭）、ChemicalProcessing（氯碱流程与无残净水片）、Electronics（硅砂、硅提纯与模组装配）、WorldIntegration（掉落、化学家商店、起始方案、手册）。
 
 **规模**
-21 件数据物品、6 台设备（含燃料能量电池）、18 条配方，另有可生成的手册和每台机器自带的说明卡。
+20 件数据物品、6 台设备（含燃料能量电池）、17 条机器配方，另有盐、盐水、硝酸铵肥料和无残净水片四条原版制剂机成型路径，以及手册和设备说明卡。
 
 ## 玩法
 
@@ -23,21 +23,21 @@ Core（数据库、工厂、通用配方执行器、公共 API）、GasProductio
 电解器每晚基础耗电 12、耗水 1 升，产出 112 克氢和 888 克氧。空气分离机每晚基础耗电 6，产出 222 克氧和 778 克氮。效率改变耗电，性能提高每晚批次与处理水量，质量增加产氢量或产物估值。
 
 **燃料能量电池**
-1×2 的初级违禁品，插在机器电池槽里当电源。每 10 克氢供 1 点电，不足 10 克的部分留着下次用。装了氧气和产水容器时，每 1 克氢搭配 8 克氧产出 9 毫升纯水；容器没空间就只供电、氧气留下。它不能给充电机、装备或飞船电源架用。
+外形参考原版等离子电池的 4×2 初级违禁品，插在机器电池槽里当电源。外壳固定，内部贴图随空仓、装氢、氢氧齐备切换。每 10 克氢供 1 点电，不足 10 克的部分留着下次用。装了氧气和产水容器时，每 1 克氢搭配 8 克氧产出 9 毫升纯水；容器没空间就只供电、氧气留下。它不能给充电机、装备或飞船电源架用。
 
 **原版熔炉化学模块**
-装进原版熔炉后，熔炉接受氧化铁、焦炭、硅砂、硅和废料。焦炭在原版炼锭成功时提高一档纯度，可与原版助熔剂叠加；3 份废料耗电 8 变 2 份焦炭；2 份硅砂加 2 份焦炭耗电 16 炼出工业硅，再用焦炭在熔炉里逐档提纯。
+装进原版熔炉后，熔炉接受氧化铁、焦炭、硅砂、硅和废料，效率降低 50%（基础耗电 8 变 12），化学配方都按熔炉当前耗电结算。每份氧化铁直接炼成 1 个低纯金属锭，同时放入焦炭则产出高纯锭。焦炭在原版矿石炼锭成功时提高一档纯度，可与原版助熔剂叠加。6 份废料变 1 份焦炭；2 份硅砂加焦炭炼出工业硅，再用焦炭在熔炉里逐档提纯。
 
 **焦炭**
-能放进接受滤芯的水容器和水产设备，沿用原版滤芯耐久与颗粒过滤，并有限量吸附化学污染物的作用。它不杀菌。当熔炉助剂时整件消耗。
+耐久 100 的工具，不是滤芯。熔炉提纯每次扣 10，炼工业硅扣 20，硅提纯每档扣 5。拿它点一下盛水容器可吸附化学污染物和重金属，每点耐久吸附 2 毫升，吸走的部分补成水；它不杀菌。耐久用尽即消耗。
 
-**电子烧杯**
-负责气体反应、化学品合成和无残净水片压制。净水片沿用原版药片贴图与占格，作为净水用品和奢侈品出售；使用后以原版净化流程的双倍效力去除微生物与部分化学污染，不向水中添加氯。每批耗电列在设备说明卡里，气体用量按化学计量暂定。
+**气体合成与原版化工**
+气体合成器保留盐酸、氨、硝酸、双氧水和次氯酸钠剂五条需要气体输入的反应；氯碱电解在电解器完成。盐从含矿物质的液体中经原版制剂机提取，盐溶于水可分装盐水。氨与硝酸在原版容器中反应得到硝酸铵，经蒸发浓缩后制成肥料；含氯试剂可制成无残净水片。制剂机检查实际提取部分的组分，纯水不能冒充原料。
 
-盐由化学制剂制成机从含矿物质的液体中提取，品质随原料变化；直接掉落不再提供盐。
+盐酸、硝酸、烧碱、氨、硝酸铵、双氧水和次氯酸钠在游戏液体表中保持独立身份。硝酸铵给原版水培提供矿物营养，过量仍会伤害作物；双氧水逐步消毒并分解，次氯酸钠释出原版有效氯，遇酸则产生污染。无残净水片沿用原版图标，使用时以原版净化效果的双倍剂量去除微生物和部分化学污染。产量、浓度和反应速度采用游戏化数值，不宣称真实质量守恒。
 
-**芯片台**
-用 2 个电子元件和 2 个金属锭直接装配可安装的模组芯片。
+**模组装配台**
+每批基础耗电 10，至少放 1 个硅；电子元件、线缆、金属锭和打印塑料一并投入。按价值区间 [总价值 + 10，硅价值 ×4 + 其他材料价值 ×2 + 30] 随机出一个原版模组。价值偏高时先补「优质」词条、再提高基础属性，补不完就把最贵的材料留在输入格；价值偏低时向上取更贵的模组，差价越大越可能变成报废或损坏模组、带上破旧状态或多一条负面词条。
 
 **实验区与药品格**
 开局优先发放实验区：4×4 的金属架，内部 14×18 格主网格，下方有 12 个独立 2×2 药品格；收纳设备不会让机器停机。架子图标按主网格与药品格中的物品总数切换五种状态。每个药品格可放一种物品，定量化学品与药品可按同类堆叠至 99 件，原版药品保持单件。
@@ -73,6 +73,7 @@ Core（数据库、工厂、通用配方执行器、公共 API）、GasProductio
 - 多产物处理对空间不足和扣电失败做了回滚，但无法保证第三方回调或后续扣水、销毁、充电抛异常时所有副作用都能回滚。
 - 实验区不是停机开关：装在里面的通电机器可能照常夜间工作，整理前应取出电池和投入物。
 - 熔炉化学模块和燃料电池接入游戏运行时，游戏更新后需要重新检查补丁目标。
+- 燃料电池改成 4×2 后放进机器电池槽的显示与拖放手感尚未实机确认；液体反应每夜按原版容器温度 tick 推进，实际速率与提示刷新仍需在游戏里核对。
 - 每批 112 克氢理论可供电 11.2，按整数结算可发 11 点、留 2 克氢；5 批基础电解耗电 60、燃料电池可供电 56。原版基础效率模块会把电解耗电降至 11，5 批净多 1 点。配入产物氧气时 5 批可回收 4.995 升水；这些数字与模块组合的实际盈亏仍需实机核对。
 
 ## 构建与校验
@@ -108,21 +109,23 @@ A *Probably Stolen* mod that adds a data-driven inorganic chemistry chain: gas c
 
 Requires the full release of the game (runtime version 0.46D). In development; not yet verified in game.
 
-**Content** — 26 data items, 6 machines, 1 plug-in fuel cell and 22 recipes across seven modules (core, gas production, energy, metallurgy, chemical processing, electronics, world integration), plus a generated manual and an instruction card on every machine.
+**Content** — 20 data items, 6 devices including a fuel cell, and 17 machine recipes across seven modules. Four additional products are formed through the native chemical finisher: salt, brine, ammonium nitrate fertilizer and residue-free water tablets.
 
 **Gas** — cylinders carry `GAS_TYPE` and grams as their count; same gases merge when stacked, different gases never do. Efficiency changes power draw, performance increases batches and water throughput, quality adds hydrogen or raises product value.
 
-**Fuel cell** — a 1×2 low-grade contraband power source: 10 g hydrogen per 1 energy, remainders kept for later. With oxygen and a container it also turns 1 g hydrogen plus 8 g oxygen into 9 ml pure water.
+**Fuel cell** — a 4×2 low-grade contraband power source shaped like the vanilla plasma cell. Its shell stays fixed while the core indicates empty, hydrogen, or hydrogen plus oxygen. Ten grams of hydrogen supply 1 energy; remainders remain for later. With oxygen and a container, each reacted gram of hydrogen plus 8 g oxygen also returns 9 ml pure water.
 
-**Vanilla furnace** — with the chemistry module installed, the furnace accepts iron oxide, coke, silica, silicon and junk. Coke raises ingot purity by one step per successful vanilla smelt and stacks with vanilla flux.
+**Vanilla furnace** — with the chemistry module installed, the furnace accepts iron oxide, coke, silica, silicon and junk. The module costs 50% efficiency (8 base power becomes 12) and chemistry recipes pay the furnace's current draw. Each iron oxide becomes one low-purity ingot, or a high-purity one with coke. Coke raises vanilla ore ingots by one step and stacks with vanilla flux.
 
-**Silicon and electronics** — smelt silica with coke and refine it step by step in the furnace. The chip fabricator assembles module chips directly from electronics and ingots, and makes machine frames from ingots and steel sheets.
+**Coke** — a 100-durability tool, not a filter. Furnace boosts cost 10, industrial silicon 20 and each silicon refining step 5. Use it on a water container to adsorb chemical contaminants and heavy metals at 2 mL per point; it does not kill microbes.
+
+**Silicon and electronics** — smelt silica with coke and refine it step by step in the furnace. The module assembler spends at least one silicon plus any electronics, wire, ingots and printer plastic on one vanilla module whose value falls between total value + 10 and silicon × 4 + other materials × 2 + 30. Surplus buys a premium effect and higher base stats, otherwise the priciest material stays behind; a shortfall rolls the next module up and risks ruin, corruption, a shabby condition or a negative effect.
 
 **Shop and storage** — a separate night-time chemist counter and a 14×18 laboratory bay with 12 dedicated medicine slots below its main grid. Its icon reflects the combined item count; mod chemistry and medical items stack to 99 in these slots. Legacy standalone cabinets remain usable in existing saves but are no longer sold.
 
 **Limits** — gases are a lightweight model with no pressure, temperature, mixing or pipes; non-gas outputs need their own free cells; the mod is still in development and does not migrate old saves.
 
-**Salt** — extracted from mineral-bearing liquids by the vanilla chemical preparation machine and graded with the game's chemical purity feature.
+**Native chemistry** — the electrolyzer also splits packaged brine into chlorine, hydrogen and caustic soda. The sealed gas synthesizer handles five gas-input reactions. The vanilla container, evaporator and chemical finisher process salt, brine, ammonium nitrate fertilizer and residue-free tablets. Seven distinct liquid components preserve their identities; peroxide disinfects, hypochlorite releases native chlorine, and ammonium nitrate feeds hydroponics. Gameplay volumes and reaction rates are deliberately simplified.
 
 **Build** — `dotnet build ElementalIndustry.csproj -c Release`; output goes to `bin/` only. Enable the folder in the game's Mods menu and restart, then `F8` → `mod-scan elemental_industry`.
 
