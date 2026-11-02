@@ -42,6 +42,11 @@ for name in (
     EXPECTED[f"{name}.png"] = (48, 48)
 
 failures = []
+for machine in ("air_separator", "rust_extractor", "chip_fab"):
+    suffixes = ("_powered",) if machine == "air_separator" else ("_powered", "_loaded", "_powered_loaded")
+    for suffix in suffixes:
+        EXPECTED[f"elem_{machine}{suffix}.png"] = (48, 48)
+
 print(f"{'file':38} {'runtime':9} {'colors':6} {'alpha':6} {'high-res':14} status")
 for name, (w, h) in EXPECTED.items():
     path = TEX / name

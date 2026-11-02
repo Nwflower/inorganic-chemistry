@@ -1,4 +1,4 @@
-"""Deterministic native-grid bottles, fuel-cell states and shared laboratory rack."""
+"""Deterministic native-grid machines, bottles, fuel cells and laboratory rack."""
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -10,6 +10,8 @@ COMP = ROOT / "ArtSource" / "Items" / "components"
 REF = ROOT / "ArtSource" / "References" / "native"
 PREVIEW = ROOT / "ArtSource" / "Previews"
 WORKORDER = ROOT / "ArtSource" / "WorkOrders" / "completed" / "2026-11-01-native-fit"
+MACHINE_ART = ROOT / "ArtSource/WorkOrders/completed/2026-11-02-machine-redraw"
+MACHINES = ("air_separator", "rust_extractor", "chip_fab")
 REFINEMENTS = {
     "coke": (16, 16, 8),
     "brine": (16, 32, 10), "hydrogen_peroxide": (16, 16, 10),
@@ -40,8 +42,8 @@ def save(name, image):
     )
 
 
-def refine(name, width, height, colors):
-    source = Image.open(WORKORDER / (name + "-master.png")).convert("RGBA")
+def refine(name, width, height, colors, workorder=WORKORDER):
+    source = Image.open(workorder / (name + "-master.png")).convert("RGBA")
     alpha = source.getchannel("A").point(lambda value: 255 if value >= 128 else 0)
     bounds = alpha.getbbox()
     if bounds is None:
@@ -56,6 +58,52 @@ def refine(name, width, height, colors):
     image = Image.new("RGBA", (width, height))
     image.alpha_composite(source, ((width - source.width) // 2, (height - source.height) // 2))
     save("elem_" + name, image)
+
+
+def machines():
+    from refine_machine_states import variants
+    for name in MACHINES:
+        refine(name, 48, 48, 20, MACHINE_ART)
+        source = Image.open(TEX / ("elem_" + name + ".png")).convert("RGBA")
+        for suffix, state in variants(name, source).items():
+            save("elem_" + name + suffix, state)
+    states = Image.new("RGBA", (4 * 210, 3 * 230), "#282e36")
+    state_draw = ImageDraw.Draw(states)
+    for row, name in enumerate(MACHINES):
+        for col, suffix in enumerate(("", "_powered", "_loaded", "_powered_loaded")):
+            if name == "air_separator" and col > 1:
+                continue
+            im = Image.open(TEX / ("elem_" + name + suffix + ".png")).convert("RGBA")
+            state_draw.text((col * 210 + 8, row * 230 + 8), name + (suffix or "_empty_off"), fill="#e3dfcb")
+            states.alpha_composite(im.resize((192, 192), Image.Resampling.NEAREST), (col * 210 + 8, row * 230 + 30))
+    states.convert("RGB").save(PREVIEW / "machine-state-variants.png")
+    air = Image.new("RGBA", (3 * 224, 310), "#282e36")
+    air_draw = ImageDraw.Draw(air)
+    for col, (label, path) in enumerate((
+        ("BEFORE", MACHINE_ART / "air_separator-detail-before.png"),
+        ("SIMPLIFIED / OFF", TEX / "elem_air_separator.png"),
+        ("SIMPLIFIED / POWERED", TEX / "elem_air_separator_powered.png"),
+    )):
+        im = Image.open(path).convert("RGBA")
+        air_draw.text((col * 224 + 16, 12), label, fill="#e3dfcb")
+        air.alpha_composite(im.resize((192, 192), Image.Resampling.NEAREST), (col * 224 + 16, 36))
+        air.alpha_composite(im, (col * 224 + 88, 250))
+    air.convert("RGB").save(PREVIEW / "air-separator-simplified.png")
+    # Show the actual shipped pixels, including a 1:1 row for readability.
+    sheet = Image.new("RGBA", (720, 580), "#282e36")
+    draw = ImageDraw.Draw(sheet)
+    for index, name in enumerate(MACHINES):
+        x = index * 240
+        draw.text((x + 12, 10), name, fill="#e3dfcb")
+        before = Image.open(MACHINE_ART / (name + "-before.png")).convert("RGBA")
+        after = Image.open(TEX / ("elem_" + name + ".png")).convert("RGBA")
+        draw.text((x + 12, 32), "BEFORE / 4x", fill="#aeb5b4")
+        sheet.alpha_composite(before.resize((192, 192), Image.Resampling.NEAREST), (x + 24, 50))
+        draw.text((x + 12, 258), "AFTER / 4x", fill="#aeb5b4")
+        sheet.alpha_composite(after.resize((192, 192), Image.Resampling.NEAREST), (x + 24, 276))
+        draw.text((x + 12, 490), "AFTER / 1x", fill="#aeb5b4")
+        sheet.alpha_composite(after, (x + 96, 516))
+    sheet.convert("RGB").save(PREVIEW / "machine-redraw-comparison.png")
 
 
 def bottle(formula, band, highlight):
@@ -111,23 +159,39 @@ def fuel_cell(state):
     return image
 
 
-def beaker(x, bottom, color, neck=False):
-    image = Image.new("RGBA", (64, 64))
-    d = ImageDraw.Draw(image)
-    top = bottom - (16 if neck else 13)
-    edge = "#393345"
-    if neck:
-        d.rectangle((x + 5, top, x + 9, top + 4), fill="#c5c6be", outline=edge)
-        d.polygon(((x + 5, top + 4), (x + 9, top + 4), (x + 14, bottom - 2),
-                   (x + 12, bottom), (x + 2, bottom), (x, bottom - 2)),
-                  fill="#858b95", outline=edge)
-    else:
-        d.rectangle((x + 2, top, x + 12, bottom), fill="#858b95", outline=edge)
-        d.rectangle((x + 1, top, x + 13, top + 1), fill="#b5bbc0", outline=edge)
-    d.rectangle((x + 3, bottom - 7, x + 11, bottom - 2), fill=color)
-    d.line((x + 4, bottom - 8, x + 4, bottom - 3), fill="#ced2c9")
-    d.line((x + 3, bottom - 1, x + 11, bottom - 1), fill=edge)
-    return image
+# These masters were drawn against the supplied detailed rack reference. Keep
+# the four vessels separate: count changes must not move or redraw the frame.
+RACK_ART = ROOT / "ArtSource/WorkOrders/completed/2026-11-02-rack-glassware"
+RACK_VESSELS = (
+    ("amber_flask", 35, 26, 18, 24, ("#ba713a", "#914421", "#ce9353")),
+    ("red_round_flask", 11, 52, 18, 19, ("#923c3d", "#69272f", "#b15c50")),
+    ("blue_beaker", 36, 52, 18, 17, ("#326990", "#234767", "#5787a8")),
+    ("teal_cylinder", 15, 26, 8, 22, ("#467e83", "#2c535f", "#71a1a1")),
+)
+
+
+def beaker(base, name, x, bottom, width, height, liquid_colors):
+    source = Image.open(RACK_ART / (name + ".png")).convert("RGBA")
+    alpha = source.getchannel("A").point(lambda value: 255 if value >= 128 else 0)
+    source.putalpha(alpha)
+    source = source.crop(alpha.getbbox())
+    # Normalize to the designed tiny silhouette; generated master aspect ratios
+    # vary and must not turn the round flask or graduated cylinder into a sliver.
+    source = source.resize((width, height), Image.Resampling.NEAREST)
+    # Share all metal/glass shades with the existing rack and allow only three
+    # extra colours per liquid; the complete rack stays within the 32-colour cap.
+    colors = sorted({p[:3] for p in base.getdata() if p[3]})
+    colors += [(218, 216, 194), (174, 182, 177)]
+    colors += [tuple(bytes.fromhex(value[1:])) for value in liquid_colors]
+    palette = Image.new("P", (1, 1))
+    palette.putpalette([channel for color in colors for channel in color] +
+                       list(colors[0]) * (256 - len(colors)))
+    alpha = source.getchannel("A")
+    source = source.convert("RGB").quantize(palette=palette, dither=Image.Dither.NONE).convert("RGBA")
+    source.putalpha(alpha)
+    layer = Image.new("RGBA", base.size)
+    layer.alpha_composite(source, (x + (width - source.width) // 2, bottom + 1 - source.height))
+    return layer
 
 
 def rack():
@@ -136,10 +200,7 @@ def rack():
     base = Image.open(master if master.exists() else TEX / "elem_laboratory_bay.png").convert("RGBA")
     if not master.exists():
         base.save(master)
-    contents = [beaker(30, 24, "#a3754f", True),
-                beaker(12, 49, "#a45a4c", True),
-                beaker(34, 49, "#597b89"),
-                beaker(12, 24, "#617e8b")]
+    contents = [beaker(base, *vessel) for vessel in RACK_VESSELS]
     for i, content in enumerate(contents, 1):
         content.save(COMP / f"laboratory_beaker_{i}.png")
     for state in range(5):
@@ -151,6 +212,7 @@ def rack():
 
 def generate():
     COMP.mkdir(parents=True, exist_ok=True)
+    machines()
     for name, (width, height, colors) in REFINEMENTS.items():
         refine(name, width, height, colors)
     for gas, (formula, band, highlight) in GASES.items():
@@ -178,4 +240,16 @@ def generate():
 
 
 if __name__ == "__main__":
-    generate()
+    import sys
+    if "--machines-only" in sys.argv:
+        machines()
+    elif "--rack-only" in sys.argv:
+        rack()
+        lab = Image.new("RGBA", (5 * 200, 246), "#282e36")
+        for state in range(5):
+            name = "elem_laboratory_bay" + ("_" + str(state) if state else "")
+            image = Image.open(TEX / (name + ".png")).convert("RGBA")
+            lab.alpha_composite(image.resize((192, 192), Image.Resampling.NEAREST), (state * 200 + 4, 34))
+        lab.convert("RGB").save(PREVIEW / "laboratory-rack-state-variants.png")
+    else:
+        generate()
