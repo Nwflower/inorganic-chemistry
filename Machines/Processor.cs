@@ -47,6 +47,10 @@ internal static class Processor
     {
         foreach (RecipeDefinition recipe in ContentDatabase.RecipesFor(machine.id))
         {
+            if (recipe.valueRoll != null && ModuleAssembly.IsMaterial(recipe.valueRoll, item))
+            {
+                return true;
+            }
             foreach (ItemAmountDefinition input in recipe.inputs)
             {
                 if (Matches(input, item))
@@ -62,7 +66,9 @@ internal static class Processor
     {
         foreach (RecipeDefinition recipe in ContentDatabase.RecipesFor(machine.id))
         {
-            if (recipe.outputs.Any(output => string.Equals(output.id, item.identifier, StringComparison.Ordinal)))
+            if (recipe.outputs.Any(output => string.Equals(output.id, item.identifier, StringComparison.Ordinal) ||
+                    output.roll.Any(entry => string.Equals(entry.id, item.identifier, StringComparison.Ordinal))) ||
+                (recipe.valueRoll != null && ModuleAssembly.IsPenaltyOutput(item)))
             {
                 return true;
             }
@@ -149,9 +155,14 @@ internal static class Processor
         GameGridInventory outputGrid,
         GameGridInventory moduleGrid)
     {
+        if (recipe.valueRoll != null)
+        {
+            return ModuleAssembly.TryRun(machine, machineDefinition, recipe, batterySlot, inputGrid, outputGrid, moduleGrid);
+        }
         List<GameItem> pool = MachineFactory.Items(inputGrid);
         var consumed = new Dictionary<GameItem, int>();
-        if (!TryMatchInputs(recipe, pool, consumed))
+        var wear = new Dictionary<GameItem, int>();
+        if (!TryMatchInputs(recipe, pool, consumed, wear))
         {
             return ProcessFailure.MissingInputs;
         }
@@ -174,12 +185,9 @@ internal static class Processor
             }
         }
 
-        int basePower = Math.Max(1, machineDefinition.power);
-        int recipePower = recipe.power > 0 ? recipe.power : basePower;
-        int currentPower = Math.Max(1, MachineryHelper.GetMachinePowerUsage(machine));
-        int power = Math.Max(1, recipePower * currentPower / basePower);
+        int power = RecipePower(machine, machineDefinition, recipe);
         GameItem? battery = batterySlot.childItem;
-        if (power > 0 && (battery == null || battery.unitCount != 1 || !PowerHelper.CanDrawPowerSource(battery, power)))
+        if (!CanDraw(battery, power))
         {
             return ProcessFailure.MissingPower;
         }
@@ -234,6 +242,7 @@ internal static class Processor
         }
 
         ConsumeInputs(consumed);
+        foreach (KeyValuePair<GameItem, int> entry in wear) Wear(entry.Key, entry.Value);
         ConsumeWater(water, recipe, waterRequired);
 
         if (machineDefinition.moduleBay)
@@ -241,6 +250,25 @@ internal static class Processor
             MachineHelper.OnMachineActioned(machine, moduleGrid);
         }
         return ProcessFailure.None;
+    }
+
+    /// <summary>Recipe power scaled by the machine's current draw, so efficiency modules apply.</summary>
+    internal static int RecipePower(GameItem machine, MachineDefinition machineDefinition, RecipeDefinition recipe)
+    {
+        int basePower = Math.Max(1, machineDefinition.power);
+        int recipePower = recipe.power > 0 ? recipe.power : basePower;
+        int currentPower = Math.Max(1, MachineryHelper.GetMachinePowerUsage(machine));
+        return Math.Max(1, recipePower * currentPower / basePower);
+    }
+
+    internal static bool CanDraw(GameItem? battery, int power)
+        => power <= 0 || (battery != null && battery.unitCount == 1 && PowerHelper.CanDrawPowerSource(battery, power));
+
+    /// <summary>Spends durability; a tool worn down to zero is used up.</summary>
+    internal static void Wear(GameItem item, int amount)
+    {
+        DurabilityHelper.ChangeDurability(item, -amount);
+        if (DurabilityHelper.GetRealDurability(item) <= 0) item.Destroy();
     }
 
     // Gas stacks use whole grams. Round each scaled output to the nearest gram.
@@ -254,10 +282,20 @@ internal static class Processor
     private static bool TryMatchInputs(
         RecipeDefinition recipe,
         List<GameItem> pool,
-        Dictionary<GameItem, int> consumed)
+        Dictionary<GameItem, int> consumed,
+        Dictionary<GameItem, int> wear)
     {
         foreach (ItemAmountDefinition input in recipe.inputs)
         {
+            if (input.durability > 0)
+            {
+                // A tool input wears one item instead of consuming units from the pool.
+                GameItem? tool = pool.FirstOrDefault(item => !consumed.ContainsKey(item) && !wear.ContainsKey(item) &&
+                    Matches(input, item) && DurabilityHelper.GetRealDurability(item) >= input.durability);
+                if (tool == null) return false;
+                wear[tool] = input.durability;
+                continue;
+            }
             int needed = Math.Max(1, input.count);
             foreach (GameItem item in pool)
             {
@@ -267,7 +305,7 @@ internal static class Processor
                 }
                 int alreadyUsed = consumed.TryGetValue(item, out int used) ? used : 0;
                 int available = item.unitCount - alreadyUsed;
-                if (available <= 0 || !Matches(input, item))
+                if (available <= 0 || wear.ContainsKey(item) || !Matches(input, item))
                 {
                     continue;
                 }
@@ -373,8 +411,33 @@ internal static class Processor
         SpriteHelper.UpdateWaterContainerSprite(water);
     }
 
+    /// <summary>Weighted pick; RNG.GetRandomInt is inclusive on both ends.</summary>
+    internal static RollEntryDefinition Roll(RollEntryDefinition[] pool)
+    {
+        int ticket = RNG.GetRandomInt(1, pool.Sum(entry => entry.weight));
+        foreach (RollEntryDefinition entry in pool)
+        {
+            ticket -= entry.weight;
+            if (ticket <= 0) return entry;
+        }
+        return pool[pool.Length - 1];
+    }
+
     private static GameItem? TryCreateOutput(OutputAmountDefinition output, GameItem machine, bool applyProductQuality = true)
     {
+        if (output.roll.Length > 0)
+        {
+            // Native random_* keys go through the prebuilt table, which rolls the module
+            // shape and effects; plain ids fall through to DirectoryMaster.
+            GameItem rolled = ItemSpawner.Spawn(Roll(output.roll).spawn);
+            if (rolled == null) return null;
+            if (rolled.spriteAtlasPath == "Items/itematlas" && rolled.spritePath == "unknown")
+            {
+                rolled.Destroy();
+                return null;
+            }
+            return rolled;
+        }
         // DirectoryMaster assigns ownership and a unique id. Creating mod items via
         // ItemFactory directly bypasses both, making outputs unusable in owned-only slots.
         GameItem item = DirectoryMaster.Item(output.id);
