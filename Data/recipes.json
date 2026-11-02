@@ -62,26 +62,63 @@
       ]
     },
     {
+      "id": "iron_from_oxide_coke",
+      "machine": "furnace",
+      "inputs": [
+        {
+          "id": "elem_iron_oxide",
+          "count": 1
+        },
+        {
+          "id": "elem_coke",
+          "count": 1,
+          "durability": 10
+        }
+      ],
+      "outputs": [
+        {
+          "id": "metal_ingot",
+          "count": 1,
+          "purity": "INGOT_PURITY_HIGH"
+        }
+      ]
+    },
+    {
+      "id": "iron_from_oxide",
+      "machine": "furnace",
+      "inputs": [
+        {
+          "id": "elem_iron_oxide",
+          "count": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "metal_ingot",
+          "count": 1,
+          "purity": "INGOT_PURITY_LOW"
+        }
+      ]
+    },
+    {
       "id": "coke_from_junk",
       "machine": "furnace",
-      "power": 8,
       "inputs": [
         {
           "id": "junk",
-          "count": 3
+          "count": 6
         }
       ],
       "outputs": [
         {
           "id": "elem_coke",
-          "count": 2
+          "count": 1
         }
       ]
     },
     {
       "id": "industrial_silicon",
       "machine": "furnace",
-      "power": 16,
       "inputs": [
         {
           "id": "elem_silica",
@@ -89,7 +126,8 @@
         },
         {
           "id": "elem_coke",
-          "count": 2
+          "count": 1,
+          "durability": 20
         }
       ],
       "outputs": [
@@ -103,7 +141,6 @@
     {
       "id": "refine_silicon_fair",
       "machine": "furnace",
-      "power": 12,
       "inputs": [
         {
           "id": "elem_silicon",
@@ -113,7 +150,8 @@
         },
         {
           "id": "elem_coke",
-          "count": 1
+          "count": 1,
+          "durability": 5
         }
       ],
       "outputs": [
@@ -127,7 +165,6 @@
     {
       "id": "refine_silicon_high",
       "machine": "furnace",
-      "power": 12,
       "inputs": [
         {
           "id": "elem_silicon",
@@ -136,7 +173,8 @@
         },
         {
           "id": "elem_coke",
-          "count": 1
+          "count": 1,
+          "durability": 5
         }
       ],
       "outputs": [
@@ -148,26 +186,8 @@
       ]
     },
     {
-      "id": "brine_from_salt",
-      "machine": "elem_chemical_reactor",
-      "power": 4,
-      "water": 1000000,
-      "inputs": [
-        {
-          "id": "elem_salt",
-          "count": 2
-        }
-      ],
-      "outputs": [
-        {
-          "id": "elem_brine",
-          "count": 2
-        }
-      ]
-    },
-    {
       "id": "chlor_alkali",
-      "machine": "elem_chemical_reactor",
+      "machine": "elem_electrolysis_cell",
       "power": 12,
       "inputs": [
         {
@@ -255,27 +275,6 @@
       ]
     },
     {
-      "id": "fertilizer",
-      "machine": "elem_chemical_reactor",
-      "power": 6,
-      "inputs": [
-        {
-          "id": "elem_ammonia",
-          "count": 1
-        },
-        {
-          "id": "elem_nitric_acid",
-          "count": 1
-        }
-      ],
-      "outputs": [
-        {
-          "id": "elem_fertilizer",
-          "count": 1
-        }
-      ]
-    },
-    {
       "id": "hydrogen_peroxide",
       "machine": "elem_chemical_reactor",
       "power": 8,
@@ -319,43 +318,85 @@
       ]
     },
     {
-      "id": "water_tablets",
-      "machine": "elem_chemical_reactor",
-      "power": 4,
-      "water": 500000,
-      "inputs": [
-        {
-          "id": "elem_bleaching_powder",
-          "count": 1
-        }
-      ],
-      "outputs": [
-        {
-          "id": "elem_pure_water_tablet",
-          "count": 4
-        }
-      ]
-    },
-    {
-      "id": "mod_chip",
+      "id": "module_assembly",
       "machine": "elem_chip_fab",
       "power": 10,
       "inputs": [
         {
-          "id": "common_electronic",
-          "count": 2
-        },
-        {
-          "id": "metal_ingot",
-          "count": 2
+          "id": "elem_silicon",
+          "count": 1
         }
       ],
       "outputs": [
         {
-          "id": "elem_mod_chip",
-          "count": 1
+          "count": 1,
+          "roll": [
+            {
+              "spawn": "random_performance_module",
+              "id": "system_module_performance",
+              "weight": 2,
+              "value": 70
+            },
+            {
+              "spawn": "random_efficiency_module",
+              "id": "system_module_efficiancy",
+              "weight": 2,
+              "value": 70
+            },
+            {
+              "spawn": "random_quality_module",
+              "id": "system_module_quality",
+              "weight": 2,
+              "value": 70
+            },
+            {
+              "spawn": "random_overclock_module",
+              "id": "system_module_overclock",
+              "weight": 2,
+              "value": 100
+            },
+            {
+              "spawn": "random_eco_module",
+              "id": "system_module_eco",
+              "weight": 2,
+              "value": 100
+            },
+            {
+              "spawn": "random_fineness_module",
+              "id": "system_module_fineness",
+              "weight": 2,
+              "value": 100
+            },
+            {
+              "spawn": "system_module_streamlining",
+              "id": "system_module_streamlining",
+              "weight": 2,
+              "value": 125
+            },
+            {
+              "spawn": "system_capped_neural_core",
+              "id": "system_capped_neural_core",
+              "weight": 1,
+              "value": 250
+            }
+          ]
         }
-      ]
+      ],
+      "valueRoll": {
+        "key": "elem_silicon",
+        "materials": [
+          "elem_silicon",
+          "common_electronic",
+          "wire",
+          "metal_ingot",
+          "printer_plastic"
+        ],
+        "keyMultiplier": 4,
+        "otherMultiplier": 2,
+        "floorBonus": 10,
+        "ceilingBonus": 30,
+        "maxStatBonus": 50
+      }
     }
   ]
 }

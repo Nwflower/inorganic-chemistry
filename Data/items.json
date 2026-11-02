@@ -41,7 +41,7 @@
       "id": "elem_chlorine_cylinder",
       "module": "ChemicalProcessing",
       "sprite": "elem_chlorine_cylinder",
-      "value": 90,
+      "value": 60,
       "itemTypes": [
         "MATERIAL",
         "BASIC_MATERIAL"
@@ -71,7 +71,7 @@
       "id": "elem_coke",
       "module": "Metallurgy",
       "sprite": "elem_coke",
-      "value": 20,
+      "value": 100,
       "itemTypes": [
         "MATERIAL",
         "BASIC_MATERIAL"
@@ -93,7 +93,13 @@
       ],
       "tags": [
         "ELEM_SALT"
-      ]
+      ],
+      "finisherIngredient": "mineral",
+      "finisherVolume": 1000,
+      "finisherMinIngredient": 500,
+      "finisherMinWater": 0,
+      "finisherDry": true,
+      "soluble": true
     },
     {
       "id": "elem_brine",
@@ -107,7 +113,16 @@
       "tags": [
         "ELEM_BRINE"
       ],
-      "canSpawnInLoot": true
+      "canSpawnInLoot": true,
+      "finisherIngredient": "mineral",
+      "finisherVolume": 500000,
+      "finisherMinIngredient": 1000,
+      "finisherMinWater": 400000,
+      "finisherDry": false,
+      "chemLiquid": "mineral",
+      "chemML": 2,
+      "chemWaterML": 498,
+      "soluble": true
     },
     {
       "id": "elem_sodium_hydroxide",
@@ -123,7 +138,7 @@
       "hazards": [
         "CORROSIVE"
       ],
-      "chemLiquid": "base",
+      "chemLiquid": "elem_sodium_hydroxide",
       "chemML": 1000,
       "soluble": true
     },
@@ -141,7 +156,7 @@
       "hazards": [
         "CORROSIVE"
       ],
-      "chemLiquid": "acid",
+      "chemLiquid": "elem_hydrochloric_acid",
       "chemML": 1000,
       "soluble": true
     },
@@ -159,7 +174,7 @@
       "hazards": [
         "TOXIC"
       ],
-      "chemLiquid": "base",
+      "chemLiquid": "elem_ammonia",
       "chemML": 1000,
       "soluble": true
     },
@@ -167,7 +182,7 @@
       "id": "elem_nitric_acid",
       "module": "ChemicalProcessing",
       "sprite": "elem_nitric_acid",
-      "value": 75,
+      "value": 110,
       "itemTypes": [
         "CHEMICAL_SUPPLIES"
       ],
@@ -178,7 +193,7 @@
         "CORROSIVE",
         "TOXIC"
       ],
-      "chemLiquid": "acid",
+      "chemLiquid": "elem_nitric_acid",
       "chemML": 1000,
       "soluble": true
     },
@@ -186,7 +201,7 @@
       "id": "elem_fertilizer",
       "module": "ChemicalProcessing",
       "sprite": "elem_fertilizer",
-      "value": 80,
+      "value": 95,
       "itemTypes": [
         "CHEMICAL_SUPPLIES",
         "FARMING_SUPPLIES"
@@ -194,22 +209,29 @@
       "tags": [
         "ELEM_FERTILIZER"
       ],
-      "chemLiquid": "mineral",
+      "chemLiquid": "elem_ammonium_nitrate",
       "chemML": 1000,
-      "soluble": true
+      "soluble": true,
+      "finisherIngredient": "elem_ammonium_nitrate",
+      "finisherVolume": 1000000,
+      "finisherMinIngredient": 500000,
+      "finisherMinWater": 0,
+      "finisherDry": true,
+      "chemicalProductIngredient": "elem_ammonium_nitrate"
     },
     {
       "id": "elem_hydrogen_peroxide",
       "module": "ChemicalProcessing",
       "sprite": "elem_hydrogen_peroxide",
-      "value": 60,
+      "value": 38,
       "itemTypes": [
-        "CHEMICAL_SUPPLIES"
+        "CHEMICAL_SUPPLIES",
+        "WATER_PURIFICATION_SUPPLY"
       ],
       "tags": [
         "ELEM_DISINFECTANT"
       ],
-      "chemLiquid": "water",
+      "chemLiquid": "elem_hydrogen_peroxide",
       "chemML": 1000,
       "soluble": true
     },
@@ -227,7 +249,7 @@
       "hazards": [
         "CORROSIVE"
       ],
-      "chemLiquid": "chlorine",
+      "chemLiquid": "elem_hypochlorite",
       "chemML": 500,
       "soluble": true
     },
@@ -235,7 +257,7 @@
       "id": "elem_pure_water_tablet",
       "module": "ChemicalProcessing",
       "copySpriteFrom": "water_tablet",
-      "value": 35,
+      "value": 18,
       "itemTypes": [
         "HOUSEHOLD_GOOD",
         "WATER_PURIFICATION_SUPPLY",
@@ -244,13 +266,18 @@
       "tags": [
         "ELEM_PURE_WATER_TABLET",
         "WATER_PURIFICATION_TABLET"
-      ]
+      ],
+      "finisherIngredient": "elem_hypochlorite",
+      "finisherVolume": 125000,
+      "finisherMinIngredient": 112500,
+      "finisherMinWater": 0,
+      "finisherDry": true
     },
     {
       "id": "elem_silica",
       "module": "Electronics",
       "sprite": "elem_silica",
-      "value": 22,
+      "value": 12,
       "itemTypes": [
         "MATERIAL",
         "BASIC_MATERIAL"
@@ -273,20 +300,6 @@
         "ELEM_SILICON"
       ],
       "ingot": true
-    },
-    {
-      "id": "elem_mod_chip",
-      "module": "Electronics",
-      "sprite": "elem_mod_chip",
-      "value": 650,
-      "itemTypes": [
-        "MODULE"
-      ],
-      "tags": [
-        "MODULE_TAG",
-        "MODULE_TYPE_UNIVERSAL",
-        "ELEM_MOD_CHIP"
-      ]
     },
     {
       "id": "elem_laboratory_bay",

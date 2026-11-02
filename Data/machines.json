@@ -10,12 +10,13 @@
       "efficiencyRatio": 2,
       "inputWidth": 2,
       "inputHeight": 2,
-      "outputWidth": 4,
+      "outputWidth": 5,
       "outputHeight": 3,
       "waterSlot": true,
       "batterySlot": true,
       "moduleBay": true,
       "recipeIds": [
+        "chlor_alkali",
         "elec_water"
       ]
     },
@@ -86,15 +87,11 @@
       "batterySlot": true,
       "moduleBay": true,
       "recipeIds": [
-        "brine_from_salt",
-        "chlor_alkali",
         "hydrochloric_acid",
         "ammonia_synthesis",
         "nitric_acid",
-        "fertilizer",
         "hydrogen_peroxide",
-        "bleaching_powder",
-        "water_tablets"
+        "bleaching_powder"
       ]
     },
     {
@@ -103,7 +100,7 @@
       "archetype": "processor",
       "sprite": "elem_chip_fab",
       "value": 1600,
-      "power": 12,
+      "power": 10,
       "inputWidth": 9,
       "inputHeight": 6,
       "outputWidth": 3,
@@ -111,7 +108,7 @@
       "batterySlot": true,
       "moduleBay": true,
       "recipeIds": [
-        "mod_chip"
+        "module_assembly"
       ]
     }
   ]
