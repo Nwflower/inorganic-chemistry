@@ -36,10 +36,6 @@ public sealed class ModEntry : IMod
 
         _harmony = new Harmony("elemental_industry.gameplay");
         ApplyPatches();
-        DeferredPatchRunner.Schedule("ElementalIndustry.CokeFilter", () =>
-        {
-            if (_hooked && _harmony != null) FurnaceChemistry.CokeFilterPatch.Apply(_harmony);
-        });
 
         ModHook.OnModItemDirectoryInit += OnModItemDirectoryInit;
         ModHook.OnCreateTooltipLate += OnCreateTooltipLate;
@@ -102,9 +98,13 @@ public sealed class ModEntry : IMod
         ModHelper.RemoveDebugFunctions(Ids.ModId);
         ModHelper.RemoveStartingScenarios(Ids.ModId);
         ModHelper.RemovePaperBooks(Ids.ModId);
+        NativeChemicalProducts.Unregister();
+        InorganicLiquids.Unregister();
         _harmony?.UnpatchAll("elemental_industry.gameplay");
         _harmony = null;
         _ready = false;
+        _factoriesRegistered = false;
+        _pendingDirectory = null;
         _log?.Log("Disabled.");
     }
 
@@ -160,6 +160,7 @@ public sealed class ModEntry : IMod
         {
             return;
         }
+        if (_harmony != null) InorganicLiquids.Register(_harmony);
         _factoriesRegistered = true;
 
         int items = 0;
@@ -190,7 +191,7 @@ public sealed class ModEntry : IMod
             machines++;
         }
 
-        SaltExtraction.RegisterVanillaChemicalFinisherRecipe();
+        if (_harmony != null) NativeChemicalProducts.Register(_harmony);
 
         _log?.Log($"Registered {items} item and {machines} machine factories.");
     }
@@ -248,6 +249,10 @@ public sealed class ModEntry : IMod
             AddChemLine(builder, item, "chlorine", Loc.Get("chem.chlorine"));
             AddChemLine(builder, item, "mineral", Loc.Get("chem.mineral"));
             AddChemLine(builder, item, "water", Loc.Get("chem.water"));
+            foreach (string liquid in new[] { InorganicReactions.Hcl, InorganicReactions.Nitric,
+                InorganicReactions.Caustic, InorganicReactions.Ammonia, InorganicReactions.Nitrate,
+                InorganicReactions.Peroxide, InorganicReactions.Hypochlorite })
+                AddChemLine(builder, item, liquid, Loc.Get("liquid." + liquid));
         }
 
         foreach (string hazard in new[] { "TOXIC", "CORROSIVE", "FLAMMABLE", "RADIOACTIVE" })

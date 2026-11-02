@@ -9,6 +9,8 @@ namespace ElementalIndustry;
 internal static class FurnaceChemistry
 {
     internal const string ModuleId = "elem_furnace_chem_module";
+    /// <summary>Raises the furnace's 8 base power to 12; furnace recipes pay the current draw.</summary>
+    internal const int ModuleEfficiency = -50;
 
     private static bool HasModule(GameInventory modules) =>
         GraphUtils.FindAllChildrenType<GameItem>(modules).Any(item => item.identifier == ModuleId);
@@ -54,30 +56,20 @@ internal static class FurnaceChemistry
                 {
                     output.mayInventoryAddItemFunc = outputFilter;
                 }
-                var contents = GraphUtils.FindAllChildrenType<GameItem>(input);
-                var oxide = contents.Where(x => x.identifier == "elem_iron_oxide").ToList();
-                GameItem? coke = contents.FirstOrDefault(x => x.identifier == "elem_coke");
+                // Iron oxide smelts 1:1 through the mod recipes above; the native cycle
+                // only sees vanilla ore and scrap, with coke as an optional purity boost.
+                GameItem? coke = GraphUtils.FindAllChildrenType<GameItem>(input).FirstOrDefault(x =>
+                    x.identifier == Coke.ItemId && DurabilityHelper.GetRealDurability(x) >= Coke.FurnaceBoostWear);
                 var beforeOutput = new HashSet<GameItem>(GraphUtils.FindAllChildrenType<GameItem>(output));
-                try
-                {
-                    // The native furnace selects ore by ID. Temporarily present oxide as
-                    // common ore so the native input, power, module and output rules apply.
-                    foreach (GameItem ore in oxide) ore.identifier = "common_ore";
-                    originalCycle?.Invoke(item, inventory, slot);
-                    if (coke != null && BoostProducedIngots(output, beforeOutput) > 0) GasContainer.Consume(coke);
-                }
-                finally
-                {
-                    foreach (GameItem ore in oxide)
-                        if (ore is not GameItemElement element || !element.IsDestroyed()) ore.identifier = "elem_iron_oxide";
-                }
+                originalCycle?.Invoke(item, inventory, slot);
+                if (coke != null && BoostProducedIngots(output, beforeOutput) > 0) Processor.Wear(coke, Coke.FurnaceBoostWear);
             };
         }
     }
 
     /// <summary>
     /// Coke raises the ingot one purity grade above what the native furnace computed, and the
-    /// number of boosted ingots decides whether a coke is consumed.
+    /// number of boosted ingots decides whether the coke is worn.
     /// <para>
     /// This deliberately does not patch <see cref="IngotPurityHelper"/>: that type builds its
     /// static <c>ingotPurities</c> table (including the localized <c>ItemCondition.display</c>
@@ -99,35 +91,5 @@ internal static class FurnaceChemistry
                 IngotPurityHelper.GetPurityConst(IngotPurityHelper.GetPurity(ingot), 1));
         }
         return produced;
-    }
-
-    /// <summary>
-    /// 可乐作为有限耐久的水过滤材料。
-    /// <para>
-    /// 这里刻意<strong>不</strong>加 <c>[HarmonyPatch]</c>：加载器在 <c>ModLoader.Awake</c> 阶段
-    /// 会对整个模组程序集 <c>PatchAll</c>，而 JIT <see cref="WaterHelper.HandleFilter"/> 会提前执行
-    /// <c>Liquid</c> 的静态构造——那时 locale 还是默认 en，液体显示名会被固化成英文并随存档保存。
-    /// 因此改由 <see cref="ModEntry"/> 在语言就绪后手动装配。
-    /// </para>
-    /// </summary>
-    internal static class CokeFilterPatch
-    {
-        internal static void Apply(Harmony harmony)
-        {
-            harmony.Patch(
-                AccessTools.Method(typeof(WaterHelper), nameof(WaterHelper.HandleFilter)),
-                postfix: new HarmonyMethod(typeof(CokeFilterPatch), nameof(Postfix)));
-        }
-
-        private static void Postfix(string identifier, GameItem filter, ref int __result)
-        {
-            if (filter == null || filter.identifier != "elem_coke" ||
-                identifier != "chemical_contaminant" || __result <= 0) return;
-            int durability = Math.Max(0, DurabilityHelper.GetRealDurability(filter));
-            int removed = (int)Math.Min((long)__result, (long)durability * 1000);
-            if (removed == 0) return;
-            DurabilityHelper.ChangeDurability(filter, -(int)(((long)removed + 999) / 1000));
-            __result -= removed;
-        }
     }
 }

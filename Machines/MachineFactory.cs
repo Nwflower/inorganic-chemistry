@@ -55,6 +55,8 @@ internal static class MachineFactory
         if (!string.IsNullOrEmpty(definition.sprite))
         {
             machine.SetSpriteAndShapeFromMod(Ids.ModId, definition.sprite);
+            if (definition.id == "elem_chemical_reactor")
+                machine.SetShape(new GridShapeBuilder(3, 3).SetData(new byte[] { 1, 1, 1, 1, 1, 1, 1, 1, 1 }, 3));
         }
         else if (!string.IsNullOrEmpty(definition.copySpriteFrom))
         {
