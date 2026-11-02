@@ -62,6 +62,7 @@ internal static class ItemFactory
         }
 
         ApplySprite(item, definition);
+        ApplyFullFootprint(item, definition);
 
         if (!string.IsNullOrEmpty(definition.gas))
         {
@@ -79,11 +80,14 @@ internal static class ItemFactory
             {
                 ChemicalHelper.SetChemContentML(item, definition.chemLiquid, definition.chemML);
             }
+            if (definition.chemWaterML > 0)
+                ChemicalHelper.AddChemContentUL(item, "water", definition.chemWaterML * 1000);
         }
 
         if (!string.IsNullOrEmpty(definition.chemicalProductIngredient))
         {
-            ChemicalHelper.InitChemItem(item, definition.blendable, definition.soluble);
+            if (string.IsNullOrEmpty(definition.chemLiquid))
+                ChemicalHelper.InitChemItem(item, definition.blendable, definition.soluble);
             // Grade only after the vanilla extractor transfers the selected liquid.
             item.EnableTag(ChemicalProductHelper.CHEMICAL_PRODUCT_TAG);
             item.ModifyTag(ChemicalProductHelper.ACTIVATE_INGREDIENT_TAG,
@@ -95,18 +99,15 @@ internal static class ItemFactory
             IngotPurityHelper.InitIngotItem(item);
         }
 
-        if (definition.id == "elem_coke")
+        if (definition.id == Coke.ItemId)
         {
-            // The vanilla bottle and aquaculture filters use these tags and durability.
-            item.SetGameItemType("FILTER");
-            item.SetGameItemType("WATER_PURIFICATION_SUPPLY");
-            item.EnableTag("WATER_FILTER", skipValidate: true);
-            item.ModifyTag("FILTER_SIZE_TAG", s => s.Enable().SetInt(22), skipValidate: true);
-            DurabilityHelper.InitItemWithDurability(item, 200);
+            Coke.Configure(item);
         }
         if (definition.id == FurnaceChemistry.ModuleId)
         {
-            ModuleHelper.InitModuleItem(item, "MODULE_TYPE_FURNACE", additionalEffectDisplay: Loc.Get("item.elem_furnace_chem_module.desc"));
+            // Like the native blast-furnace module, the extra chemistry costs efficiency.
+            ModuleHelper.InitModuleItem(item, "MODULE_TYPE_FURNACE", bonusPercentageEfficiency: FurnaceChemistry.ModuleEfficiency,
+                additionalEffectDisplay: Loc.Get("item.elem_furnace_chem_module.desc"));
         }
 
         if (definition.id == Ids.OxygenCylinder)
@@ -123,6 +124,21 @@ internal static class ItemFactory
 
         ModHelper.SetSource(item, Ids.ModId, Loc.Get("mod.name"));
         return item;
+    }
+
+    /// <summary>
+    /// Mineral art keeps the vanilla ore's transparent top corners, so the sprite
+    /// loader derives only four cells (one plus three). Reserve the complete
+    /// 3x2 footprint the artwork is drawn on, matching how gas cylinders set 1x3.
+    /// </summary>
+    private static void ApplyFullFootprint(GameItem item, ItemDefinition definition)
+    {
+        if (definition.id != "elem_iron_oxide" && definition.id != "elem_silica") return;
+        item.SetShape(new GridShapeBuilder(3, 2).SetData(new byte[]
+        {
+            1, 1, 1,
+            1, 1, 1
+        }, 3));
     }
 
     private static void ApplySprite(GameItem item, ItemDefinition definition)

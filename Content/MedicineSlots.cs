@@ -66,6 +66,9 @@ internal static class MedicineSlots
 
     internal static bool MayStackInLaboratorySlot(GameItem item, GameItem other)
     {
+        if (item.IsTag("CHEM_ITEM_TAG") && Liquid.Liquids.Any(liquid =>
+            item.GetTagReadonly(liquid.currentPart).GetInt() != other.GetTagReadonly(liquid.currentPart).GetInt()))
+            return false;
         return MedicineSlotRules.MayStack(item.identifier, other.identifier,
             IsModStackableMedicine(item), IsLaboratoryMedicineSlot(item.parentInventory));
     }

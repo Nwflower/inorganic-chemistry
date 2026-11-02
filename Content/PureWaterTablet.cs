@@ -15,6 +15,7 @@ internal static class PureWaterTablet
         item.onThisTargetItemFunc = Use;
     }
 
+
     private static bool CanUse(GameItem tablet, GameItem target)
     {
         if (tablet == null || target == null || !GeneralHelper.IsItemOwned(tablet) ||
@@ -33,7 +34,14 @@ internal static class PureWaterTablet
 
         WaterHelper.OnWaterPurificationTabletAdded(target);
         WaterHelper.OnWaterPurificationTabletAdded(target);
-        tablet.Destroy();
+        ConsumeOne(tablet);
         SpriteHelper.UpdateWaterContainerSprite(target);
+    }
+
+
+    private static void ConsumeOne(GameItem item)
+    {
+        if (item.unitCount > 1) item.SetUnitCount(item.unitCount - 1);
+        else item.Destroy();
     }
 }
