@@ -1,59 +1,744 @@
 {
   "id": "elem_field_manual",
   "title": "无机化学基础手册",
-  "width": 640,
-  "height": 820,
-  "designWidth": 640,
-  "designHeight": 820,
+  "width": 628,
+  "height": 804,
   "pages": [
     {
-      "name": "Page 1",
+      "name": "tools",
       "elements": [
         {
+          "type": "flow",
+          "id": "page1",
+          "x": 32,
+          "y": 22,
+          "w": 258,
+          "h": 356,
+          "spacing": 8
+        },
+        {
           "type": "text",
-          "x": 24,
-          "y": 24,
-          "w": 592,
-          "h": 740,
-          "style": "body",
-          "fontSize": 18,
+          "flow": "page1",
+          "w": 258,
+          "h": 11.5,
+          "style": "title",
+          "fontSize": 13.0,
           "wrap": true,
           "autoHeight": true,
-          "loc": "manual.page1"
+          "loc": "manual.p1.title"
+        },
+        {
+          "type": "text",
+          "flow": "page1",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p1.lab"
+        },
+        {
+          "type": "text",
+          "flow": "page1",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p1.electrolysis"
+        },
+        {
+          "type": "text",
+          "flow": "page1",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p1.air"
+        },
+        {
+          "type": "text",
+          "flow": "page1",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p1.fuel_cell"
+        },
+        {
+          "type": "text",
+          "flow": "page1",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p1.rust"
+        },
+        {
+          "type": "text",
+          "flow": "page1",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p1.furnace"
+        },
+        {
+          "type": "text",
+          "flow": "page1",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p1.reactor"
+        },
+        {
+          "type": "text",
+          "flow": "page1",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p1.assembler"
+        },
+        {
+          "type": "text",
+          "flow": "page1",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.0,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p1.note",
+          "color": "#9e1f1a"
         }
       ]
     },
     {
-      "name": "Page 2",
+      "name": "table",
       "elements": [
         {
+          "type": "flow",
+          "id": "page2",
+          "x": 32,
+          "y": 22,
+          "w": 258,
+          "h": 356,
+          "spacing": 8
+        },
+        {
           "type": "text",
-          "x": 24,
-          "y": 24,
-          "w": 592,
-          "h": 740,
-          "style": "body",
-          "fontSize": 18,
+          "flow": "page2",
+          "w": 258,
+          "h": 11.5,
+          "style": "title",
+          "fontSize": 13.0,
           "wrap": true,
           "autoHeight": true,
-          "loc": "manual.page2"
+          "loc": "manual.p2.title"
+        },
+        {
+          "type": "image",
+          "flow": "page2",
+          "w": 258,
+          "h": 136,
+          "sprite": "elemental_industry:elem_periodic_table",
+          "fit": "fit"
+        },
+        {
+          "type": "text",
+          "flow": "page2",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p2.legend"
+        },
+        {
+          "type": "text",
+          "flow": "page2",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p2.how_title"
+        },
+        {
+          "type": "text",
+          "flow": "page2",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p2.how"
         }
       ]
     },
     {
-      "name": "Page 3",
+      "name": "gases",
       "elements": [
         {
+          "type": "flow",
+          "id": "page3",
+          "x": 32,
+          "y": 22,
+          "w": 258,
+          "h": 356,
+          "spacing": 8
+        },
+        {
           "type": "text",
-          "x": 24,
-          "y": 24,
-          "w": 592,
-          "h": 740,
-          "style": "body",
-          "fontSize": 18,
+          "flow": "page3",
+          "w": 258,
+          "h": 11.5,
+          "style": "title",
+          "fontSize": 13.0,
           "wrap": true,
           "autoHeight": true,
-          "loc": "manual.page3"
+          "loc": "manual.p3.title"
+        },
+        {
+          "type": "text",
+          "flow": "page3",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p3.s1_title"
+        },
+        {
+          "type": "text",
+          "flow": "page3",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p3.s1"
+        },
+        {
+          "type": "text",
+          "flow": "page3",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p3.s2_title"
+        },
+        {
+          "type": "text",
+          "flow": "page3",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p3.s2"
+        },
+        {
+          "type": "text",
+          "flow": "page3",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p3.s3_title"
+        },
+        {
+          "type": "text",
+          "flow": "page3",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p3.s3"
+        },
+        {
+          "type": "text",
+          "flow": "page3",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p3.s4_title"
+        },
+        {
+          "type": "text",
+          "flow": "page3",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p3.s4"
+        },
+        {
+          "type": "text",
+          "flow": "page3",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.0,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p3.note",
+          "color": "#9e1f1a"
+        }
+      ]
+    },
+    {
+      "name": "metallurgy",
+      "elements": [
+        {
+          "type": "flow",
+          "id": "page4",
+          "x": 32,
+          "y": 22,
+          "w": 258,
+          "h": 356,
+          "spacing": 8
+        },
+        {
+          "type": "text",
+          "flow": "page4",
+          "w": 258,
+          "h": 11.5,
+          "style": "title",
+          "fontSize": 13.0,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p4.title"
+        },
+        {
+          "type": "text",
+          "flow": "page4",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p4.s1_title"
+        },
+        {
+          "type": "text",
+          "flow": "page4",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p4.s1"
+        },
+        {
+          "type": "text",
+          "flow": "page4",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p4.s2_title"
+        },
+        {
+          "type": "text",
+          "flow": "page4",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p4.s2"
+        },
+        {
+          "type": "text",
+          "flow": "page4",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p4.s3_title"
+        },
+        {
+          "type": "text",
+          "flow": "page4",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p4.s3"
+        },
+        {
+          "type": "text",
+          "flow": "page4",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.0,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p4.note",
+          "color": "#9e1f1a"
+        }
+      ]
+    },
+    {
+      "name": "assembly",
+      "elements": [
+        {
+          "type": "flow",
+          "id": "page7",
+          "x": 32,
+          "y": 22,
+          "w": 258,
+          "h": 356,
+          "spacing": 8
+        },
+        {
+          "type": "text",
+          "flow": "page7",
+          "w": 258,
+          "h": 11.5,
+          "style": "title",
+          "fontSize": 13.0,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p7.title"
+        },
+        {
+          "type": "text",
+          "flow": "page7",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p7.body"
+        }
+      ]
+    },
+    {
+      "name": "synthesis",
+      "elements": [
+        {
+          "type": "flow",
+          "id": "page5",
+          "x": 32,
+          "y": 22,
+          "w": 258,
+          "h": 356,
+          "spacing": 8
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "title",
+          "fontSize": 13.0,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.title"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.intro"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.hcl_title"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.hcl"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.nh3_title"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.nh3"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.hno3_title"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.hno3"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.h2o2_title"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.h2o2"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.naclo_title"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.naclo"
+        },
+        {
+          "type": "text",
+          "flow": "page5",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.0,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p5.note",
+          "color": "#9e1f1a"
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "elements": [
+        {
+          "type": "flow",
+          "id": "page6",
+          "x": 32,
+          "y": 22,
+          "w": 258,
+          "h": 356,
+          "spacing": 8
+        },
+        {
+          "type": "text",
+          "flow": "page6",
+          "w": 258,
+          "h": 11.5,
+          "style": "title",
+          "fontSize": 13.0,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p6.title"
+        },
+        {
+          "type": "text",
+          "flow": "page6",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p6.salt_title"
+        },
+        {
+          "type": "text",
+          "flow": "page6",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p6.salt"
+        },
+        {
+          "type": "text",
+          "flow": "page6",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p6.fert_title"
+        },
+        {
+          "type": "text",
+          "flow": "page6",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p6.fert"
+        },
+        {
+          "type": "text",
+          "flow": "page6",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p6.tablet_title"
+        },
+        {
+          "type": "text",
+          "flow": "page6",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p6.tablet"
+        },
+        {
+          "type": "text",
+          "flow": "page6",
+          "w": 258,
+          "h": 11.5,
+          "style": "section",
+          "fontSize": 9.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p6.use_title"
+        },
+        {
+          "type": "text",
+          "flow": "page6",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.5,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p6.use"
+        },
+        {
+          "type": "text",
+          "flow": "page6",
+          "w": 258,
+          "h": 11.5,
+          "style": "body",
+          "fontSize": 7.0,
+          "wrap": true,
+          "autoHeight": true,
+          "loc": "manual.p6.note",
+          "color": "#9e1f1a"
         }
       ]
     }
@@ -67,5 +752,61 @@
     "sprite": "items_misc/manual1",
     "value": 50,
     "important": true
-  }
+  },
+  "background": "notebook_manual",
+  "chrome": [
+    {
+      "type": "button",
+      "id": "close",
+      "action": "close",
+      "x": 297,
+      "y": 2.5,
+      "w": 14,
+      "h": 15,
+      "sprite": "elemental_industry:elem_paper_close"
+    },
+    {
+      "type": "button",
+      "id": "zoom",
+      "action": "zoom",
+      "x": 273.5,
+      "y": 3.5,
+      "w": 14,
+      "h": 15,
+      "sprite": "elemental_industry:elem_paper_zoom"
+    },
+    {
+      "type": "button",
+      "id": "flip_left",
+      "action": "flip_left",
+      "x": 124,
+      "y": 380,
+      "w": 16,
+      "h": 16,
+      "sprite": "elemental_industry:elem_paper_flip_left"
+    },
+    {
+      "type": "button",
+      "id": "flip_right",
+      "action": "flip_right",
+      "x": 176,
+      "y": 380.5,
+      "w": 14,
+      "h": 15,
+      "sprite": "elemental_industry:elem_paper_flip_right"
+    },
+    {
+      "type": "text",
+      "id": "page_indicator",
+      "action": "page_indicator",
+      "style": "page_number",
+      "align": "center",
+      "valign": "middle",
+      "wrap": false,
+      "x": 140.5,
+      "y": 374,
+      "w": 33,
+      "h": 25
+    }
+  ]
 }

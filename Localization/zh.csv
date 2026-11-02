@@ -51,35 +51,33 @@ item.elem_nitrogen_cylinder.desc,稳定而惰性的氮气，是合成氨与氮�
 item.elem_chlorine_cylinder.name,氯气瓶
 item.elem_chlorine_cylinder.desc,有毒且具有腐蚀性的氯气，可用于消毒剂与盐酸的制备。
 item.elem_iron_oxide.name,氧化铁
-item.elem_iron_oxide.desc,从污染水中回收的含铁矿物，可在熔炉中还原成金属。
+item.elem_iron_oxide.desc,从污染水中回收的含铁矿物。装有化学模块的熔炉可将每份直接炼成 1 个金属锭；同时放入焦炭可提高两档纯度，并消耗焦炭耐久。
 item.elem_coke.name,焦炭
-item.elem_coke.desc,废料炭化后的多孔碳材，可用于冶炼、提升金属纯度，也能吸附水中的化学污染物。
+item.elem_coke.desc,废料干馏得到的多孔碳材，有耐久。可在熔炉中提升金属纯度；拿它点一下盛水容器可吸附化学污染物和重金属，但不杀菌。耐久用尽即消耗。
 item.elem_salt.name,盐
-item.elem_salt.desc,从矿物质溶液中结晶提取的盐，可用于配制浓缩盐水。
+item.elem_salt.desc,从浓缩矿物组分中提取的盐，品质随原料变化。可溶入水，再由原版制剂机分装为盐水。
 item.elem_brine.name,浓缩盐水
-item.elem_brine.desc,浓缩的含盐溶液，可用于制取氯气、氢气与烧碱。
+item.elem_brine.desc,每包 500 毫升。将盐溶入水后，用原版化学制剂制成机分装；用于电解器的氯碱流程。
 item.elem_sodium_hydroxide.name,烧碱
-item.elem_sodium_hydroxide.desc,强碱性烧碱溶液，可用于多种清洁剂与化工原料的制备。
+item.elem_sodium_hydroxide.desc,独立的烧碱组分，用于气体合成和原版酸碱化工处理。
 item.elem_hydrochloric_acid.name,盐酸
-item.elem_hydrochloric_acid.desc,由氢气与氯气制得的强酸，可溶解多种矿物与金属残留。
+item.elem_hydrochloric_acid.desc,独立的盐酸组分，可参与原版酸处理；与碱中和形成普通盐类，不会生成硝酸铵。
 item.elem_ammonia.name,氨
-item.elem_ammonia.desc,由氮气与氢气合成的含氮化合物，可用于制造化肥与硝酸。
+item.elem_ammonia.desc,独立的氨组分，用于气体合成器制硝酸，或在容器中与硝酸反应制氮肥。
 item.elem_nitric_acid.name,硝酸
-item.elem_nitric_acid.desc,由氨氧化制得的强酸，可用于化肥与精细化工生产。
-item.elem_fertilizer.name,氮肥
-item.elem_fertilizer.desc,布袋包装的可溶性矿物营养剂，可为水培作物补充养分。
+item.elem_nitric_acid.desc,独立的硝酸组分，可参与原版酸处理；与氨在容器中混合可生成硝酸铵。
+item.elem_fertilizer.name,硝酸铵肥料
+item.elem_fertilizer.desc,将氨和硝酸在容器中混合，浓缩后用原版制剂机提取。溶入水培用水可供给营养；过量同样会伤害作物。
 item.elem_hydrogen_peroxide.name,双氧水
-item.elem_hydrogen_peroxide.desc,温和的氧化剂，可用于清洁与消毒处理。
-item.elem_bleaching_powder.name,漂白粉
-item.elem_bleaching_powder.desc,含氯粉末状消毒剂，可用于制备无残净水片。
+item.elem_hydrogen_peroxide.desc,可溶入水的氧化消毒剂，逐步去除微生物和化学污染并分解，不留下含氯残留。
+item.elem_bleaching_powder.name,次氯酸钠剂
+item.elem_bleaching_powder.desc,可溶的含氯漂白剂。遇水释出有效氯，也可用原版制剂机压成无残净水片；不要与酸混合。
 item.elem_pure_water_tablet.name,无残净水片
 item.elem_pure_water_tablet.desc,高效净水片，可迅速去除更多微生物与化学污染，不会向水中添加氯。
 item.elem_silica.name,硅砂
 item.elem_silica.desc,浅色硅质矿砂，可在熔炉中还原为硅。
 item.elem_silicon.name,硅
-item.elem_silicon.desc,银灰色的硅锭，提纯后可用于制造高性能电子元件。
-item.elem_mod_chip.name,模组芯片
-item.elem_mod_chip.desc,封装完成的通用模组芯片，可安装在设备的模块槽中。
+item.elem_silicon.desc,银灰色硅锭，可在装有化学模块的原版熔炉中逐档提纯。模组装配台至少需要 1 个硅，纯度越高，投入价值越高。
 machine.elem_electrolysis_cell.name,电解器
 machine.elem_electrolysis_cell.desc,将水分解为氢气与氧气，为燃料发电和化学合成提供原料。
 machine.elem_air_separator.name,空气分离机
@@ -88,10 +86,10 @@ machine.elem_hydrogen_fuel_cell.name,燃料能量电池
 machine.elem_hydrogen_fuel_cell.desc,初级违禁品。消耗氢气转换为电力；有氧气和水容器时，还可生成纯水。
 machine.elem_rust_extractor.name,铁锈提取机
 machine.elem_rust_extractor.desc,从污染水中回收氧化铁，并将处理后的液体补成水。
-machine.elem_chemical_reactor.name,电子烧杯
-machine.elem_chemical_reactor.desc,用于气体反应、化学合成与净水用品制备的精密实验器具。
-machine.elem_chip_fab.name,芯片封装台
-machine.elem_chip_fab.desc,将电子元件与金属锭封装成可用于设备升级的模组芯片。
+machine.elem_chemical_reactor.name,气体合成器
+machine.elem_chemical_reactor.desc,密闭式气体反应设备，合成酸、氨、双氧水和含氯漂白剂。
+machine.elem_chip_fab.name,模组装配台
+machine.elem_chip_fab.desc,用硅加电子元件、线缆等材料装配原版设备模组，投入的总价值决定可出的模组。
 shop.chemist.title,无机化学商店
 shop.chemist.leave_warning,离开前请收好购买的物品；库存已满时留在柜台或地上的物品可能丢失。确定离开吗？
 scenario.elem_industry.title,无机化学基础入门
@@ -99,7 +97,7 @@ scenario.elem_industry.desc,以实验区和基础气体、冶金设备开始学�
 scenario.elem_industry.start,实验区、电解器、铁锈提取机、熔炉化学模块和手册
 scenario.elem_industry.tag,化学
 manual.elem_field_manual.title,无机化学基础手册
-manual.elem_field_manual.body,基础工艺、设备说明和原版熔炉联动指南。
+manual.elem_field_manual.body,实用手册，收录无机化学设备、反应式与元素周期表。
 panel.fuel,燃料
 item.elem_laboratory_bay.name,实验区
 item.elem_laboratory_bay.desc,金属实验架上陈列着盛有彩色液体的烧瓶与烧杯，抽屉可收纳设备、试剂和药品。
@@ -107,15 +105,73 @@ laboratory.medicine_slot,药品格 {0}
 item.elem_furnace_chem_module.name,熔炉化学模块
 item.elem_furnace_chem_module.desc,熔炉专用化学模块，可处理铁氧化物与硅质矿砂，并用焦炭强化冶炼。
 manual.note.title,{0}说明
-manual.note.short,设备操作说明。
-machine.elem_electrolysis_cell.manual,装入电池和盛水容器并留出产物空间。基础每晚耗电 12 点，消耗 1 升水，产出 112 克氢气和 888 克氧气。\n效率效果按 1:2 计算；效率 +16% 时耗电 11。性能提高处理水量和氢氧产量，例如 +16% 时需 1.16 升水，产 130 克氢和 1030 克氧。质量只额外增加氢气，不额外耗水；例如基础状态下质量 +8% 产 121 克氢和 888 克氧。气体数量按克四舍五入，水量不足时不运行。\n状态面板显示配方选择、当前处理量和上次停止原因。
-machine.elem_air_separator.manual,装入电池并留出产物空间。基础状态每晚消耗 6 点电，产出 222 克氧气和 778 克氮气，共 1 千克。\n效率改变耗电；性能改变每晚批次；质量改变气体估值。状态面板显示每晚能力与停止原因。
-machine.elem_rust_extractor.manual,装入电池和含矿物质或重金属的水。基础每批从中取出 100 毫升污染物，消耗 8 点电，产出氧化铁并以水补回体积。产物需留出 3×2 空间。效率改变耗电；性能改变每晚批次；质量改变产物估值。\n状态面板可按污染物选择配方，并显示停止原因。
-machine.elem_chemical_reactor.manual,每批基础耗电列于括号中。气体用量按化学计量估算并暂定。\n盐可从含矿物质的液体中提取，品质随原料变化。\n2 盐 + 1 升水 → 2 盐水（4）\n盐水 → 71 克氯 + 2 克氢 + 烧碱（12）\n2 克氢 + 71 克氯 → 盐酸（6）\n28 克氮 + 6 克氢 → 氨（10）\n氨 + 128 克氧 + 0.5 升水 → 硝酸（10）\n氨 + 硝酸 → 化肥（6）\n2 克氢 + 32 克氧 + 0.5 升水 → 2 双氧水（8）\n71 克氯 + 烧碱 → 2 漂白粉（6）\n漂白粉 + 0.5 升水 → 4 片无残净水片（4）\n效率模块降低耗电，性能模块提高处理量，质量模块提高产物品质或价值。\n状态面板可逐条停用配方；每批只执行一项反应。
-machine.elem_chip_fab.manual,每批基础耗电列于括号中。\n2 电子元件 + 2 金属锭 → 模组芯片（10）\n效率模块降低耗电，性能模块提高处理量，质量模块提高产物价值。\n状态面板可逐条停用配方；每批只执行一项装配。
-manual.page1,无机化学基础\n\n实验区用于收纳设备和原料；仓内机器不会自动停机。机器自带可取出的操作说明卡。\n\n电解器每晚基础耗电 12，以 1 升水制取 112 克氢和 888 克氧。效率降低耗电，性能提高处理水量，质量可不额外耗水增加产氢。效率效果按 1:2 计算。空气分离机每晚基础耗电 6，得到 222 克氧和 778 克氮。同种气体按克合并；新购气瓶含 100 克。\n\n燃料能量电池是初级违禁品。每 10 克氢供电 1，不足 10 克可保留并与后续氢气合用。放入氧气与产水容器时，每 1 克氢搭配 8 克氧产生 9 毫升纯水；容器空间不足时仍消耗氢供电，未产水的氧气保留。纯水会与容器已有液体混合。
-manual.page2,冶金与净水\n\n铁锈提取机可从污染水中回收氧化铁。安装熔炉化学模块后，可用熔炉冶炼氧化铁、硅砂与废料。3 份废料耗电 8 制成 2 份焦炭；2 份硅砂与 2 份焦炭耗电 16 制成工业硅。\n\n焦炭可在冶炼时提升金属纯度，也可装入滤芯槽吸附化学污染物。它不会杀灭微生物。
-manual.page3,其他工艺\n\n芯片封装台可将电子元件与金属锭制成模组芯片。熔炉化学模块也可将硅砂还原为硅并逐步提纯。电子烧杯可合成酸碱、肥料、消毒剂和净水片。\n\n效率模块降低耗电，性能模块增加处理量，质量模块提升产物品质或价值。各设备的说明卡列出基础配方与操作方法。
+manual.p1.title,工具与机器
+manual.p1.lab,<b>实验区</b>\n收纳设备和原料。下方 12 个药品槽可让同种模组化学品堆叠。仓内通电的机器照常运作。
+manual.p1.electrolysis,<b>电解器</b>\n夜间运作，电解水制取氢气和氧气；放入浓缩盐水时改为氯碱电解。可使用普通模组升级。
+manual.p1.air,<b>空气分离机</b>\n夜间运作，从空气中分离氮气和氧气。可使用普通模组升级。
+manual.p1.fuel_cell,<b>燃料能量电池</b>\n插入机器的电池槽，按需消耗氢气供电；接上氧气和储水容器时回收纯水。初级违禁品。
+manual.p1.rust,<b>铁锈提取机</b>\n夜间运作，从含矿物质或重金属的水中提取氧化铁。可使用普通模组升级。
+manual.p1.furnace,<b>熔炉化学模块</b>\n装入原版熔炉后，熔炉可冶炼氧化铁、炼制焦炭和工业硅。模块自带效率 −50%，熔炉耗电随之增加。
+manual.p1.reactor,<b>气体合成器</b>\n夜间运作，用气体合成酸、氨、双氧水和次氯酸钠剂。部分配方需要储水容器。可使用普通模组升级。
+manual.p1.assembler,<b>模组装配台</b>\n夜间运作，把硅和电子元件等材料全部投入，按总价值随机装配一个原版模组。可使用普通模组升级。
+manual.p1.note,多配方机器可在状态面板中逐条启用或停用配方。新购气瓶含 100 克气体；同种气体可以合并，不同气体不能合并。
+manual.p2.title,元素周期表
+manual.p2.legend,每格依次为原子序数、元素符号和相对原子质量（取整，氯取 35.5）。红框为本手册用到的元素。
+manual.p2.how_title,怎样读反应式
+manual.p2.how,机器每批按反应式进行 1 摩尔反应。气体的用量和产量等于化学式前的系数乘以相对分子质量，单位为克。\n例：<b>H<sub>2</sub> + Cl<sub>2</sub> → 2HCl</b>\n- 氢气：1 × (1 × 2) = 2 克\n- 氯气：1 × (35.5 × 2) = 71 克\n固体和溶液按份计算，括号内为份数。
+manual.p3.title,气体
+manual.p3.s1_title,电解水（电解器）
+manual.p3.s1,<b>2H<sub>2</sub>O → 2H<sub>2</sub> + O<sub>2</sub></b>\n- 在储水容器槽放入水，每批消耗 1 升\n- 氢气和氧气按反应式的质量比分配\n- 水量不足时不运行
+manual.p3.s2_title,空气分离（空气分离机）
+manual.p3.s2,- 无需原料，每批分离 1 千克空气\n- 按质量计约得氮气 78%、氧气 22%
+manual.p3.s3_title,氯碱电解（电解器）
+manual.p3.s3,<b>2NaCl + 2H<sub>2</sub>O → Cl<sub>2</sub> + H<sub>2</sub> + 2NaOH</b>\n- 在原料槽放入（1）份浓缩盐水\n- 得到氯气、氢气和（1）份烧碱\n- 放有盐水时优先电解盐水；停用氯碱配方即可只电解水
+manual.p3.s4_title,燃料能量电池
+manual.p3.s4,<b>2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</b>\n- 每 10 克氢气供电 1 点，不足 10 克的部分留待下次\n- 接上氧气和储水容器时按反应式产出纯水；容器空间不足时只供电，氧气保留
+manual.p3.note,注意：产出的纯水会与容器里原有的液体混合。
+manual.p4.title,冶金
+manual.p4.s1_title,1.氧化铁
+manual.p4.s1,铁锈提取机每批从水中取出 100 毫升矿物质或重金属，制成（1）份氧化铁，并以水补足体积。\n<b>Fe<sub>2</sub>O<sub>3</sub> + 3C → 2Fe + 3CO</b>\n- 熔炉：（1）份氧化铁 →（1）块低纯金属锭\n- 同时放入焦炭：得到高纯金属锭，焦炭耐久 −10\n- 原版金属矿石加焦炭冶炼同样提高一档纯度，耐久 −10
+manual.p4.s2_title,2.焦炭
+manual.p4.s2,焦炭有 100 点耐久，耐久用尽即消失。\n- 熔炉：（6）份垃圾 →（1）份焦炭\n- 拿焦炭点一下盛水容器：吸附化学污染物和重金属，每点耐久吸附 2 毫升，吸走的体积补成水；不能杀灭微生物
+manual.p4.s3_title,3.工业硅
+manual.p4.s3,<b>SiO<sub>2</sub> + 2C → Si + 2CO</b>\n- 熔炉：（2）份硅砂 + 焦炭 →（1）块低纯硅，焦炭耐久 −20\n- 放入焦炭重新熔炼，纯度提高一档，每档耐久 −5，最高到高纯
+manual.p7.title,模组装配
+manual.p7.body,- 在模组装配台放入至少（1）块硅；电子元件、线缆、金属锭和3D打印耗材可一起投入，全部消耗\n- 次日得到（1）个原版模组：性能、效率、质量、超频、环保、精炼、优化或神经核心模组（受限），材料总价值越高，档次越高\n- 价值偏高时先补优质词条、再提高基础属性；仍有剩余则把最贵的材料留在输入格\n- 价值偏低时取更贵的模组，差价越大越可能得到报废模组或损坏模组，或带上破旧状态与负面词条
+manual.p4.note,熔炉需要动力源，装入化学模块后耗电增加。冶炼过程在夜间进行。
+manual.p5.title,气体合成
+manual.p5.intro,以下反应均在气体合成器中进行。在状态面板中启用需要的配方，次日取出产物。
+manual.p5.hcl_title,盐酸
+manual.p5.hcl,<b>H<sub>2</sub> + Cl<sub>2</sub> → 2HCl</b>\n得到（1）份盐酸
+manual.p5.nh3_title,氨
+manual.p5.nh3,<b>N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub></b>\n得到（1）份氨
+manual.p5.hno3_title,硝酸
+manual.p5.hno3,<b>2NH<sub>3</sub> + 4O<sub>2</sub> → 2HNO<sub>3</sub> + 2H<sub>2</sub>O</b>\n- 放入（1）份氨\n- （必需）储水容器中至少有 0.5 升水\n得到（1）份硝酸
+manual.p5.h2o2_title,双氧水
+manual.p5.h2o2,<b>H<sub>2</sub> + O<sub>2</sub> → H<sub>2</sub>O<sub>2</sub></b>\n- （必需）储水容器中至少有 0.5 升水\n得到（2）份双氧水
+manual.p5.naclo_title,次氯酸钠剂
+manual.p5.naclo,<b>Cl<sub>2</sub> + 2NaOH → NaCl + NaClO + H<sub>2</sub>O</b>\n- 放入（1）份烧碱\n得到（2）份次氯酸钠剂
+manual.p5.note,注意：酸不要与次氯酸钠剂混合，否则会失效并产生化学污染。
+manual.p6.title,成品
+manual.p6.salt_title,盐与浓缩盐水
+manual.p6.salt,- 用蒸发器浓缩含矿物质的水\n- 将容器放入化学制剂成型机，选择“盐”配方并输出\n- 将约（2）份盐溶入约半升水，再用化学制剂成型机分装浓缩盐水
+manual.p6.fert_title,硝酸铵肥料
+manual.p6.fert,<b>NH<sub>3</sub> + HNO<sub>3</sub> → NH<sub>4</sub>NO<sub>3</sub></b>\n- 将氨和硝酸溶入同一容器，二者自动反应\n- 用蒸发器蒸干溶剂\n- （必需）放入化学制剂成型机，选择“硝酸铵肥料”配方并输出\n- 溶入水培用水可提供养分；过量会伤苗
+manual.p6.tablet_title,无残净水片
+manual.p6.tablet,- 将次氯酸钠剂直接溶入空容器\n- 放入化学制剂成型机，选择“无残净水片”配方并输出\n- 每 125 毫升压成（1）片
+manual.p6.use_title,消毒
+manual.p6.use,双氧水溶入水后逐步消毒并分解为水。次氯酸钠剂遇水释放有效氯。
+manual.p6.note,注意：化学制剂成型机要求足够的有效组分，纯水不能充当原料。
+machine.elem_electrolysis_cell.manual_short,放入能量电池和储水容器，并在输出区留出空间；放入浓缩盐水时改为氯碱电解。需要能量。夜间运行。配方见《无机化学基础手册》。
+machine.elem_air_separator.manual_short,放入能量电池，并在输出区留出空间。需要能量。夜间运行。产物见《无机化学基础手册》。
+machine.elem_rust_extractor.manual_short,放入能量电池和含矿物质或重金属的水容器，并在输出区留出空间。需要能量。夜间运行。
+machine.elem_chemical_reactor.manual_short,放入能量电池和原料，部分配方还需要储水容器；在状态面板中选择配方。需要能量。夜间运行。配方见《无机化学基础手册》。
+machine.elem_chip_fab.manual_short,放入能量电池和至少 1 块硅；电子元件、线缆、金属锭和3D打印耗材可一起投入，全部消耗。需要能量。夜间运行。说明见《无机化学基础手册》。
+machine.elem_electrolysis_cell.manual,[模组影响]：\n效率影响功耗（系数：0.5）\n性能影响每晚处理水量\n质量影响电解水的氢气产量\n水量不足时不运行。
+machine.elem_air_separator.manual,[模组影响]：\n效率影响功耗\n性能影响每晚批次\n质量影响气体价值
+machine.elem_rust_extractor.manual,[模组影响]：\n效率影响功耗\n性能影响每晚批次\n质量影响产物价值\n可在状态面板中按污染物选择配方。
+machine.elem_chemical_reactor.manual,[模组影响]：\n效率影响功耗\n性能影响每晚批次\n质量影响产物价值
+machine.elem_chip_fab.manual,[模组影响]：\n效率影响功耗\n性能影响每晚批次\n质量无影响
 tooltip.gas_mass,气体重量：{0} 克
 tooltip.product_quality,加工品质：{0}%
 panel.control,状态
@@ -139,13 +195,19 @@ recipe.coke_from_junk.name,废料干馏
 recipe.industrial_silicon.name,硅砂炼硅
 recipe.refine_silicon_fair.name,硅提纯（中纯）
 recipe.refine_silicon_high.name,硅提纯（高纯）
-recipe.brine_from_salt.name,盐水配制
+recipe.iron_from_oxide_coke.name,氧化铁焦炭冶炼
+recipe.iron_from_oxide.name,氧化铁冶炼
+recipe.module_assembly.name,模组装配
 recipe.chlor_alkali.name,氯碱电解
 recipe.hydrochloric_acid.name,盐酸合成
 recipe.ammonia_synthesis.name,合成氨
 recipe.nitric_acid.name,硝酸制备
-recipe.fertilizer.name,氮肥制备
 recipe.hydrogen_peroxide.name,双氧水制备
 recipe.bleaching_powder.name,漂白粉制备
-recipe.water_tablets.name,无残净水片压制
-recipe.mod_chip.name,模组芯片装配
+liquid.elem_hydrochloric_acid,盐酸
+liquid.elem_nitric_acid,硝酸
+liquid.elem_sodium_hydroxide,氢氧化钠
+liquid.elem_ammonia,氨
+liquid.elem_ammonium_nitrate,硝酸铵
+liquid.elem_hydrogen_peroxide,过氧化氢
+liquid.elem_hypochlorite,次氯酸钠

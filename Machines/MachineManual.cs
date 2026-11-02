@@ -16,7 +16,7 @@ internal static class MachineManual
         note.SetSpriteAndShape(template.spriteAtlasPath, template.spritePath);
         template.Destroy();
         note.SetName(Loc.Get("manual.note.title", Loc.Get("machine." + definition.id + ".name")));
-        note.shortDescription = Loc.Get("manual.note.short");
+        note.shortDescription = Loc.Get("machine." + definition.id + ".manual_short");
         note.flavorText = Loc.Get("machine." + definition.id + ".manual");
         note.SetGameItemType("DOCUMENT");
         note.EnableTag("IMPORTANT_TAG", skipValidate: true);

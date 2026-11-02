@@ -51,35 +51,33 @@ item.elem_nitrogen_cylinder.desc,Stable inert nitrogen used to synthesize ammoni
 item.elem_chlorine_cylinder.name,Chlorine Bottle
 item.elem_chlorine_cylinder.desc,Toxic and corrosive chlorine for disinfectants and hydrochloric acid.
 item.elem_iron_oxide.name,Iron Oxide
-item.elem_iron_oxide.desc,Iron-bearing mineral recovered from polluted water and ready for smelting.
+item.elem_iron_oxide.desc,Iron-bearing mineral recovered from polluted water. A furnace with the chemistry module smelts each portion into one metal ingot; adding coke raises purity by two grades and wears the coke.
 item.elem_coke.name,Coke
-item.elem_coke.desc,Porous carbon made from scrap. It aids smelting and metal refining and can adsorb chemical contaminants from water.
+item.elem_coke.desc,Porous carbon made from scrap, with durability. It raises ingot purity in the furnace; use it on a water container to adsorb chemical contaminants and heavy metals. It does not kill microbes and is used up at zero durability.
 item.elem_salt.name,Salt
-item.elem_salt.desc,Crystallized from mineral-rich solution and used to prepare concentrated brine.
+item.elem_salt.desc,Salt extracted from concentrated mineral components. Quality follows the feedstock. Dissolve in water and package as brine with the vanilla finisher.
 item.elem_brine.name,Concentrated Brine
-item.elem_brine.desc,Concentrated salt solution used to produce chlorine hydrogen and caustic soda.
+item.elem_brine.desc,A 500 mL package. Dissolve salt in water and package it with the vanilla chemical finisher for chlor-alkali electrolysis.
 item.elem_sodium_hydroxide.name,Caustic Soda
-item.elem_sodium_hydroxide.desc,A strongly alkaline solution used in cleaners and chemical production.
+item.elem_sodium_hydroxide.desc,A distinct caustic soda component for gas synthesis and native acid/base processing.
 item.elem_hydrochloric_acid.name,Hydrochloric Acid
-item.elem_hydrochloric_acid.desc,A strong acid made from hydrogen and chlorine that dissolves many minerals and metal residues.
+item.elem_hydrochloric_acid.desc,A distinct hydrochloric acid component compatible with native acid processing. Neutralization makes generic salts rather than ammonium nitrate.
 item.elem_ammonia.name,Ammonia
-item.elem_ammonia.desc,A nitrogen compound made from nitrogen and hydrogen for fertilizer and nitric acid production.
+item.elem_ammonia.desc,A distinct ammonia component. Use with oxygen in the gas synthesizer or mix with nitric acid in a container for nitrogen fertilizer.
 item.elem_nitric_acid.name,Nitric Acid
-item.elem_nitric_acid.desc,A strong acid produced by oxidizing ammonia for fertilizer and fine chemical production.
-item.elem_fertilizer.name,Nitrogen Fertilizer
-item.elem_fertilizer.desc,Soluble mineral nutrients in a cloth sack to nourish hydroponic crops.
+item.elem_nitric_acid.desc,A distinct nitric acid component compatible with native acid processing. Mix with ammonia in a container to make ammonium nitrate.
+item.elem_fertilizer.name,Ammonium Nitrate Fertilizer
+item.elem_fertilizer.desc,Mix ammonia and nitric acid in a container; concentrate and package with the vanilla finisher. Dissolve in hydroponic water for nutrients. Excess nutrients still harm plants.
 item.elem_hydrogen_peroxide.name,Hydrogen Peroxide
-item.elem_hydrogen_peroxide.desc,A mild oxidizer for cleaning and disinfection.
-item.elem_bleaching_powder.name,Bleaching Powder
-item.elem_bleaching_powder.desc,A chlorine-based disinfectant powder used to make residue-free purification tablets.
+item.elem_hydrogen_peroxide.desc,Dissolve in water to remove microbes and chemical contamination gradually. Decomposes without chlorine residue.
+item.elem_bleaching_powder.name,Sodium Hypochlorite Reagent
+item.elem_bleaching_powder.desc,A soluble chlorine bleach. Releases active chlorine in water or can be pressed into residue-free tablets by the vanilla finisher. Do not mix with acids.
 item.elem_pure_water_tablet.name,Residue-Free Water Tablet
 item.elem_pure_water_tablet.desc,An advanced tablet that removes more microbes and chemical contamination without adding chlorine to water.
 item.elem_silica.name,Silica Sand
 item.elem_silica.desc,Pale silica-rich mineral that can be reduced to silicon in a furnace.
 item.elem_silicon.name,Silicon
-item.elem_silicon.desc,A silvery-gray silicon ingot for high-performance electronic components.
-item.elem_mod_chip.name,Module Chip
-item.elem_mod_chip.desc,A finished universal module chip ready to install in an equipment module slot.
+item.elem_silicon.desc,Silvery silicon refined grade by grade in the upgraded vanilla furnace. The module assembler needs at least one; higher purity means more input value.
 machine.elem_electrolysis_cell.name,Electrolyzer
 machine.elem_electrolysis_cell.desc,Separates water into hydrogen and oxygen for fuel power and chemical synthesis.
 machine.elem_air_separator.name,Air Separator
@@ -88,10 +86,10 @@ machine.elem_hydrogen_fuel_cell.name,Fuel Power Cell
 machine.elem_hydrogen_fuel_cell.desc,Low-level contraband that converts hydrogen into power and can produce pure water when oxygen and a container are supplied.
 machine.elem_rust_extractor.name,Rust Extractor
 machine.elem_rust_extractor.desc,Recovers iron oxide from polluted water and replaces the treated liquid with water.
-machine.elem_chemical_reactor.name,Electronic Beaker
-machine.elem_chemical_reactor.desc,A precision lab beaker for gas reactions, chemical synthesis and water purification supplies.
-machine.elem_chip_fab.name,Chip Fabricator
-machine.elem_chip_fab.desc,Packages electronics and metal ingots into equipment module chips.
+machine.elem_chemical_reactor.name,Gas Synthesizer
+machine.elem_chemical_reactor.desc,A sealed gas reactor producing acids, ammonia, peroxide and chlorine bleach.
+machine.elem_chip_fab.name,Module Assembler
+machine.elem_chip_fab.desc,Assembles silicon with electronics, wire and similar materials into vanilla equipment modules. Total input value decides which modules can appear.
 shop.chemist.title,Inorganic Chemistry Shop
 shop.chemist.leave_warning,Pack purchased items before leaving. Items left out may be lost if your storage is full. Leave now?
 scenario.elem_industry.title,Inorganic Chemistry Start
@@ -99,7 +97,7 @@ scenario.elem_industry.desc,Start with a laboratory and basic gas and metallurgy
 scenario.elem_industry.start,Laboratory bay; electrolyzer; rust extractor; furnace chemistry module; manual
 scenario.elem_industry.tag,Chemistry
 manual.elem_field_manual.title,Inorganic Chemistry Basics Manual
-manual.elem_field_manual.body,Basic processes and instructions for the vanilla furnace integration.
+manual.elem_field_manual.body,A handy manual covering inorganic chemistry equipment, reaction equations and the periodic table.
 panel.fuel,Fuel
 item.elem_laboratory_bay.name,Laboratory Bay
 item.elem_laboratory_bay.desc,A metal lab rack lined with flasks and beakers of colored liquids and drawers for equipment reagents and medicine.
@@ -107,15 +105,73 @@ laboratory.medicine_slot,Medicine slot {0}
 item.elem_furnace_chem_module.name,Furnace Chemistry Module
 item.elem_furnace_chem_module.desc,A chemistry attachment for smelting iron oxide and silica and refining metals with coke.
 manual.note.title,{0} Instructions
-manual.note.short,Equipment operating instructions.
-machine.elem_electrolysis_cell.manual,Insert a power cell and water container. Each night at base settings use 12 power and 1 L water to produce 112 g hydrogen and 888 g oxygen.\nEfficiency applies at a 1:2 ratio: +16% reduces power to 11. Performance increases water processing and both gases: +16% uses 1.16 L to produce 130 g hydrogen and 1030 g oxygen. Quality adds hydrogen without extra water: at base performance +8% produces 121 g hydrogen and 888 g oxygen. Gas masses round to whole grams; the machine stops if water is insufficient.\nThe status panel shows recipe selection, current throughput and the reason the last run stopped.
-machine.elem_air_separator.manual,Insert a power cell and leave space. At base settings each night uses 6 power and produces 222 g oxygen and 778 g nitrogen for a total of 1 kg. Efficiency changes power use; performance changes batches per night; quality changes gas value. The status panel reports capacity and stop reasons.
-machine.elem_rust_extractor.manual,Each base batch uses 8 power to extract 100 mL of minerals or heavy metals as iron oxide and replace the volume with water. Leave a 3 by 2 output space. Efficiency changes power; performance changes batches; quality changes product value.\nThe status panel selects the contaminant pathway and reports why a run stopped.
-machine.elem_chemical_reactor.manual,Base power per batch appears in parentheses. Gas amounts are provisional stoichiometric estimates.\nExtract salt from mineral-rich liquid; its quality follows the starting material.\n2 salt + 1 L water → 2 brine (4)\nBrine → 71 g chlorine + 2 g hydrogen + caustic soda (12)\n2 g hydrogen + 71 g chlorine → hydrochloric acid (6)\n28 g nitrogen + 6 g hydrogen → ammonia (10)\nAmmonia + 128 g oxygen + 0.5 L water → nitric acid (10)\nAmmonia + nitric acid → fertilizer (6)\n2 g hydrogen + 32 g oxygen + 0.5 L water → 2 peroxide (8)\n71 g chlorine + caustic soda → 2 bleaching powder (6)\nBleaching powder + 0.5 L water → 4 residue-free water tablets (4)\nEfficiency modules reduce power use; performance modules increase throughput; quality modules improve product grade or value.\nDisable recipes from the status panel; the machine performs one reaction per batch.
-machine.elem_chip_fab.manual,Base power per batch appears in parentheses.\n2 electronics + 2 metal ingots → module chip (10)\nEfficiency modules reduce power use; performance modules increase throughput; quality modules improve product value.\nDisable the recipe from the status panel when needed.
-manual.page1,Inorganic Chemistry Basics\n\nThe laboratory stores machines without switching them off. Each machine includes a removable instruction note.\n\nEach night the electrolyzer uses 12 base power and 1 L water to produce 112 g hydrogen and 888 g oxygen. Efficiency reduces power; performance increases water throughput; quality adds hydrogen without extra water. Efficiency applies at a 1:2 ratio. The separator uses 6 power per base batch to produce 222 g oxygen and 778 g nitrogen. Same-gas stacks merge. Purchased bottles contain 100 g.\n\nThe fuel power cell is low-level contraband. Every 10 g hydrogen supplies 1 energy. Smaller remainders are saved for later. With oxygen and an output container every 1 g hydrogen combines with 8 g oxygen to produce 9 mL pure water. If the container lacks space the cell still uses hydrogen for power and keeps the unused oxygen. Produced water mixes with existing liquid.
-manual.page2,Metallurgy and water\n\nInstall the furnace chemistry module to smelt iron oxide silica and scrap. Three scrap use 8 energy to make two coke; two silica and two coke use 16 energy to make industrial silicon.\n\nCoke improves ingot purity and can be combined with flux. It also fits water-filter slots and adsorbs chemical contamination as it wears down. It does not kill microbes.
-manual.page3,Other processes\n\nThe chip fabricator packages electronics and ingots into module chips. The furnace chemistry module reduces silica to silicon and can refine it further. The electronic beaker makes acids bases fertilizer disinfectants and purification tablets.\n\nEfficiency modules reduce power use; performance modules increase throughput; quality modules improve product grade or value. Each equipment note lists its recipes and controls.
+manual.p1.title,Tools and Machines
+manual.p1.lab,<b>Laboratory Bay</b>\nStores equipment and materials. The 12 medicine slots below let identical mod chemicals stack. Powered machines inside keep running.
+manual.p1.electrolysis,<b>Electrolyzer</b>\nWorks overnight to split water into hydrogen and oxygen; concentrated brine switches it to chlor-alkali electrolysis. Use normal modules.
+manual.p1.air,<b>Air Separator</b>\nWorks overnight to separate nitrogen and oxygen from air. Use normal modules.
+manual.p1.fuel_cell,<b>Fuel Power Cell</b>\nGoes into a machine's battery slot and burns hydrogen as needed. Recovers pure water when oxygen and a water container are attached. Minor contraband.
+manual.p1.rust,<b>Rust Extractor</b>\nWorks overnight to extract iron oxide from water containing minerals or heavy metals. Use normal modules.
+manual.p1.furnace,<b>Furnace Chemistry Module</b>\nLets a vanilla furnace smelt iron oxide and make coke and industrial silicon. The module carries -50% efficiency so the furnace draws more power.
+manual.p1.reactor,<b>Gas Synthesizer</b>\nWorks overnight to turn gases into acids, ammonia, peroxide and hypochlorite. Some recipes need a water container. Use normal modules.
+manual.p1.assembler,<b>Module Assembler</b>\nWorks overnight to spend all of its silicon, electronics and other materials on one random vanilla module chosen by total value. Use normal modules.
+manual.p1.note,Multi-recipe machines can enable or disable each recipe from the status panel. New gas bottles hold 100 g. Bottles of the same gas merge; different gases do not.
+manual.p2.title,Periodic Table
+manual.p2.legend,Each cell shows the atomic number, symbol and relative atomic mass (rounded; chlorine is 35.5). Red cells are the elements used in this manual.
+manual.p2.how_title,Reading the Equations
+manual.p2.how,Each batch runs the equation once in moles. Gas used or produced equals the coefficient times the molecular mass, in grams.\nExample: <b>H<sub>2</sub> + Cl<sub>2</sub> → 2HCl</b>\n- Hydrogen: 1 × (1 × 2) = 2 g\n- Chlorine: 1 × (35.5 × 2) = 71 g\nSolids and solutions are counted in portions shown in parentheses.
+manual.p3.title,Gases
+manual.p3.s1_title,Water Electrolysis (Electrolyzer)
+manual.p3.s1,<b>2H<sub>2</sub>O → 2H<sub>2</sub> + O<sub>2</sub></b>\n- Put water in the water container slot; each batch uses 1 L\n- Hydrogen and oxygen follow the equation's mass ratio\n- Does not run without enough water
+manual.p3.s2_title,Air Separation (Air Separator)
+manual.p3.s2,- No ingredients; each batch separates 1 kg of air\n- By mass this gives about 78% nitrogen and 22% oxygen
+manual.p3.s3_title,Chlor-Alkali (Electrolyzer)
+manual.p3.s3,<b>2NaCl + 2H<sub>2</sub>O → Cl<sub>2</sub> + H<sub>2</sub> + 2NaOH</b>\n- Put (1) Concentrated Brine in the input\n- Produces chlorine, hydrogen and (1) Caustic Soda\n- Brine takes priority; disable the chlor-alkali recipe to electrolyze water only
+manual.p3.s4_title,Fuel Power Cell
+manual.p3.s4,<b>2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</b>\n- Every 10 g of hydrogen supplies 1 power; leftovers below 10 g are kept\n- With oxygen and a water container attached it produces pure water by the equation; without room it only supplies power and keeps the oxygen
+manual.p3.note,Note: the pure water mixes with whatever is already in the container.
+manual.p4.title,Metallurgy
+manual.p4.s1_title,1. Iron Oxide
+manual.p4.s1,Each Rust Extractor batch removes 100 mL of minerals or heavy metals from water, makes (1) Iron Oxide and tops the volume up with water.\n<b>Fe<sub>2</sub>O<sub>3</sub> + 3C → 2Fe + 3CO</b>\n- Furnace: (1) Iron Oxide → (1) low-purity Metal Ingot\n- Add Coke as well for a high-purity ingot; coke loses 10 durability\n- Vanilla Metal Ore smelted with coke also gains one purity grade for 10 durability
+manual.p4.s2_title,2. Coke
+manual.p4.s2,Coke has 100 durability and is used up at zero.\n- Furnace: (6) Junk → (1) Coke\n- Use coke on a water container to adsorb chemical contaminants and heavy metals: 2 mL per durability point, replaced with water. It does not kill microbes
+manual.p4.s3_title,3. Industrial Silicon
+manual.p4.s3,<b>SiO<sub>2</sub> + 2C → Si + 2CO</b>\n- Furnace: (2) Silica Sand + Coke → (1) low-purity Silicon; coke loses 20 durability\n- Remelt with coke to raise purity one grade for 5 durability per grade, up to high purity
+manual.p7.title,Module Assembly
+manual.p7.body,- Put at least (1) Silicon in the Module Assembler; Electronic Parts, Wire, Metal Ingots and 3D Printing Filament can go in too and are all consumed\n- The next day you get (1) vanilla module: performance, efficiency, quality, overclock, eco, refinement, streamlining or capped neural core; the more the materials are worth, the higher the tier\n- Surplus value first adds the premium effect, then raises base stats; anything left over keeps the most valuable material in the input\n- A shortfall rolls the next module up; the bigger the gap, the likelier a ruined or corrupted module, wear or a negative effect
+manual.p4.note,The furnace requires a source of power and draws more with the chemistry module. Smelting happens overnight.
+manual.p5.title,Gas Synthesis
+manual.p5.intro,All of these run in the Gas Synthesizer. Enable the recipes you need in the status panel and collect the products the next day.
+manual.p5.hcl_title,Hydrochloric Acid
+manual.p5.hcl,<b>H<sub>2</sub> + Cl<sub>2</sub> → 2HCl</b>\nProduces (1) Hydrochloric Acid
+manual.p5.nh3_title,Ammonia
+manual.p5.nh3,<b>N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub></b>\nProduces (1) Ammonia
+manual.p5.hno3_title,Nitric Acid
+manual.p5.hno3,<b>2NH<sub>3</sub> + 4O<sub>2</sub> → 2HNO<sub>3</sub> + 2H<sub>2</sub>O</b>\n- Put in (1) Ammonia\n- (REQUIRED) At least 0.5 L of water in the water container\nProduces (1) Nitric Acid
+manual.p5.h2o2_title,Hydrogen Peroxide
+manual.p5.h2o2,<b>H<sub>2</sub> + O<sub>2</sub> → H<sub>2</sub>O<sub>2</sub></b>\n- (REQUIRED) At least 0.5 L of water in the water container\nProduces (2) Hydrogen Peroxide
+manual.p5.naclo_title,Sodium Hypochlorite
+manual.p5.naclo,<b>Cl<sub>2</sub> + 2NaOH → NaCl + NaClO + H<sub>2</sub>O</b>\n- Put in (1) Caustic Soda\nProduces (2) Sodium Hypochlorite Reagent
+manual.p5.note,Warning: never mix acids with hypochlorite. It stops working and creates chemical contamination.
+manual.p6.title,Finished Products
+manual.p6.salt_title,Salt and Concentrated Brine
+manual.p6.salt,- Concentrate mineral-rich water in the Evaporator\n- Insert the container into the Chem Finisher, select Salt and press Output\n- Dissolve about (2) Salt in about half a litre of water, then package Concentrated Brine with the Chem Finisher
+manual.p6.fert_title,Ammonium Nitrate Fertilizer
+manual.p6.fert,<b>NH<sub>3</sub> + HNO<sub>3</sub> → NH<sub>4</sub>NO<sub>3</sub></b>\n- Dissolve ammonia and nitric acid in the same container; they react on their own\n- Evaporate the solvent in the Evaporator\n- (REQUIRED) Insert into the Chem Finisher, select Ammonium Nitrate Fertilizer and press Output\n- Dissolve in hydroponic water to feed plants; too much harms seedlings
+manual.p6.tablet_title,Residue-Free Water Tablet
+manual.p6.tablet,- Dissolve hypochlorite reagent directly into an empty container\n- Insert into the Chem Finisher, select Residue-Free Water Tablet and press Output\n- Every 125 mL makes (1) tablet
+manual.p6.use_title,Disinfection
+manual.p6.use,Hydrogen peroxide gradually disinfects water and decomposes into water. Hypochlorite releases active chlorine in water.
+manual.p6.note,Note: the Chem Finisher needs enough active ingredient; plain water cannot stand in for it.
+machine.elem_electrolysis_cell.manual_short,Insert a power cell and a water container and leave room in the output; concentrated brine switches it to chlor-alkali electrolysis. Requires Energy. Overnight. See the Inorganic Chemistry Basics Manual for recipes.
+machine.elem_air_separator.manual_short,Insert a power cell and leave room in the output. Requires Energy. Overnight. See the Inorganic Chemistry Basics Manual for the products.
+machine.elem_rust_extractor.manual_short,Insert a power cell and a container of water holding minerals or heavy metals and leave room in the output. Requires Energy. Overnight.
+machine.elem_chemical_reactor.manual_short,Insert a power cell and ingredients; some recipes also need a water container. Select recipes in the status panel. Requires Energy. Overnight. See the Inorganic Chemistry Basics Manual for recipes.
+machine.elem_chip_fab.manual_short,Insert a power cell and at least 1 Silicon; Electronic Parts, Wire, Metal Ingots and 3D Printing Filament can go in too and are all consumed. Requires Energy. Overnight. See the Inorganic Chemistry Basics Manual.
+machine.elem_electrolysis_cell.manual,[Module Impact]: \n  Efficiency (0.5 Ratio): Power Consumption\n  Performance: Water Processed Per Night\n  Quality: Hydrogen Yield From Water\nDoes not run without enough water.
+machine.elem_air_separator.manual,[Module Impact]: \n  Efficiency: Power Consumption\n  Performance: Batches Per Night\n  Quality: Gas Value
+machine.elem_rust_extractor.manual,[Module Impact]: \n  Efficiency: Power Consumption\n  Performance: Batches Per Night\n  Quality: Product Value\nSelect the contaminant pathway from the status panel.
+machine.elem_chemical_reactor.manual,[Module Impact]: \n  Efficiency: Power Consumption\n  Performance: Batches Per Night\n  Quality: Product Value
+machine.elem_chip_fab.manual,[Module Impact]: \n  Efficiency: Power Consumption\n  Performance: Batches Per Night\n  Quality: No Effect
 tooltip.gas_mass,Gas mass: {0} g
 tooltip.product_quality,Process quality: {0}%
 panel.control,Status
@@ -139,13 +195,19 @@ recipe.coke_from_junk.name,Junk Carbonization
 recipe.industrial_silicon.name,Silica Smelting
 recipe.refine_silicon_fair.name,Silicon Refining (Fair)
 recipe.refine_silicon_high.name,Silicon Refining (High)
-recipe.brine_from_salt.name,Brine Preparation
+recipe.iron_from_oxide_coke.name,Iron Oxide Coke Smelting
+recipe.iron_from_oxide.name,Iron Oxide Smelting
+recipe.module_assembly.name,Module Assembly
 recipe.chlor_alkali.name,Chlor-Alkali Electrolysis
 recipe.hydrochloric_acid.name,Hydrochloric Acid Synthesis
 recipe.ammonia_synthesis.name,Ammonia Synthesis
 recipe.nitric_acid.name,Nitric Acid Production
-recipe.fertilizer.name,Fertilizer Production
 recipe.hydrogen_peroxide.name,Hydrogen Peroxide Production
 recipe.bleaching_powder.name,Bleaching Powder Production
-recipe.water_tablets.name,Residue-Free Tablet Pressing
-recipe.mod_chip.name,Module Chip Assembly
+liquid.elem_hydrochloric_acid,Hydrochloric acid
+liquid.elem_nitric_acid,Nitric acid
+liquid.elem_sodium_hydroxide,Sodium hydroxide
+liquid.elem_ammonia,Ammonia
+liquid.elem_ammonium_nitrate,Ammonium nitrate
+liquid.elem_hydrogen_peroxide,Hydrogen peroxide
+liquid.elem_hypochlorite,Sodium hypochlorite
