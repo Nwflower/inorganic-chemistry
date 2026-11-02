@@ -172,13 +172,15 @@ internal static class ContentDatabase
         if (machineId == "furnace")
         {
             // Native furnace recipes are enabled only by the installed chemistry module.
-            return Recipes.Values.Where(recipe => recipe.machine == machineId)
+            return Recipes.Values.Where(recipe => recipe.machine == machineId && IsRecipeAvailable(recipe))
                 .OrderBy(recipe => recipe.id switch
                 {
                     "industrial_silicon" => 0,
                     "refine_silicon_fair" => 1,
                     "refine_silicon_high" => 2,
-                    _ => 3
+                    "iron_from_oxide_coke" => 3,
+                    "iron_from_oxide" => 4,
+                    _ => 5
                 });
         }
         if (!Machines.TryGetValue(machineId, out MachineDefinition machine))
@@ -187,7 +189,13 @@ internal static class ContentDatabase
         }
         return machine.recipeIds
             .Select(id => Recipes.TryGetValue(id, out RecipeDefinition recipe) ? recipe : null)
-            .Where(recipe => recipe != null)!;
+            .Where(recipe => recipe != null && IsRecipeAvailable(recipe))!;
+    }
+
+    private static bool IsRecipeAvailable(RecipeDefinition recipe)
+    {
+        return recipe.inputs.Select(input => input.id).Concat(recipe.outputs.Select(output => output.id))
+            .All(id => !Items.TryGetValue(id, out var item) || IsModuleEnabled(item.module));
     }
 
     public static bool IsModuleEnabled(string moduleId)
@@ -257,6 +265,12 @@ internal static class ContentDatabase
                 Debug.LogError($"[{Ids.ModId}] recipe {recipe.id} references unknown machine {recipe.machine}");
                 errors++;
             }
+            if (recipe.valueRoll != null &&
+                (!recipe.valueRoll.materials.Contains(recipe.valueRoll.key) || recipe.outputs.All(output => output.roll.Length == 0)))
+            {
+                Debug.LogError($"[{Ids.ModId}] recipe {recipe.id} value roll needs its key among the materials and a roll pool");
+                errors++;
+            }
             foreach (ItemAmountDefinition input in recipe.inputs)
             {
                 if (string.IsNullOrEmpty(input.id) && string.IsNullOrEmpty(input.tag))
@@ -276,7 +290,16 @@ internal static class ContentDatabase
             }
             foreach (OutputAmountDefinition output in recipe.outputs)
             {
-                if (!Items.ContainsKey(output.id) && !IsVanillaItem(output.id))
+                if (output.roll.Length > 0)
+                {
+                    if (output.roll.Any(entry => !ValidId(entry.spawn) || !ValidId(entry.id) || entry.weight <= 0 ||
+                            (recipe.valueRoll != null && entry.value <= 0)))
+                    {
+                        Debug.LogError($"[{Ids.ModId}] recipe {recipe.id} has a roll entry without spawn/id, weight or value");
+                        errors++;
+                    }
+                }
+                else if (!Items.ContainsKey(output.id) && !IsVanillaItem(output.id))
                 {
                     Debug.LogWarning($"[{Ids.ModId}] recipe {recipe.id} output {output.id} is not a mod item; assuming a vanilla/registered id.");
                 }
