@@ -71,6 +71,7 @@ internal static class ProcessMachineFactory
         machine.onCycleEndSlotItemFunc = (_, _, _) =>
             Processor.Run(machine, definition, batterySlot, waterSlot, inputGrid, outputGrid, moduleGrid);
 
+        ProcessMachineAppearance.Bind(machine, definition, batterySlot, waterSlot, inputGrid, moduleGrid, window);
         return machine;
     }
 }
