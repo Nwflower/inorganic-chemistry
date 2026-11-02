@@ -41,7 +41,7 @@ internal static class MachineFactory
             .SetContentWindow(window);
 
         machine.shortDescription = Loc.Get("machine." + definition.id + ".desc");
-        machine.unitValue = definition.value;
+        ApplyBaseValue(machine, definition);
         machine.EnableTag("CONTAINER_TAG", skipValidate: true);
         machine.EnableTag("STANDARD_MACHINE_TAG", skipValidate: true);
         machine.EnableTag("manufacture", skipValidate: true);
@@ -55,8 +55,7 @@ internal static class MachineFactory
         if (!string.IsNullOrEmpty(definition.sprite))
         {
             machine.SetSpriteAndShapeFromMod(Ids.ModId, definition.sprite);
-            if (definition.id == "elem_chemical_reactor")
-                machine.SetShape(new GridShapeBuilder(3, 3).SetData(new byte[] { 1, 1, 1, 1, 1, 1, 1, 1, 1 }, 3));
+            ApplyShape(machine, definition.id);
         }
         else if (!string.IsNullOrEmpty(definition.copySpriteFrom))
         {
@@ -74,6 +73,24 @@ internal static class MachineFactory
 
         ModHelper.SetSource(machine, Ids.ModId, Loc.Get("mod.name"));
         return machine;
+    }
+
+    /// <summary>Refresh the data-defined base price without erasing a broken-machine discount.</summary>
+    internal static void ApplyBaseValue(GameItem machine, MachineDefinition definition)
+    {
+        if (machine.IsTag("BROKEN_MACHINE_TAG")) return;
+        machine.unitValue = definition.value;
+        machine.backupUnitValue = definition.value;
+    }
+
+    /// <summary>
+    /// Some art has a sparse corner cell that the sprite-derived shape drops. Reapply
+    /// the intended square footprint after every sprite swap, including save loads.
+    /// </summary>
+    internal static void ApplyShape(GameItem machine, string machineId)
+    {
+        if (machineId == Ids.ChemicalReactor || machineId == Ids.RustExtractor)
+            machine.SetShape(new GridShapeBuilder(3, 3).SetData(new byte[] { 1, 1, 1, 1, 1, 1, 1, 1, 1 }, 3));
     }
 
     internal static GameSlotInventory NoteSlot(MachineDefinition definition)

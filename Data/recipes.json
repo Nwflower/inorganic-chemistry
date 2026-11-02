@@ -189,12 +189,9 @@
       "id": "chlor_alkali",
       "machine": "elem_electrolysis_cell",
       "power": 12,
-      "inputs": [
-        {
-          "id": "elem_brine",
-          "count": 1
-        }
-      ],
+      "water": 100000,
+      "waterContaminant": "mineral",
+      "inputs": [],
       "outputs": [
         {
           "id": "elem_chlorine_cylinder",

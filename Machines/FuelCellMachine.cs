@@ -17,6 +17,7 @@ internal static class FuelCellMachine
         var fuel = new GameSlotInventory(1, 3) { identifier = "elem_fuel_slot" };
         var oxidizer = new GameSlotInventory(1, 3) { identifier = "elem_oxidizer_slot" };
         var waterOutput = new GameSlotInventory { identifier = "elem_water_output_slot" };
+        GameSlotInventory noteSlot = MachineFactory.NoteSlot(definition);
         fuel.mayInventoryAddItemFunc = (item, _) => GasContainer.Is(item, "H2") && GeneralHelper.IsItemOwned(item);
         oxidizer.mayInventoryAddItemFunc = (item, _) => GasContainer.Is(item, "O2") && GeneralHelper.IsItemOwned(item);
         waterOutput.mayInventoryAddItemFunc = (item, _) => item != null && item.unitCount == 1 && item.IsTag("LIQUID_CONTAINER_TAG") && GeneralHelper.IsItemOwned(item);
@@ -24,7 +25,8 @@ internal static class FuelCellMachine
         PixelWindow window = MachineHelper.CreateMachineryWindow(true,
             MachineHelper.Panel(Loc.Get("panel.fuel"), fuel, "fuel"),
             MachineHelper.Panel(Loc.Get("panel.oxygen_optional"), oxidizer, "oxidizer"),
-            MachineHelper.Panel(Loc.Get("panel.water_output"), waterOutput, "water"));
+            MachineHelper.Panel(Loc.Get("panel.water_output"), waterOutput, "water"),
+            MachineHelper.NotePanel(noteSlot));
         GameItem cell = ItemDirectory.CreateEmptyItem(definition.id).SetContentWindow(window)
             .SetName(Loc.Get("machine." + definition.id + ".name"));
         cell.shortDescription = Loc.Get("machine." + definition.id + ".desc");
@@ -35,7 +37,7 @@ internal static class FuelCellMachine
         oxidizer.onSlotAddItemEndFunc += (_, _, _) => UpdateAppearance(cell);
         oxidizer.onSlotRemoveItemEndFunc += (_, _, _) => UpdateAppearance(cell);
         cell.onOneSecondItemFunc = (_, _, _) => UpdateAppearance(cell);
-        cell.unitValue = definition.value;
+        MachineFactory.ApplyBaseValue(cell, definition);
         cell.EnableTag("CONTAINER_TAG", skipValidate: true);
         PowerHelper.InitPowerSourceItem(cell, 0, 0);
         ContrabandHelper.InitContrabandItem(cell, 1);

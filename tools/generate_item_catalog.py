@@ -110,7 +110,7 @@ def item_details(item):
     if item.get("hazards"):
         details.extend(HAZARD_LABELS.get(hazard, hazard) for hazard in item["hazards"])
     if item["id"] == "elem_laboratory_bay":
-        details.extend(("14×18 储物格", "12 个独立药品格", "药品格内的同类化学品可堆叠至 99 件"))
+        details.extend(("14×18 储物格", "8 个独立药品格（2 行 4 列）", "药品格内的同类化学品可堆叠至 99 件"))
     return details
 
 
@@ -149,11 +149,12 @@ def machine_details(machine, recipes):
         return details
 
     recipe_ids = machine.get("recipeIds", [])
-    costs = sorted({recipe["power"] for recipe in recipes if recipe["id"] in recipe_ids})
+    machine_recipes = [recipe for recipe in recipes if recipe["id"] in recipe_ids]
+    costs = sorted({recipe["power"] for recipe in machine_recipes})
     if costs:
         cost = str(costs[0]) if len(costs) == 1 else f"{costs[0]}–{costs[-1]}"
         details.append(f"配方耗电 {cost} 点 / 批")
-    if machine.get("inputWidth") and machine.get("inputHeight"):
+    if machine.get("inputWidth") and machine.get("inputHeight") and any(recipe.get("inputs") for recipe in machine_recipes):
         details.append(f"原料槽 {machine['inputWidth']}×{machine['inputHeight']}")
     if machine.get("outputWidth") and machine.get("outputHeight"):
         details.append(f"产物槽 {machine['outputWidth']}×{machine['outputHeight']}")

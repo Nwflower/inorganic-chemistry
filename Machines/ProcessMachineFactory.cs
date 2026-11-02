@@ -15,8 +15,23 @@ internal static class ProcessMachineFactory
         var waterSlot = new GameSlotInventory();
         var inputGrid = new GameGridInventory(definition.inputWidth, definition.inputHeight);
         var outputGrid = new GameGridInventory(definition.outputWidth, definition.outputHeight);
-        var moduleGrid = new GameGridInventory(4, 4);
-        var controls = new ProcessControlPanel(definition);
+        var moduleGrid = new GameGridInventory(MachineHelper.DEFAULT_MODULE_BAY_CONFIG, MachineHelper.DEFAULT_MODULE_BAY_WIDTH);
+        // Electrolysis and rust extraction choose their path from the liquid, so they
+        // have no recipe control panel. The gas synthesizer uses the finisher-style
+        // configure/run panel; the assembler prints on demand; air separation runs
+        // without a redundant status panel.
+        GameItem? machine = null;
+        ProcessControlPanel? controls = definition.id == Ids.ElectrolysisCell ||
+            definition.id == Ids.AirSeparator || definition.id == Ids.RustExtractor ||
+            definition.id == Ids.ChemicalReactor
+            ? null
+            : new ProcessControlPanel(definition, definition.id == Ids.ChipFab
+                ? () => Processor.Run(machine!, definition, batterySlot, waterSlot, inputGrid, outputGrid, moduleGrid)
+                : null);
+        GasSynthesisControlPanel? gasControls = null;
+        if (definition.id == Ids.ChemicalReactor)
+            gasControls = new GasSynthesisControlPanel(definition, () => Processor.Run(
+                machine!, definition, batterySlot, waterSlot, inputGrid, outputGrid, moduleGrid));
 
         var panels = new List<MachineryPanel>();
         if (definition.batterySlot)
@@ -32,8 +47,8 @@ internal static class ProcessMachineFactory
         {
             panels.Add(MachineHelper.Panel(Loc.Get("panel.water"), waterSlot, "water"));
         }
-        // Machines whose recipes take no items (water electrolysis, air separation) get
-        // no input panel: a grid that refuses everything is worse than no grid.
+        // Machines whose recipes take no items (electrolysis, rust extraction and air
+        // separation) get no input panel: a grid that refuses everything is worse than none.
         if (ContentDatabase.RecipesFor(definition.id).Any(recipe => recipe.inputs.Length > 0))
         {
             panels.Add(MachineHelper.Panel(Loc.Get("panel.input"), inputGrid, "input"));
@@ -42,14 +57,18 @@ internal static class ProcessMachineFactory
         {
             panels.Add(MachineHelper.Panel(Loc.Get("panel.output"), outputGrid, "output"));
         }
-        panels.Add(MachineHelper.Panel(Loc.Get("panel.control"), controls.Root, "control"));
+        if (controls != null)
+            panels.Add(MachineHelper.Panel(Loc.Get("panel.control"), controls.Root, "control"));
+        if (gasControls != null)
+            panels.Add(MachineHelper.Panel(Loc.Get("panel.control"), gasControls.Root, "control"));
         panels.Add(MachineHelper.NotePanel(MachineFactory.NoteSlot(definition)));
 
         PixelWindow window = MachineHelper.CreateMachineryWindow(true, panels.ToArray());
-        GameItem machine = MachineFactory.NewMachineItem(definition, window);
-        controls.Bind(machine);
-        window.openCallback = controls.Sync;
-        machine.onOneSecondItemFunc = (_, _, _) => controls.UpdateStatus();
+        machine = MachineFactory.NewMachineItem(definition, window);
+        controls?.Bind(machine);
+        gasControls?.Bind(machine);
+        window.openCallback = () => { controls?.Sync(); gasControls?.Sync(); };
+        machine.onOneSecondItemFunc = (_, _, _) => { controls?.UpdateStatus(); gasControls?.Sync(); };
         MachineryHelper.InitMachinery(machine, definition.power);
 
         if (definition.batterySlot)
@@ -64,12 +83,15 @@ internal static class ProcessMachineFactory
         if (definition.waterSlot)
         {
             waterSlot.mayInventoryAddItemFunc = (item, _) => item != null && GeneralHelper.IsItemOwned(item) && item.IsTag("LIQUID_CONTAINER_TAG");
+            waterSlot.SetBackgroundFadeSprite("Items/water_container4", "xl");
+            waterSlot.slotPriorityFunc = (_, _, _) => 5;
         }
         inputGrid.mayInventoryAddItemFunc = (item, _) => item != null && Processor.CanAcceptInput(definition, item);
         outputGrid.mayInventoryAddItemFunc = (item, _) => item != null && Processor.CanAcceptOutput(definition, item);
 
-        machine.onCycleEndSlotItemFunc = (_, _, _) =>
-            Processor.Run(machine, definition, batterySlot, waterSlot, inputGrid, outputGrid, moduleGrid);
+        if (definition.id != Ids.ChemicalReactor && definition.id != Ids.ChipFab)
+            machine.onCycleEndSlotItemFunc = (_, _, _) =>
+                Processor.Run(machine, definition, batterySlot, waterSlot, inputGrid, outputGrid, moduleGrid);
 
         ProcessMachineAppearance.Bind(machine, definition, batterySlot, waterSlot, inputGrid, moduleGrid, window);
         return machine;

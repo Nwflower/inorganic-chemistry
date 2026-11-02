@@ -8,7 +8,7 @@ namespace ElementalIndustry;
 internal static class MedicineSlots
 {
     internal const string LaboratorySlotPrefix = "elem_laboratory_bay_medicine_slot_";
-    internal const int SlotCount = 12;
+    internal const int SlotCount = 8;
     internal const int ModStackLimit = 99;
 
     internal static bool IsModStackableMedicine(ItemDefinition definition) =>

@@ -5,7 +5,7 @@ using TMPro;
 
 namespace ElementalIndustry;
 
-/// <summary>Recipe selection, nightly capacity and the last processing result for one machine window.</summary>
+/// <summary>Recipe selection, capacity, optional run button and last result for one machine window.</summary>
 internal sealed class ProcessControlPanel
 {
     private readonly MachineDefinition _definition;
@@ -13,14 +13,16 @@ internal sealed class ProcessControlPanel
     private readonly Dictionary<string, MachineryRadioButton> _buttons = new(StringComparer.Ordinal);
     private readonly MachineryText _capacity;
     private readonly MachineryText _result;
+    private readonly Action? _run;
     private GameItem? _machine;
 
     internal PixelElement Root { get; }
 
-    internal ProcessControlPanel(MachineDefinition definition)
+    internal ProcessControlPanel(MachineDefinition definition, Action? run = null)
     {
         _definition = definition;
         _recipes = ContentDatabase.RecipesFor(definition.id).ToArray();
+        _run = run;
         _capacity = new MachineryText("", 6, (HorizontalAlignmentOptions)2, true);
         _result = new MachineryText("", 6, (HorizontalAlignmentOptions)2, true);
 
@@ -42,6 +44,13 @@ internal sealed class ProcessControlPanel
                 (i % 2 == 0 ? left : right).Add(button);
             }
             stack.Add(MachineryStack.Horizontal(new PixelElement[] { left, right }));
+        }
+        if (_run != null)
+        {
+            var button = new MachineryButton(Loc.Get("control.assemble"));
+            button.SetSize(75);
+            button.SetCallback(Run);
+            stack.Add(button);
         }
         Root = stack;
     }
@@ -75,6 +84,10 @@ internal sealed class ProcessControlPanel
             int throughput = 100 + Math.Clamp(MachineryHelper.GetCurrentPerformanceBonus(_machine), -100, 6300);
             _capacity.SetText(Loc.Get("status.capacity_scaled", enabled, _recipes.Length, throughput));
         }
+        else if (_run != null)
+        {
+            _capacity.SetText(Loc.Get("status.capacity_instant"));
+        }
         else
         {
             _capacity.SetText(Loc.Get("status.capacity", enabled, _recipes.Length, MachineFactory.PendingWorkCycles(_machine)));
@@ -102,7 +115,14 @@ internal sealed class ProcessControlPanel
         UpdateStatus();
     }
 
-    private static string FailureText(ProcessFailure failure) => failure switch
+    private void Run()
+    {
+        if (_machine == null || _run == null) return;
+        _run();
+        UpdateStatus();
+    }
+
+    private string FailureText(ProcessFailure failure) => failure switch
     {
         ProcessFailure.NoRecipesEnabled => Loc.Get("status.no_recipes"),
         ProcessFailure.NoCapacity => Loc.Get("status.no_capacity"),
@@ -111,6 +131,6 @@ internal sealed class ProcessControlPanel
         ProcessFailure.MissingPower => Loc.Get("status.missing_power"),
         ProcessFailure.OutputSpace => Loc.Get("status.output_space"),
         ProcessFailure.OutputUnavailable => Loc.Get("status.output_unavailable"),
-        _ => Loc.Get("status.idle"),
+        _ => Loc.Get(_run != null ? "status.idle_ready" : "status.idle"),
     };
 }

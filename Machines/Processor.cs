@@ -85,8 +85,14 @@ internal static class Processor
         GameGridInventory outputGrid,
         GameGridInventory moduleGrid)
     {
+        if (definition.id == Ids.RustExtractor)
+            return RunRustExtractor(machine, definition, batterySlot, waterSlot, outputGrid, moduleGrid);
+
         RecipeDefinition[] recipes = ContentDatabase.RecipesFor(definition.id)
-            .Where(recipe => RecipeSelection.IsEnabled(machine, recipe))
+            .Where(recipe => definition.id == Ids.ElectrolysisCell ||
+                (definition.id == Ids.ChemicalReactor
+                    ? recipe.id == RecipeSelection.Selected(machine, ContentDatabase.RecipesFor(definition.id))
+                    : RecipeSelection.IsEnabled(machine, recipe)))
             .ToArray();
         if (recipes.Length == 0)
         {
@@ -96,9 +102,10 @@ internal static class Processor
 
         int batches = 0;
         ProcessFailure failure = ProcessFailure.None;
-        // Electrolysis handles a continuously scaled volume in one nightly run;
-        // other machines still execute whole recipe batches.
-        int cycles = definition.id == Ids.ElectrolysisCell ? 1 : MachineFactory.WorkCycles(machine);
+        // Electrolysis handles a continuously scaled volume in one nightly run.
+        // The module assembler spends every accepted material on one module per click.
+        int cycles = definition.id == Ids.ElectrolysisCell || definition.id == Ids.ChipFab
+            ? 1 : MachineFactory.WorkCycles(machine);
         if (cycles <= 0)
         {
             WriteStatus(machine, 0, ProcessFailure.NoCapacity);
@@ -111,6 +118,9 @@ internal static class Processor
             ProcessFailure cycleFailure = ProcessFailure.MissingInputs;
             foreach (RecipeDefinition recipe in recipes)
             {
+                if (definition.id == Ids.ElectrolysisCell && recipe.id == "chlor_alkali" &&
+                    (waterSlot.childItem == null || WaterHelper.GetContaminantAmount(waterSlot.childItem, "mineral") < recipe.water))
+                    continue;
                 ProcessFailure result = TryRunRecipe(machine, definition, recipe, batterySlot, waterSlot, inputGrid, outputGrid, moduleGrid);
                 if (result == ProcessFailure.None)
                 {
@@ -127,6 +137,102 @@ internal static class Processor
             }
         }
         WriteStatus(machine, batches, failure);
+        return batches > 0;
+    }
+
+    private static bool RunRustExtractor(
+        GameItem machine,
+        MachineDefinition definition,
+        GameSlotInventory batterySlot,
+        GameSlotInventory waterSlot,
+        GameGridInventory outputGrid,
+        GameGridInventory moduleGrid)
+    {
+        RecipeDefinition[] recipes = ContentDatabase.RecipesFor(definition.id)
+            .Where(recipe => !string.IsNullOrEmpty(recipe.waterContaminant))
+            .ToArray();
+        int cycles = MachineFactory.WorkCycles(machine);
+        int batches = 0;
+        ProcessFailure failure = ProcessFailure.None;
+        for (int cycle = 0; cycle < cycles; cycle++)
+        {
+            GameItem? water = waterSlot.childItem;
+            if (water == null || water.unitCount != 1)
+            {
+                failure = ProcessFailure.MissingWater;
+                break;
+            }
+
+            // Each contaminant has its own recipe and threshold. The extractor runs
+            // every pathway it can satisfy, so the player never chooses a filter.
+            var runs = new List<(RecipeDefinition recipe, string contaminant, int batches, int amount)>();
+            foreach (RecipeDefinition recipe in recipes)
+            {
+                int available = WaterHelper.GetContaminantAmount(water, recipe.waterContaminant);
+                int count = recipe.water <= 0 ? 0 : available / recipe.water;
+                if (count > 0) runs.Add((recipe, recipe.waterContaminant, count, count * recipe.water));
+            }
+            if (runs.Count == 0)
+            {
+                failure = ProcessFailure.MissingWater;
+                break;
+            }
+
+            int power = runs.Sum(run => RecipePower(machine, definition, run.recipe) * run.batches);
+            GameItem? battery = batterySlot.childItem;
+            if (!CanDraw(battery, power))
+            {
+                failure = ProcessFailure.MissingPower;
+                break;
+            }
+
+            var outputs = new List<GameItem>();
+            foreach (var run in runs)
+            {
+                for (int i = 0; i < run.batches; i++)
+                {
+                    GameItem? produced = TryCreateOutput(run.recipe.outputs[0], machine);
+                    if (produced != null) outputs.Add(produced);
+                }
+            }
+            if (outputs.Count != runs.Sum(run => run.batches))
+            {
+                MachineFactory.DestroyAll(outputs);
+                failure = ProcessFailure.OutputUnavailable;
+                break;
+            }
+            if (!MachineFactory.TryPlaceOutputs(outputGrid, outputs, out Action rollbackOutputs))
+            {
+                failure = ProcessFailure.OutputSpace;
+                break;
+            }
+            if (battery == null || battery.unitCount != 1 || !PowerHelper.DrawPowerSource(battery, power))
+            {
+                rollbackOutputs();
+                failure = ProcessFailure.MissingPower;
+                break;
+            }
+
+            int removed = 0;
+            foreach (var run in runs)
+            {
+                int amount = WaterHelper.RemoveContaminantFromContainer(water, run.contaminant, run.amount, 0);
+                if (amount != run.amount)
+                {
+                    rollbackOutputs();
+                    failure = ProcessFailure.MissingWater;
+                    break;
+                }
+                removed += amount;
+            }
+            if (failure != ProcessFailure.None) break;
+            WaterHelper.AddLiquid(water, "water", removed);
+            WaterFeatureHelper.UpdateWaterFeature(water, isExpose: false);
+            SpriteHelper.UpdateWaterContainerSprite(water);
+            if (definition.moduleBay) MachineHelper.OnMachineActioned(machine, moduleGrid);
+            batches += runs.Sum(run => run.batches);
+        }
+        WriteStatus(machine, batches, cycles <= 0 ? ProcessFailure.NoCapacity : failure);
         return batches > 0;
     }
 

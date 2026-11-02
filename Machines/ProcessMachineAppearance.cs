@@ -36,8 +36,11 @@ internal static class ProcessMachineAppearance
             string sprite = definition.sprite + (powered ? "_powered" : "") + (loaded ? "_loaded" : "");
             // Consult the actual path, not a cached state: loading a save can
             // restore the sprite after construction and before onLoaded.
-            if (machine.spritePath == sprite) return;
-            machine.SetSpriteAndShapeFromMod(Ids.ModId, sprite);
+            if (machine.spritePath != sprite)
+                machine.SetSpriteAndShapeFromMod(Ids.ModId, sprite);
+            // The state sprite's sparse top-right cell derives as empty. Reapply the
+            // full footprint even when the path is unchanged on a save load.
+            MachineFactory.ApplyShape(machine, definition.id);
         }
 
         foreach (GameInventory inventory in new GameInventory[] { battery, water, input, modules })

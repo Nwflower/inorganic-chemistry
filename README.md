@@ -17,13 +17,13 @@ Core（数据库、工厂、通用配方执行器、公共 API）、GasProductio
 ## 玩法
 
 **气瓶**
-四种气体各有气瓶。`GAS_TYPE` 标记种类，物品数量就是克数；同种气体拖在一起即按克合并，不同气体不能合并。克数写在物品说明里，不盖住贴图；拆分时图标旁显示待取克数。新生成的气瓶默认 100 克。
+四种气体各有气瓶。`GAS_TYPE` 标记种类，物品数量就是克数；同种气体拖在一起即按克合并，不同气体不能合并。克数写在物品说明里，不盖住贴图；堆内有至少 2 克时，说明卡显示“双击拆分”。拆分时图标旁显示待取克数。新生成的气瓶默认 100 克。
 
 **电解与空气分离**
-电解器每晚基础耗电 12、耗水 1 升，产出 112 克氢和 888 克氧。空气分离机每晚基础耗电 6，产出 222 克氧和 778 克氮。效率改变耗电，性能提高每晚批次与处理水量，质量增加产氢量或产物估值。
+电解器没有原料槽或配方状态栏：液体中有至少 100 毫升矿物质时自动进行氯碱电解，否则每晚基础耗电 12、耗水 1 升，产出 112 克氢和 888 克氧。铁锈提取机没有原料槽，一次运行同时去除矿物质和重金属；6×4 产物区可容纳 4 份 3×2 氧化铁。空气分离机每晚基础耗电 6，产出 222 克氧和 778 克氮，控制区不再显示没有作用的状态面板。所有液体槽统一使用原版容器底图。效率改变耗电，性能提高批次与处理水量，质量增加产氢量或产物估值。
 
 **燃料能量电池**
-外形参考原版等离子电池的 4×2 初级违禁品，插在机器电池槽里当电源。外壳固定，内部贴图随空仓、装氢、氢氧齐备切换。每 10 克氢供 1 点电，不足 10 克的部分留着下次用。装了氧气和产水容器时，每 1 克氢搭配 8 克氧产出 9 毫升纯水；容器没空间就只供电、氧气留下。它不能给充电机、装备或飞船电源架用。
+外形参考原版等离子电池的 4×2 初级违禁品，插在机器电池槽里当电源。外壳固定，内部贴图随空仓、装氢、氢氧齐备切换。每 10 克氢供 1 点电，不足 10 克的部分留着下次用。装了氧气和产水容器时，每 1 克氢搭配 8 克氧产出 9 毫升纯水；容器没空间就只供电、氧气留下。机器内带自己的说明卡。它不能给充电机、装备或飞船电源架用。
 
 **原版熔炉化学模块**
 装进原版熔炉后，熔炉接受氧化铁、焦炭、硅砂、硅和废料，效率降低 50%（基础耗电 8 变 12），化学配方都按熔炉当前耗电结算。每份氧化铁直接炼成 1 个低纯金属锭，同时放入焦炭则产出高纯锭。焦炭在原版矿石炼锭成功时提高一档纯度，可与原版助熔剂叠加。6 份废料变 1 份焦炭；2 份硅砂加焦炭炼出工业硅，再用焦炭在熔炉里逐档提纯。
@@ -32,21 +32,21 @@ Core（数据库、工厂、通用配方执行器、公共 API）、GasProductio
 耐久 100 的工具，不是滤芯。熔炉提纯每次扣 10，炼工业硅扣 20，硅提纯每档扣 5。拿它点一下盛水容器可吸附化学污染物和重金属，每点耐久吸附 2 毫升，吸走的部分补成水；它不杀菌。耐久用尽即消耗。
 
 **气体合成与原版化工**
-气体合成器保留盐酸、氨、硝酸、双氧水和次氯酸钠剂五条需要气体输入的反应；氯碱电解在电解器完成。盐从含矿物质的液体中经原版制剂机提取，盐溶于水可分装盐水。氨与硝酸在原版容器中反应得到硝酸铵，经蒸发浓缩后制成肥料；含氯试剂可制成无残净水片。制剂机检查实际提取部分的组分，纯水不能冒充原料。
+气体合成器保留盐酸、氨、硝酸、双氧水和次氯酸钠剂五条需要气体输入的反应；点“配置”选择一条配方，再点“运行”立即结算，不随夜间自动运行。氯碱电解在电解器的储液容器中自动完成。盐从含矿物质的液体中经原版制剂机提取，盐溶于水可分装盐水。氨与硝酸在原版容器中反应得到硝酸铵，经蒸发浓缩后制成肥料；含氯试剂可制成无残净水片。制剂机检查实际提取部分的组分，纯水不能冒充原料。
 
 盐酸、硝酸、烧碱、氨、硝酸铵、双氧水和次氯酸钠在游戏液体表中保持独立身份。硝酸铵给原版水培提供矿物营养，过量仍会伤害作物；双氧水逐步消毒并分解，次氯酸钠释出原版有效氯，遇酸则产生污染。无残净水片沿用原版图标，使用时以原版净化效果的双倍剂量去除微生物和部分化学污染。产量、浓度和反应速度采用游戏化数值，不宣称真实质量守恒。
 
 **模组装配台**
-每批基础耗电 10，至少放 1 个硅；电子元件、线缆、金属锭和打印塑料一并投入。按价值区间 [总价值 + 10，硅价值 ×4 + 其他材料价值 ×2 + 30] 随机出一个原版模组。价值偏高时先补「优质」词条、再提高基础属性，补不完就把最贵的材料留在输入格；价值偏低时向上取更贵的模组，差价越大越可能变成报废或损坏模组、带上破旧状态或多一条负面词条。
+采用原版水瓶打印机的即时按钮模式：放入电池和材料后点击“开始装配”，立即消耗全部合格材料并产出一个模组，不再等夜间结算。每批基础耗电 10，至少放 1 个硅；电子元件、线缆、金属锭和打印塑料一并投入。按价值区间 [总价值 + 10，硅价值 ×4 + 其他材料价值 ×2 + 30] 随机出一个原版模组。价值偏高时先补「优质」词条、再提高基础属性，补不完就把最贵的材料留在输入格；价值偏低时向上取更贵的模组，差价越大越可能变成报废或损坏模组、带上破旧状态或多一条负面词条。
 
 **实验区与药品格**
-开局优先发放实验区：4×4 的金属架，内部 14×18 格主网格，下方有 12 个独立 2×2 药品格；收纳设备不会让机器停机。架子图标按主网格与药品格中的物品总数切换五种状态。每个药品格可放一种物品，定量化学品与药品可按同类堆叠至 99 件，原版药品保持单件。
+开局优先发放实验区：4×4 的金属架，内部 14×18 格主网格，下方有 2 行 4 列共 8 个独立 2×2 药品格；收纳设备不会让机器停机。架子图标按主网格与药品格中的物品总数切换五种状态。每个药品格可放一种物品，定量化学品与药品可按同类堆叠至 99 件，原版药品保持单件。
 
 **化学家商店**
-独立的夜间柜台，卖原版试剂、模组化学品、原版与模组机器、机器储藏区。较大的商品先尝试摆放，小件按游戏日期轮换；柜台被占用时本次不供货。商店不向发明家注入商品。
+独立的夜间柜台，卖原版试剂、模组化学品、原版与模组机器、机器储藏区。较大的商品先尝试摆放，小件按游戏日期轮换；柜台已有物品时保留它们并继续向空位上货。商店不向发明家注入商品。
 
-**配方与纯度**
-配方选择与状态在机器窗口底部：可以逐条停用，选择随存档保留，状态面板显示当前每晚能力和上次停止的原因。配方输入可以指定 `purity`，同一物品的不同纯度据此区分。铁与硅用原版的 6 档 `IngotPurityHelper` 表达工业硅到电子级硅，价值随纯度浮动，不为每档单独做贴图。
+**配方、模块与纯度**
+所有流程机器的模块区都用原版 7×5 `DEFAULT_MODULE_BAY_CONFIG` 排布，并调用原版模块槽初始化，因此可继续使用原版扩容与模块效果。气体合成器的控制区与化学制剂成型机一致：配置按钮打开可滚动配方列表，每条配方向下显示输入、输出、耗电和储水需求，运行按钮手动结算；所选配方随存档保留。电解器、空气分离机和铁锈提取机没有配方开关或状态栏；模组装配台显示即时运行状态与“开始装配”按钮。机器说明书由统一发放标记管理，玩家主动拿走说明后不会重复塞回；燃料电池的说明槽同样可用。旧存档缺说明直接修存档，不做读档补丁。配方输入可以指定 `purity`，同一物品的不同纯度据此区分。铁与硅用原版的 6 档 `IngotPurityHelper` 表达工业硅到电子级硅，价值随纯度浮动，不为每档单独做贴图。
 
 **模块与开关**
 `Data/modules.json` 控制流程，`Data/buildings.json` 控制单台机器，两者都显示在模组设置里。上游模块关掉会级联禁用依赖它的模块，避免出现半残配方。
@@ -59,17 +59,17 @@ Core（数据库、工厂、通用配方执行器、公共 API）、GasProductio
 
 ## 已知限制
 
-- 尚未实机加载与功能验收；编译、静态校验和离线数据测试不等于游戏内行为。
+- 尚未实机加载与功能验收；编译、静态校验和离线数据测试不等于游戏内行为。气体配置窗口的滚动和文字换行、液体槽底图与说明槽必须在游戏内核验。
 - 气瓶的就地合并依赖原版拖放叠放，重量上限是有符号 32 位整数；离线用例不覆盖实际手感。
 - 化学家商店沿用原版离店流程：离开前请收好购买物并留出库存空间，接收位置全满时原版流程可能丢失柜台物品。
-- 商店复用原版夜间舞台与化学家肖像，没有专属场景；前台和后台都被占用时本次不铺货。
+- 商店复用原版夜间舞台与化学家肖像，没有专属场景；柜台已有物品时只补空位，完全无空间才无法上货。
 - 本次不提供旧存档迁移。已删除的模组物品不会保留兼容定义；请用新存档验收。
 - 气体是轻量模型：没有压力、温度、混合、管网和扩散，只存在于气瓶物品里。
 - 非气体产物不会塞进已有堆叠的空位，输出区要留独立空位。
 - 纯度沿用原版「Metal Purity: …」文案，未另做本地化改写。
 - 危害标签目前只进 tooltip，没有独立的辐射或毒气结算。
 - 氧气种子筛选还是实验玩法，和原版基因扫描仪定位重叠。
-- 配方状态只记最近一次夜间运行的汇总，多个配方同时缺料时只报一个最可操作的原因。
+- 配方状态只记最近一次运行的汇总；保留状态栏的机器同时缺料时只报一个最可操作的原因。
 - 多产物处理对空间不足和扣电失败做了回滚，但无法保证第三方回调或后续扣水、销毁、充电抛异常时所有副作用都能回滚。
 - 实验区不是停机开关：装在里面的通电机器可能照常夜间工作，整理前应取出电池和投入物。
 - 熔炉化学模块和燃料电池接入游戏运行时，游戏更新后需要重新检查补丁目标。
@@ -119,13 +119,13 @@ Requires the full release of the game (runtime version 0.46D). In development; n
 
 **Coke** — a 100-durability tool, not a filter. Furnace boosts cost 10, industrial silicon 20 and each silicon refining step 5. Use it on a water container to adsorb chemical contaminants and heavy metals at 2 mL per point; it does not kill microbes.
 
-**Silicon and electronics** — smelt silica with coke and refine it step by step in the furnace. The module assembler spends at least one silicon plus any electronics, wire, ingots and printer plastic on one vanilla module whose value falls between total value + 10 and silicon × 4 + other materials × 2 + 30. Surplus buys a premium effect and higher base stats, otherwise the priciest material stays behind; a shortfall rolls the next module up and risks ruin, corruption, a shabby condition or a negative effect.
+**Silicon and electronics** — smelt silica with coke and refine it step by step in the furnace. The module assembler uses a bottle-printer-style Assemble button to immediately spend at least one silicon plus any electronics, wire, ingots and printer plastic on one vanilla module whose value falls between total value + 10 and silicon × 4 + other materials × 2 + 30. Surplus buys a premium effect and higher base stats, otherwise the priciest material stays behind; a shortfall rolls the next module up and risks ruin, corruption, a shabby condition or a negative effect.
 
-**Shop and storage** — a separate night-time chemist counter and a 14×18 laboratory bay with 12 dedicated medicine slots below its main grid. Its icon reflects the combined item count; mod chemistry and medical items stack to 99 in these slots. Legacy standalone cabinets remain usable in existing saves but are no longer sold.
+**Shop and storage** — a separate night-time chemist counter and a 14×18 laboratory bay with 8 dedicated medicine slots arranged in 2 rows of 4 below its main grid. Its icon reflects the combined item count; mod chemistry and medical items stack to 99 in these slots. Legacy standalone cabinets remain usable in existing saves but are no longer sold.
 
 **Limits** — gases are a lightweight model with no pressure, temperature, mixing or pipes; non-gas outputs need their own free cells; the mod is still in development and does not migrate old saves.
 
-**Native chemistry** — the electrolyzer also splits packaged brine into chlorine, hydrogen and caustic soda. The sealed gas synthesizer handles five gas-input reactions. The vanilla container, evaporator and chemical finisher process salt, brine, ammonium nitrate fertilizer and residue-free tablets. Seven distinct liquid components preserve their identities; peroxide disinfects, hypochlorite releases native chlorine, and ammonium nitrate feeds hydroponics. Gameplay volumes and reaction rates are deliberately simplified.
+**Native chemistry** — the liquid electrolyzer switches to chlor-alkali when its container holds at least 100 mL of minerals, otherwise it splits water. The rust extractor removes minerals and heavy metals in the same run. The sealed gas synthesizer uses a Configure/Run panel and five selectable gas-input reactions instead of running overnight. The vanilla container, evaporator and chemical finisher process salt, brine, ammonium nitrate fertilizer and residue-free tablets. Seven distinct liquid components preserve their identities; peroxide disinfects, hypochlorite releases native chlorine, and ammonium nitrate feeds hydroponics. Gameplay volumes and reaction rates are deliberately simplified.
 
 **Build** — `dotnet build ElementalIndustry.csproj -c Release`; output goes to `bin/` only. Enable the folder in the game's Mods menu and restart, then `F8` → `mod-scan elemental_industry`.
 

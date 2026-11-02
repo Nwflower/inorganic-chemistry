@@ -16,7 +16,7 @@ internal static class LaboratoryBay
         (List<MachineryPanel> medicinePanels, List<GameSlotInventory> medicineSlots) =
             MedicineSlots.CreatePanels(bay, MedicineSlotPrefix);
         var medicineRow = new MachineryPanelRow(medicinePanels.ToArray());
-        medicineRow.SetColumns(6);
+        medicineRow.SetColumns(4);
         var layout = new GridPixelElement(1, 2, isCentered: true);
         layout.Attach(inventory);
         layout.Attach(medicineRow);

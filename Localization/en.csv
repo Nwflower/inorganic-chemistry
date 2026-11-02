@@ -57,7 +57,7 @@ item.elem_coke.desc,Porous carbon made from scrap, with durability. It raises in
 item.elem_salt.name,Salt
 item.elem_salt.desc,Salt extracted from concentrated mineral components. Quality follows the feedstock. Dissolve in water and package as brine with the vanilla finisher.
 item.elem_brine.name,Concentrated Brine
-item.elem_brine.desc,A 500 mL package. Dissolve salt in water and package it with the vanilla chemical finisher for chlor-alkali electrolysis.
+item.elem_brine.desc,A 500 mL package. Dissolve salt in water and package it with the vanilla chemical finisher; pour it into the electrolyzer's liquid container for chlor-alkali electrolysis.
 item.elem_sodium_hydroxide.name,Caustic Soda
 item.elem_sodium_hydroxide.desc,A distinct caustic soda component for gas synthesis and native acid/base processing.
 item.elem_hydrochloric_acid.name,Hydrochloric Acid
@@ -79,7 +79,7 @@ item.elem_silica.desc,Pale silica-rich mineral that can be reduced to silicon in
 item.elem_silicon.name,Silicon
 item.elem_silicon.desc,Silvery silicon refined grade by grade in the upgraded vanilla furnace. The module assembler needs at least one; higher purity means more input value.
 machine.elem_electrolysis_cell.name,Electrolyzer
-machine.elem_electrolysis_cell.desc,Separates water into hydrogen and oxygen for fuel power and chemical synthesis.
+machine.elem_electrolysis_cell.desc,Electrolyzes water or dissolved minerals into hydrogen and oxygen, or chlorine and caustic soda through the chlor-alkali path.
 machine.elem_air_separator.name,Air Separator
 machine.elem_air_separator.desc,Separates oxygen and nitrogen from air to supply gas feedstock.
 machine.elem_hydrogen_fuel_cell.name,Fuel Power Cell
@@ -106,15 +106,15 @@ item.elem_furnace_chem_module.name,Furnace Chemistry Module
 item.elem_furnace_chem_module.desc,A chemistry attachment for smelting iron oxide and silica and refining metals with coke.
 manual.note.title,{0} Instructions
 manual.p1.title,Tools and Machines
-manual.p1.lab,<b>Laboratory Bay</b>\nStores equipment and materials. The 12 medicine slots below let identical mod chemicals stack. Powered machines inside keep running.
-manual.p1.electrolysis,<b>Electrolyzer</b>\nWorks overnight to split water into hydrogen and oxygen; concentrated brine switches it to chlor-alkali electrolysis. Use normal modules.
+manual.p1.lab,<b>Laboratory Bay</b>\nStores equipment and materials. The 8 medicine slots below, arranged in 2 rows of 4, let identical mod chemicals stack. Powered machines inside keep running.
+manual.p1.electrolysis,<b>Electrolyzer</b>\nWorks overnight to split water into hydrogen and oxygen; 100 mL or more of minerals in the liquid switches it to chlor-alkali electrolysis. It has no input grid. Use normal modules.
 manual.p1.air,<b>Air Separator</b>\nWorks overnight to separate nitrogen and oxygen from air. Use normal modules.
 manual.p1.fuel_cell,<b>Fuel Power Cell</b>\nGoes into a machine's battery slot and burns hydrogen as needed. Recovers pure water when oxygen and a water container are attached. Minor contraband.
 manual.p1.rust,<b>Rust Extractor</b>\nWorks overnight to extract iron oxide from water containing minerals or heavy metals. Use normal modules.
 manual.p1.furnace,<b>Furnace Chemistry Module</b>\nLets a vanilla furnace smelt iron oxide and make coke and industrial silicon. The module carries -50% efficiency so the furnace draws more power.
-manual.p1.reactor,<b>Gas Synthesizer</b>\nWorks overnight to turn gases into acids, ammonia, peroxide and hypochlorite. Some recipes need a water container. Use normal modules.
-manual.p1.assembler,<b>Module Assembler</b>\nWorks overnight to spend all of its silicon, electronics and other materials on one random vanilla module chosen by total value. Use normal modules.
-manual.p1.note,Multi-recipe machines can enable or disable each recipe from the status panel. New gas bottles hold 100 g. Bottles of the same gas merge; different gases do not.
+manual.p1.reactor,<b>Gas Synthesizer</b>\nPress Configure to choose one reaction, then Run to synthesize an acid, ammonia, peroxide or hypochlorite immediately. Some recipes need a water container. Use normal modules.
+manual.p1.assembler,<b>Module Assembler</b>\nLoad silicon, electronics and other materials, then press Assemble to make one random vanilla module immediately. Total input value chooses the tier. Use normal modules.
+manual.p1.note,The Gas Synthesizer uses Configure to choose one recipe and Run to process it. New gas bottles hold 100 g. Bottles of the same gas merge; different gases do not. One bottle holds 10 kg at most, a pair over that limit stays apart, and double-clicking a bottle splits it in half.
 manual.p2.title,Periodic Table
 manual.p2.legend,Each cell shows the atomic number, symbol and relative atomic mass (rounded; chlorine is 35.5). Red cells are the elements used in this manual.
 manual.p2.how_title,Reading the Equations
@@ -125,22 +125,22 @@ manual.p3.s1,<b>2H<sub>2</sub>O → 2H<sub>2</sub> + O<sub>2</sub></b>\n- Put wa
 manual.p3.s2_title,Air Separation (Air Separator)
 manual.p3.s2,- No ingredients; each batch separates 1 kg of air\n- By mass this gives about 78% nitrogen and 22% oxygen
 manual.p3.s3_title,Chlor-Alkali (Electrolyzer)
-manual.p3.s3,<b>2NaCl + 2H<sub>2</sub>O → Cl<sub>2</sub> + H<sub>2</sub> + 2NaOH</b>\n- Put (1) Concentrated Brine in the input\n- Produces chlorine, hydrogen and (1) Caustic Soda\n- Brine takes priority; disable the chlor-alkali recipe to electrolyze water only
+manual.p3.s3,<b>2NaCl + 2H<sub>2</sub>O → Cl<sub>2</sub> + H<sub>2</sub> + 2NaOH</b>\n- Pour Concentrated Brine or mineral-rich water into the liquid container\n- At least 100 mL of minerals starts chlor-alkali electrolysis automatically\n- Produces chlorine, hydrogen and (1) Caustic Soda\n- Less mineral content falls back to water electrolysis; there is no input grid or recipe switch
 manual.p3.s4_title,Fuel Power Cell
 manual.p3.s4,<b>2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</b>\n- Every 10 g of hydrogen supplies 1 power; leftovers below 10 g are kept\n- With oxygen and a water container attached it produces pure water by the equation; without room it only supplies power and keeps the oxygen
 manual.p3.note,Note: the pure water mixes with whatever is already in the container.
 manual.p4.title,Metallurgy
 manual.p4.s1_title,1. Iron Oxide
-manual.p4.s1,Each Rust Extractor batch removes 100 mL of minerals or heavy metals from water, makes (1) Iron Oxide and tops the volume up with water.\n<b>Fe<sub>2</sub>O<sub>3</sub> + 3C → 2Fe + 3CO</b>\n- Furnace: (1) Iron Oxide → (1) low-purity Metal Ingot\n- Add Coke as well for a high-purity ingot; coke loses 10 durability\n- Vanilla Metal Ore smelted with coke also gains one purity grade for 10 durability
+manual.p4.s1,The Rust Extractor removes both minerals and heavy metals in the same run: every 100 mL of each makes (1) Iron Oxide and is replaced with water. Its 6x4 output grid holds (4) Iron Oxide ores.\n<b>Fe<sub>2</sub>O<sub>3</sub> + 3C → 2Fe + 3CO</b>\n- Furnace: (1) Iron Oxide → (1) low-purity Metal Ingot\n- Add Coke as well for a high-purity ingot; coke loses 10 durability\n- Vanilla Metal Ore smelted with coke also gains one purity grade for 10 durability
 manual.p4.s2_title,2. Coke
 manual.p4.s2,Coke has 100 durability and is used up at zero.\n- Furnace: (6) Junk → (1) Coke\n- Use coke on a water container to adsorb chemical contaminants and heavy metals: 2 mL per durability point, replaced with water. It does not kill microbes
 manual.p4.s3_title,3. Industrial Silicon
 manual.p4.s3,<b>SiO<sub>2</sub> + 2C → Si + 2CO</b>\n- Furnace: (2) Silica Sand + Coke → (1) low-purity Silicon; coke loses 20 durability\n- Remelt with coke to raise purity one grade for 5 durability per grade, up to high purity
 manual.p7.title,Module Assembly
-manual.p7.body,- Put at least (1) Silicon in the Module Assembler; Electronic Parts, Wire, Metal Ingots and 3D Printing Filament can go in too and are all consumed\n- The next day you get (1) vanilla module: performance, efficiency, quality, overclock, eco, refinement, streamlining or capped neural core; the more the materials are worth, the higher the tier\n- Surplus value first adds the premium effect, then raises base stats; anything left over keeps the most valuable material in the input\n- A shortfall rolls the next module up; the bigger the gap, the likelier a ruined or corrupted module, wear or a negative effect
+manual.p7.body,- Put at least (1) Silicon in the Module Assembler; Electronic Parts, Wire, Metal Ingots and 3D Printing Filament can go in too and are all consumed\n- Press Assemble to immediately get (1) vanilla module: performance, efficiency, quality, overclock, eco, refinement, streamlining or capped neural core; the more the materials are worth, the higher the tier\n- Surplus value first adds the premium effect, then raises base stats; anything left over keeps the most valuable material in the input\n- A shortfall rolls the next module up; the bigger the gap, the likelier a ruined or corrupted module, wear or a negative effect
 manual.p4.note,The furnace requires a source of power and draws more with the chemistry module. Smelting happens overnight.
 manual.p5.title,Gas Synthesis
-manual.p5.intro,All of these run in the Gas Synthesizer. Enable the recipes you need in the status panel and collect the products the next day.
+manual.p5.intro,All of these run in the Gas Synthesizer. Press Configure to choose one recipe, then press Run to process it immediately; nothing waits for the nightly cycle.
 manual.p5.hcl_title,Hydrochloric Acid
 manual.p5.hcl,<b>H<sub>2</sub> + Cl<sub>2</sub> → 2HCl</b>\nProduces (1) Hydrochloric Acid
 manual.p5.nh3_title,Ammonia
@@ -162,24 +162,29 @@ manual.p6.tablet,- Dissolve hypochlorite reagent directly into an empty containe
 manual.p6.use_title,Disinfection
 manual.p6.use,Hydrogen peroxide gradually disinfects water and decomposes into water. Hypochlorite releases active chlorine in water.
 manual.p6.note,Note: the Chem Finisher needs enough active ingredient; plain water cannot stand in for it.
-machine.elem_electrolysis_cell.manual_short,Insert a power cell and a water container and leave room in the output; concentrated brine switches it to chlor-alkali electrolysis. Requires Energy. Overnight. See the Inorganic Chemistry Basics Manual for recipes.
+machine.elem_electrolysis_cell.manual_short,Insert a power cell and liquid container and leave room in the output. Enough minerals select chlor-alkali electrolysis; otherwise it electrolyzes water. Requires Energy. Overnight. See the Inorganic Chemistry Basics Manual for recipes.
 machine.elem_air_separator.manual_short,Insert a power cell and leave room in the output. Requires Energy. Overnight. See the Inorganic Chemistry Basics Manual for the products.
 machine.elem_rust_extractor.manual_short,Insert a power cell and a container of water holding minerals or heavy metals and leave room in the output. Requires Energy. Overnight.
-machine.elem_chemical_reactor.manual_short,Insert a power cell and ingredients; some recipes also need a water container. Select recipes in the status panel. Requires Energy. Overnight. See the Inorganic Chemistry Basics Manual for recipes.
-machine.elem_chip_fab.manual_short,Insert a power cell and at least 1 Silicon; Electronic Parts, Wire, Metal Ingots and 3D Printing Filament can go in too and are all consumed. Requires Energy. Overnight. See the Inorganic Chemistry Basics Manual.
+machine.elem_chemical_reactor.manual_short,Insert a power cell and ingredients; some recipes also need a water container. Press Configure to select a recipe, then Run. Requires Energy. See the Inorganic Chemistry Basics Manual for recipes.
+machine.elem_chip_fab.manual_short,Insert a power cell and at least 1 Silicon; Electronic Parts, Wire, Metal Ingots and 3D Printing Filament can go in too and are all consumed. Requires Energy. Press Assemble to run immediately. See the Inorganic Chemistry Basics Manual.
 machine.elem_electrolysis_cell.manual,[Module Impact]: \n  Efficiency (0.5 Ratio): Power Consumption\n  Performance: Water Processed Per Night\n  Quality: Hydrogen Yield From Water\nDoes not run without enough water.
 machine.elem_air_separator.manual,[Module Impact]: \n  Efficiency: Power Consumption\n  Performance: Batches Per Night\n  Quality: Gas Value
-machine.elem_rust_extractor.manual,[Module Impact]: \n  Efficiency: Power Consumption\n  Performance: Batches Per Night\n  Quality: Product Value\nSelect the contaminant pathway from the status panel.
-machine.elem_chemical_reactor.manual,[Module Impact]: \n  Efficiency: Power Consumption\n  Performance: Batches Per Night\n  Quality: Product Value
-machine.elem_chip_fab.manual,[Module Impact]: \n  Efficiency: Power Consumption\n  Performance: Batches Per Night\n  Quality: No Effect
+machine.elem_rust_extractor.manual,[Module Impact]: \n  Efficiency: Power Consumption\n  Performance: Batches Per Night\n  Quality: Product Value\nRemoves both minerals and heavy metals together; the 6x4 output grid holds four iron oxide ores.
+machine.elem_chemical_reactor.manual,[Module Impact]: \n  Efficiency: Power Consumption\n  Performance: Batches Per Run\n  Quality: Product Value\nPress Run to start synthesis.
+machine.elem_chip_fab.manual,[Module Impact]: \n  Efficiency: Power Consumption\n  Performance: No Effect\n  Quality: No Effect\nPress Assemble to spend every eligible material immediately.
+machine.elem_hydrogen_fuel_cell.manual_short,Insert a hydrogen cylinder; oxygen and a water container are optional. Use it as a power source in another machine's battery slot. Every 10 g of hydrogen supplies 1 power; hydrogen paired with oxygen also recovers pure water. Minor contraband.
+machine.elem_hydrogen_fuel_cell.manual,[Module Impact]: \n  Not affected by machine modules\n  Every 10 g of hydrogen supplies 1 power\n  Each reacted gram of hydrogen uses 8 g oxygen and recovers 9 mL pure water\n  Without oxygen or container space it still supplies power and keeps the oxygen
 tooltip.gas_mass,Gas mass: {0} g
+tooltip.gas_split,Double-click to split the gas into two equal stacks
 tooltip.product_quality,Process quality: {0}%
 panel.control,Status
 status.capacity,Recipes {0}/{1} · Nightly capacity {2} batches
 status.capacity_scaled,Recipes {0}/{1} · Current throughput {2}%
+status.capacity_instant,Each Assemble click makes 1 module
 status.completed,Last run: {0} batch(es)
 status.completed_blocked,Last run: {0} batch(es); stopped: {1}
 status.idle,Waiting for the nightly cycle
+status.idle_ready,Ready to run
 status.no_recipes,No recipe is enabled
 status.no_capacity,Performance is too low for a full batch
 status.missing_inputs,Inputs or purity are insufficient
@@ -187,6 +192,20 @@ status.missing_water,A water container or required liquid is missing
 status.missing_power,Battery is missing or has too little power
 status.output_space,Output space is insufficient
 status.output_unavailable,The product could not be created
+status.idle_manual,Select a recipe and press Run
+control.configure,Configure
+control.run,Run
+control.assemble,Assemble
+control.configure_title,Select Synthesis Recipe
+control.inputs,Inputs: {0}
+control.outputs,Outputs: {0}
+control.water,Water: {0:0.##} L
+control.power,Power: {0}
+control.select,Select Recipe
+control.selected,Current Recipe · Confirm
+control.none,None
+control.gas_amount,{0} {1} g
+control.item_amount,{0} ×{1}
 recipe.elec_water.name,Water Electrolysis
 recipe.air_separation.name,Air Separation
 recipe.rust_from_mineral.name,Mineral Extraction

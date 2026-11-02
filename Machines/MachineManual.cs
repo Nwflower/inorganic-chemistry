@@ -4,9 +4,14 @@ using HarmonyLib;
 
 namespace ElementalIndustry;
 
-/// <summary>Vanilla-style removable instruction notes. Factory creation remains empty so save loading does not duplicate notes.</summary>
+/// <summary>
+/// Vanilla-style removable instruction notes. The issued tag repairs old saves without
+/// putting a note back after the player deliberately removes it.
+/// </summary>
 internal static class MachineManual
 {
+    private const string IssuedTag = "ELEM_MANUAL_ISSUED_TAG";
+
     internal static string NoteId(string machineId) => "elem_manual_" + machineId;
 
     internal static GameItem Create(MachineDefinition definition)
@@ -27,15 +32,21 @@ internal static class MachineManual
 
     internal static void AddToNewMachine(GameItem machine)
     {
-        if (!ContentDatabase.Machines.TryGetValue(machine.identifier, out MachineDefinition? definition) ||
-            definition.archetype == "fuel_cell") return;
+        if (!ContentDatabase.Machines.TryGetValue(machine.identifier, out MachineDefinition? definition)) return;
         GameSlotInventory? slot = GraphUtils.FindAllChildrenType<GameSlotInventory>(machine)
             .FirstOrDefault(s => s.identifier == "elem_note_" + definition.id);
-        if (slot == null || slot.childItem != null) return;
+        if (slot == null) return;
+        if (slot.childItem != null)
+        {
+            machine.EnableTag(IssuedTag);
+            return;
+        }
+        if (machine.IsTag(IssuedTag)) return;
         // Construct through the directory so the game assigns ownership and a unique id.
         GameItem note = DirectoryMaster.Item(NoteId(definition.id));
         // TryAcceptAll returns the number left over, not the number inserted.
         if (GraphUtils.TryAcceptAll(slot, note) != 0) note.Destroy();
+        else machine.EnableTag(IssuedTag);
     }
 
     // The game clears factory-created children inside DirectoryMaster.Item. Attach

@@ -5,11 +5,16 @@ namespace ElementalIndustry;
 /// <summary>
 /// A gas stack's unit count is its mass in grams. The gas type is kept on the
 /// container, so the normal inventory can split or merge identical gases.
+/// One item holds at most <see cref="MaxGramsPerItem"/> grams, the same way a
+/// feed piece is capped at one item's worth of calories.
 /// </summary>
 internal static class GasContainer
 {
     public const string GasContainerTag = "GAS_CONTAINER_TAG";
     public const string GasTypeTag = "GAS_TYPE";
+
+    /// <summary>One cylinder holds 10 kg at most; a full pair is refused, not overflowed.</summary>
+    public const int MaxGramsPerItem = 10000;
 
     public static void Init(GameItem item, string gasType)
     {
@@ -22,19 +27,67 @@ internal static class GasContainer
         item.SetUnitCount(100);
         item.onChangeAmountItemFunc += ProductQuality.RefreshValue;
         ProductQuality.RefreshValue(item);
+        MakeSplittable(item);
     }
 
     /// <summary>
-    /// Equal gases stack into one slot and a slot never fills up; this replaces the old
-    /// gas filler machine, which only existed to split and recombine fixed-size bottles.
+    /// Equal gases stack into one slot only while the combined mass stays within one item;
+    /// the pair is refused rather than partly merged, matching the feed piece rule.
     /// </summary>
     public static void MakeStackable(GameItem item)
     {
         item.mayStackItemFunc = (self, other) =>
             other != null &&
             IsGasContainer(other) &&
-            string.Equals(GetGasType(self), GetGasType(other), StringComparison.OrdinalIgnoreCase);
-        item.maxSlotAmountItemFunc = (_, _, _) => int.MaxValue;
+            string.Equals(GetGasType(self), GetGasType(other), StringComparison.OrdinalIgnoreCase) &&
+            (long)self.unitCount + other.unitCount <= MaxGramsPerItem;
+        item.maxSlotAmountItemFunc = (_, _, _) => MaxGramsPerItem;
+    }
+
+    /// <summary>Double-click halves a stack, the gesture the feed pieces use to split.</summary>
+    public static void MakeSplittable(GameItem item)
+    {
+        item.mayActivateSlotItemFunc = (self, _, _) => GeneralHelper.IsItemOwned(self) && CanSplit(self);
+        item.canActivateSlotItemFunc = (self, _, _) => GeneralHelper.IsItemOwned(self) && CanSplit(self);
+        item.onActivateSlotItemFunc = (self, _, _) => Split(self);
+    }
+
+    public static bool CanSplit(GameItem? item)
+    {
+        return item != null && item.unitCount >= 2;
+    }
+
+    /// <summary>
+    /// Moves half the mass into a fresh piece. The native split deducts the source first,
+    /// so when no slot accepts the piece the grams go back instead of vanishing.
+    /// </summary>
+    private static void Split(GameItem item)
+    {
+        if (!CanSplit(item))
+        {
+            return;
+        }
+        int half = item.unitCount / 2;
+        GameItem? piece = item.GetSplitItem(half);
+        if (piece == null)
+        {
+            item.SetUnitCount(item.unitCount + half);
+            ProductQuality.RefreshValue(item);
+            return;
+        }
+        // The inventory search pours a loose item into a matching pile before it looks for
+        // free space, which would put the piece straight back into the source stack.
+        Func<GameItem, GameItem, bool>? stack = piece.mayStackItemFunc;
+        piece.mayStackItemFunc = null!;
+        GraphUtils.EmporiumTryAdd(item.parentInventory, piece);
+        piece.mayStackItemFunc = stack!;
+        if (piece.parentInventory == null)
+        {
+            item.SetUnitCount(item.unitCount + half);
+            ProductQuality.RefreshValue(item);
+            return;
+        }
+        AudioManager.Instance.Play3("click_vintage");
     }
 
     public static bool IsGasContainer(GameItem? item)

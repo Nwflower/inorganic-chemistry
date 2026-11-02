@@ -14,6 +14,10 @@ internal static class Ids
     public const string Salt = "elem_salt";
 
     public const string ElectrolysisCell = "elem_electrolysis_cell";
+    public const string AirSeparator = "elem_air_separator";
+    public const string RustExtractor = "elem_rust_extractor";
+    public const string ChemicalReactor = "elem_chemical_reactor";
+    public const string ChipFab = "elem_chip_fab";
     public const string FuelCell = "elem_hydrogen_fuel_cell";
     public const string FuelCellTop = "elem_hydrogen_fuel_cell_top";
 

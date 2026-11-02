@@ -35,15 +35,7 @@ internal sealed class ChemistShopLocation : AfterhourLocation
     public override void Arrive()
     {
         EmporiumEntry entry = EmporiumEntry.Instance;
-        // Never clear an existing counter to make room for merchandise.
-        if (entry.frontInvinvElement.childItems.Count != 0 ||
-            entry.backInvinvElement.childItems.Count != 0 ||
-            entry.backInvinvElementCounter.childItems.Count != 0)
-        {
-            Debug.LogWarning($"[{Ids.ModId}] chemist stock skipped: a counter is not empty");
-            return;
-        }
-
+        // Preserve whatever is already on a counter and stock the remaining space.
         entry.frontInvWindow.Show();
         entry.backInvWindow.Show();
         MapUIManager.Instance.TransferBackInvToCounter();
@@ -68,10 +60,16 @@ internal sealed class ChemistShopLocation : AfterhourLocation
         MapUIManager.Instance.SetCreditDisplayPositionToDrJackson();
 
         int day = StoreStation.Instance.dayCounter;
-        foreach (ChemistOffer offer in ChemistStockPlan.ForDay(BuildCandidates(), day))
+        List<ChemistOffer> offers = ChemistStockPlan.ForDay(BuildCandidates(), day);
+        int stocked = 0;
+        foreach (ChemistOffer offer in offers)
         {
-            TryOffer(offer, entry.frontInvinvElement);
+            if (TryOffer(offer, entry.frontInvinvElement)) stocked++;
         }
+        Debug.Log($"[{Ids.ModId}] chemist stocked {stocked}/{offers.Count} offers; " +
+                  $"front counter items={entry.frontInvinvElement.childItems.Count}.");
+        if (stocked == 0)
+            Debug.LogWarning($"[{Ids.ModId}] chemist could not stock any offers; check counter space and item factories.");
     }
 
     /// <summary>Everything this shop may sell while the relevant modules are enabled.</summary>
@@ -89,11 +87,11 @@ internal sealed class ChemistShopLocation : AfterhourLocation
         return ChemistStockPlan.Build(machines, chemicals);
     }
 
-    private void TryOffer(ChemistOffer offer, GameGridInventory front)
+    private bool TryOffer(ChemistOffer offer, GameGridInventory front)
     {
         if (!front.CanTakeAnything())
         {
-            return;
+            return false;
         }
         GameItem? item = null;
         try
@@ -107,7 +105,7 @@ internal sealed class ChemistShopLocation : AfterhourLocation
             };
             if (item == null || item.parentInventory != null)
             {
-                return;
+                return false;
             }
             MachineManual.AddToNewMachine(item);
             GeneralHelper.SetItemOwned(item, false);
@@ -117,12 +115,9 @@ internal sealed class ChemistShopLocation : AfterhourLocation
                 slot.targetItem != null || slot.numTransfer < item.unitCount)
             {
                 item.Destroy();
-                return;
+                return false;
             }
-            if (!PlayerStore.Instance.TryAddDirectSellingItemToTable(item))
-            {
-                return; // the game reports and cleans a skipped offer
-            }
+            return PlayerStore.Instance.TryAddDirectSellingItemToTable(item);
         }
         catch (Exception exception)
         {
@@ -132,6 +127,7 @@ internal sealed class ChemistShopLocation : AfterhourLocation
                 item.Destroy();
             }
             Debug.LogError($"[{Ids.ModId}] chemist could not offer {offer.Key}: {exception}");
+            return false;
         }
     }
 

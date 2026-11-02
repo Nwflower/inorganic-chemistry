@@ -57,7 +57,7 @@ item.elem_coke.desc,废料干馏得到的多孔碳材，有耐久。可在熔炉
 item.elem_salt.name,盐
 item.elem_salt.desc,从浓缩矿物组分中提取的盐，品质随原料变化。可溶入水，再由原版制剂机分装为盐水。
 item.elem_brine.name,浓缩盐水
-item.elem_brine.desc,每包 500 毫升。将盐溶入水后，用原版化学制剂制成机分装；用于电解器的氯碱流程。
+item.elem_brine.desc,每包 500 毫升。将盐溶入水后，用原版化学制剂成型机分装；倒入电解器的储液容器可进行氯碱电解。
 item.elem_sodium_hydroxide.name,烧碱
 item.elem_sodium_hydroxide.desc,独立的烧碱组分，用于气体合成和原版酸碱化工处理。
 item.elem_hydrochloric_acid.name,盐酸
@@ -79,7 +79,7 @@ item.elem_silica.desc,浅色硅质矿砂，可在熔炉中还原为硅。
 item.elem_silicon.name,硅
 item.elem_silicon.desc,银灰色硅锭，可在装有化学模块的原版熔炉中逐档提纯。模组装配台至少需要 1 个硅，纯度越高，投入价值越高。
 machine.elem_electrolysis_cell.name,电解器
-machine.elem_electrolysis_cell.desc,将水分解为氢气与氧气，为燃料发电和化学合成提供原料。
+machine.elem_electrolysis_cell.desc,电解液体中的水或矿物质，制取氢气、氧气，或按氯碱流程产出氯气与烧碱。
 machine.elem_air_separator.name,空气分离机
 machine.elem_air_separator.desc,从空气中分离氧气与氮气，持续供应气体原料。
 machine.elem_hydrogen_fuel_cell.name,燃料能量电池
@@ -106,15 +106,15 @@ item.elem_furnace_chem_module.name,熔炉化学模块
 item.elem_furnace_chem_module.desc,熔炉专用化学模块，可处理铁氧化物与硅质矿砂，并用焦炭强化冶炼。
 manual.note.title,{0}说明
 manual.p1.title,工具与机器
-manual.p1.lab,<b>实验区</b>\n收纳设备和原料。下方 12 个药品槽可让同种模组化学品堆叠。仓内通电的机器照常运作。
-manual.p1.electrolysis,<b>电解器</b>\n夜间运作，电解水制取氢气和氧气；放入浓缩盐水时改为氯碱电解。可使用普通模组升级。
+manual.p1.lab,<b>实验区</b>\n收纳设备和原料。下方 2 行 4 列共 8 个药品槽，可让同种模组化学品堆叠。仓内通电的机器照常运作。
+manual.p1.electrolysis,<b>电解器</b>\n夜间运作，电解水制取氢气和氧气；液体中有至少 100 毫升矿物质时自动改为氯碱电解。不需要原料槽。可使用普通模组升级。
 manual.p1.air,<b>空气分离机</b>\n夜间运作，从空气中分离氮气和氧气。可使用普通模组升级。
 manual.p1.fuel_cell,<b>燃料能量电池</b>\n插入机器的电池槽，按需消耗氢气供电；接上氧气和储水容器时回收纯水。初级违禁品。
 manual.p1.rust,<b>铁锈提取机</b>\n夜间运作，从含矿物质或重金属的水中提取氧化铁。可使用普通模组升级。
 manual.p1.furnace,<b>熔炉化学模块</b>\n装入原版熔炉后，熔炉可冶炼氧化铁、炼制焦炭和工业硅。模块自带效率 −50%，熔炉耗电随之增加。
-manual.p1.reactor,<b>气体合成器</b>\n夜间运作，用气体合成酸、氨、双氧水和次氯酸钠剂。部分配方需要储水容器。可使用普通模组升级。
-manual.p1.assembler,<b>模组装配台</b>\n夜间运作，把硅和电子元件等材料全部投入，按总价值随机装配一个原版模组。可使用普通模组升级。
-manual.p1.note,多配方机器可在状态面板中逐条启用或停用配方。新购气瓶含 100 克气体；同种气体可以合并，不同气体不能合并。
+manual.p1.reactor,<b>气体合成器</b>\n点击“配置”选择一条反应，再点“运行”立即合成酸、氨、双氧水或次氯酸钠剂。部分配方需要储水容器。可使用普通模组升级。
+manual.p1.assembler,<b>模组装配台</b>\n放入硅和电子元件等材料，点击“开始装配”立即按总价值随机产出一个原版模组。可使用普通模组升级。
+manual.p1.note,气体合成器用“配置”选择一条配方，再用“运行”结算。新购气瓶含 100 克气体；同种气体可以合并，不同气体不能合并。每件最多 10 千克，合计超出的两堆不会合并；双击气瓶可对半拆分。
 manual.p2.title,元素周期表
 manual.p2.legend,每格依次为原子序数、元素符号和相对原子质量（取整，氯取 35.5）。红框为本手册用到的元素。
 manual.p2.how_title,怎样读反应式
@@ -125,22 +125,22 @@ manual.p3.s1,<b>2H<sub>2</sub>O → 2H<sub>2</sub> + O<sub>2</sub></b>\n- 在储
 manual.p3.s2_title,空气分离（空气分离机）
 manual.p3.s2,- 无需原料，每批分离 1 千克空气\n- 按质量计约得氮气 78%、氧气 22%
 manual.p3.s3_title,氯碱电解（电解器）
-manual.p3.s3,<b>2NaCl + 2H<sub>2</sub>O → Cl<sub>2</sub> + H<sub>2</sub> + 2NaOH</b>\n- 在原料槽放入（1）份浓缩盐水\n- 得到氯气、氢气和（1）份烧碱\n- 放有盐水时优先电解盐水；停用氯碱配方即可只电解水
+manual.p3.s3,<b>2NaCl + 2H<sub>2</sub>O → Cl<sub>2</sub> + H<sub>2</sub> + 2NaOH</b>\n- 将浓缩盐水或含矿物质的水倒入储液容器\n- 液体中矿物质达到 100 毫升时自动进行氯碱电解\n- 得到氯气、氢气和（1）份烧碱\n- 矿物质不足时改为电解水；没有原料槽或配方开关
 manual.p3.s4_title,燃料能量电池
 manual.p3.s4,<b>2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</b>\n- 每 10 克氢气供电 1 点，不足 10 克的部分留待下次\n- 接上氧气和储水容器时按反应式产出纯水；容器空间不足时只供电，氧气保留
 manual.p3.note,注意：产出的纯水会与容器里原有的液体混合。
 manual.p4.title,冶金
 manual.p4.s1_title,1.氧化铁
-manual.p4.s1,铁锈提取机每批从水中取出 100 毫升矿物质或重金属，制成（1）份氧化铁，并以水补足体积。\n<b>Fe<sub>2</sub>O<sub>3</sub> + 3C → 2Fe + 3CO</b>\n- 熔炉：（1）份氧化铁 →（1）块低纯金属锭\n- 同时放入焦炭：得到高纯金属锭，焦炭耐久 −10\n- 原版金属矿石加焦炭冶炼同样提高一档纯度，耐久 −10
+manual.p4.s1,铁锈提取机在同一次运行中同时去除矿物质和重金属：每 100 毫升各制成（1）份氧化铁，并以水补足体积。6×4 产物区最多放（4）份氧化铁。\n<b>Fe<sub>2</sub>O<sub>3</sub> + 3C → 2Fe + 3CO</b>\n- 熔炉：（1）份氧化铁 →（1）块低纯金属锭\n- 同时放入焦炭：得到高纯金属锭，焦炭耐久 −10\n- 原版金属矿石加焦炭冶炼同样提高一档纯度，耐久 −10
 manual.p4.s2_title,2.焦炭
 manual.p4.s2,焦炭有 100 点耐久，耐久用尽即消失。\n- 熔炉：（6）份垃圾 →（1）份焦炭\n- 拿焦炭点一下盛水容器：吸附化学污染物和重金属，每点耐久吸附 2 毫升，吸走的体积补成水；不能杀灭微生物
 manual.p4.s3_title,3.工业硅
 manual.p4.s3,<b>SiO<sub>2</sub> + 2C → Si + 2CO</b>\n- 熔炉：（2）份硅砂 + 焦炭 →（1）块低纯硅，焦炭耐久 −20\n- 放入焦炭重新熔炼，纯度提高一档，每档耐久 −5，最高到高纯
 manual.p7.title,模组装配
-manual.p7.body,- 在模组装配台放入至少（1）块硅；电子元件、线缆、金属锭和3D打印耗材可一起投入，全部消耗\n- 次日得到（1）个原版模组：性能、效率、质量、超频、环保、精炼、优化或神经核心模组（受限），材料总价值越高，档次越高\n- 价值偏高时先补优质词条、再提高基础属性；仍有剩余则把最贵的材料留在输入格\n- 价值偏低时取更贵的模组，差价越大越可能得到报废模组或损坏模组，或带上破旧状态与负面词条
+manual.p7.body,- 在模组装配台放入至少（1）块硅；电子元件、线缆、金属锭和3D打印耗材可一起投入，全部消耗\n- 点击“开始装配”立即得到（1）个原版模组：性能、效率、质量、超频、环保、精炼、优化或神经核心模组（受限），材料总价值越高，档次越高\n- 价值偏高时先补优质词条、再提高基础属性；仍有剩余则把最贵的材料留在输入格\n- 价值偏低时取更贵的模组，差价越大越可能得到报废模组或损坏模组，或带上破旧状态与负面词条
 manual.p4.note,熔炉需要动力源，装入化学模块后耗电增加。冶炼过程在夜间进行。
 manual.p5.title,气体合成
-manual.p5.intro,以下反应均在气体合成器中进行。在状态面板中启用需要的配方，次日取出产物。
+manual.p5.intro,以下反应均在气体合成器中进行。点击“配置”选择一条配方，再点击“运行”立即结算，不需要等到夜间。
 manual.p5.hcl_title,盐酸
 manual.p5.hcl,<b>H<sub>2</sub> + Cl<sub>2</sub> → 2HCl</b>\n得到（1）份盐酸
 manual.p5.nh3_title,氨
@@ -162,24 +162,29 @@ manual.p6.tablet,- 将次氯酸钠剂直接溶入空容器\n- 放入化学制剂
 manual.p6.use_title,消毒
 manual.p6.use,双氧水溶入水后逐步消毒并分解为水。次氯酸钠剂遇水释放有效氯。
 manual.p6.note,注意：化学制剂成型机要求足够的有效组分，纯水不能充当原料。
-machine.elem_electrolysis_cell.manual_short,放入能量电池和储水容器，并在输出区留出空间；放入浓缩盐水时改为氯碱电解。需要能量。夜间运行。配方见《无机化学基础手册》。
+machine.elem_electrolysis_cell.manual_short,放入能量电池和储液容器，并在输出区留出空间；含足够矿物质时进行氯碱电解，否则电解水。需要能量。夜间运行。配方见《无机化学基础手册》。
 machine.elem_air_separator.manual_short,放入能量电池，并在输出区留出空间。需要能量。夜间运行。产物见《无机化学基础手册》。
 machine.elem_rust_extractor.manual_short,放入能量电池和含矿物质或重金属的水容器，并在输出区留出空间。需要能量。夜间运行。
-machine.elem_chemical_reactor.manual_short,放入能量电池和原料，部分配方还需要储水容器；在状态面板中选择配方。需要能量。夜间运行。配方见《无机化学基础手册》。
-machine.elem_chip_fab.manual_short,放入能量电池和至少 1 块硅；电子元件、线缆、金属锭和3D打印耗材可一起投入，全部消耗。需要能量。夜间运行。说明见《无机化学基础手册》。
+machine.elem_chemical_reactor.manual_short,放入能量电池和原料，部分配方还需要储水容器；点击配置选择配方，再点击运行。需要能量。配方见《无机化学基础手册》。
+machine.elem_chip_fab.manual_short,放入能量电池和至少 1 块硅；电子元件、线缆、金属锭和3D打印耗材可一起投入，全部消耗。需要能量。点击“开始装配”立即运行。说明见《无机化学基础手册》。
 machine.elem_electrolysis_cell.manual,[模组影响]：\n效率影响功耗（系数：0.5）\n性能影响每晚处理水量\n质量影响电解水的氢气产量\n水量不足时不运行。
 machine.elem_air_separator.manual,[模组影响]：\n效率影响功耗\n性能影响每晚批次\n质量影响气体价值
-machine.elem_rust_extractor.manual,[模组影响]：\n效率影响功耗\n性能影响每晚批次\n质量影响产物价值\n可在状态面板中按污染物选择配方。
-machine.elem_chemical_reactor.manual,[模组影响]：\n效率影响功耗\n性能影响每晚批次\n质量影响产物价值
-machine.elem_chip_fab.manual,[模组影响]：\n效率影响功耗\n性能影响每晚批次\n质量无影响
+machine.elem_rust_extractor.manual,[模组影响]：\n效率影响功耗\n性能影响每晚批次\n质量影响产物价值\n每次同时去除矿物质和重金属，6×4 产物区最多容纳 4 份氧化铁。
+machine.elem_chemical_reactor.manual,[模组影响]：\n效率影响功耗\n性能影响每次运行的批数\n质量影响产物价值\n点击运行按钮开始合成。
+machine.elem_chip_fab.manual,[模组影响]：\n效率影响功耗\n性能无影响\n质量无影响\n点击“开始装配”立即消耗全部合格材料。
+machine.elem_hydrogen_fuel_cell.manual_short,插入氢气瓶；可选氧气瓶和储水容器。作为电源放入其他机器的电池槽。每 10 克氢供 1 电，氢氧配对时回收纯水。初级违禁品。
+machine.elem_hydrogen_fuel_cell.manual,[模组影响]：\n不受机器模块影响\n每 10 克氢供电 1 点\n每 1 克参与反应的氢配 8 克氧并回收 9 毫升纯水\n缺少氧气或容器空间时只供电并保留氧气
 tooltip.gas_mass,气体重量：{0} 克
+tooltip.gas_split,双击拆分：将气体平均分成两堆
 tooltip.product_quality,加工品质：{0}%
 panel.control,状态
 status.capacity,配方 {0}/{1} · 每晚能力 {2} 批
 status.capacity_scaled,配方 {0}/{1} · 当前处理量 {2}%
+status.capacity_instant,每次点击装配 1 个模组
 status.completed,上次完成 {0} 批
 status.completed_blocked,上次完成 {0} 批；随后停止：{1}
 status.idle,等待夜间运行
+status.idle_ready,等待运行
 status.no_recipes,未启用任何配方
 status.no_capacity,性能不足 无法形成完整批次
 status.missing_inputs,原料或纯度不足
@@ -187,6 +192,20 @@ status.missing_water,缺少水容器或所需液体不足
 status.missing_power,电池缺失 不可用或电量不足
 status.output_space,产物空间不足
 status.output_unavailable,产物无法生成
+status.idle_manual,选择配方后点击运行
+control.configure,配置
+control.run,运行
+control.assemble,开始装配
+control.configure_title,选择合成配方
+control.inputs,输入：{0}
+control.outputs,输出：{0}
+control.water,储水：{0:0.##} 升
+control.power,耗电：{0}
+control.select,选择此配方
+control.selected,当前配方 · 点击确认
+control.none,无
+control.gas_amount,{0} {1} 克
+control.item_amount,{0} ×{1}
 recipe.elec_water.name,水电解
 recipe.air_separation.name,空气分离
 recipe.rust_from_mineral.name,矿物提取

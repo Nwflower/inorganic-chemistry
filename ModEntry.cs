@@ -184,10 +184,7 @@ public sealed class ModEntry : IMod
             }
             MachineDefinition captured = definition;
             directory.Add(captured.id, () => MachineFactory.Create(captured));
-            if (captured.archetype != "fuel_cell")
-            {
-                directory.Add(MachineManual.NoteId(captured.id), () => MachineManual.Create(captured));
-            }
+            directory.Add(MachineManual.NoteId(captured.id), () => MachineManual.Create(captured));
             machines++;
         }
 
@@ -232,6 +229,8 @@ public sealed class ModEntry : IMod
             string gasType = GasContainer.GetGasType(item);
             builder.AddLine($"{Loc.Get("tooltip.gas")}: {GasContainer.GetDisplayGas(gasType)}", ignoreEmpty: true);
             builder.AddLine(Loc.Get("tooltip.gas_mass", item.unitCount), ignoreEmpty: true);
+            if (GasContainer.CanSplit(item))
+                builder.AddLine(Loc.Get("tooltip.gas_split"), ignoreEmpty: true);
         }
         if (ProductQuality.Get(item) != 0)
             builder.AddLine(Loc.Get("tooltip.product_quality", ProductQuality.Get(item)), ignoreEmpty: true);
@@ -362,7 +361,7 @@ public sealed class ModEntry : IMod
                 kit.Add("elem_field_manual");
                 SpawnKit(kit);
             },
-            iconKey: "elem_electrolysis_cell",
+            iconKey: Ids.ModId + ":" + Ids.ElectrolysisCell,
             tag: () => Loc.Get("scenario.elem_industry.tag"));
     }
 
