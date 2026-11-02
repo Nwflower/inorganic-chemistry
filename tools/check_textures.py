@@ -10,12 +10,14 @@ MAX_COLORS = 32
 
 EXPECTED = {
     "elem_electrolysis_cell.png": (48, 48),
-    "elem_hydrogen_fuel_cell.png": (16, 32),
+    "elem_hydrogen_fuel_cell.png": (64, 32),
+    "elem_hydrogen_fuel_cell_h2.png": (64, 32),
+    "elem_hydrogen_fuel_cell_h2_o2.png": (64, 32),
     "elem_laboratory_bay.png": (64, 64),
-    "elem_hydrogen_cylinder.png": (32, 48),
-    "elem_oxygen_cylinder.png": (32, 48),
-    "elem_nitrogen_cylinder.png": (32, 48),
-    "elem_chlorine_cylinder.png": (32, 48),
+    "elem_hydrogen_cylinder.png": (16, 48),
+    "elem_oxygen_cylinder.png": (16, 48),
+    "elem_nitrogen_cylinder.png": (16, 48),
+    "elem_chlorine_cylinder.png": (16, 48),
     "elem_iron_oxide.png": (48, 32),
     "elem_silica.png": (48, 32),
     "elem_fertilizer.png": (32, 32),
@@ -24,7 +26,7 @@ for state in range(1, 5):
     EXPECTED[f"elem_laboratory_bay_{state}.png"] = (64, 64)
 for name in (
     "elem_coke", "elem_salt", "elem_hydrogen_peroxide",
-    "elem_silicon", "elem_mod_chip",
+    "elem_silicon",
 ):
     EXPECTED[f"{name}.png"] = (16, 16)
 for name in (
@@ -76,11 +78,13 @@ for name, (w, h) in EXPECTED.items():
         status += "/NOSOURCE"
         failures.append(f"{name}: high-res source missing, wrong size, or does not reproduce runtime ({high_note})")
     # The game's mod-sprite shape loader samples the center of each 16x16 cell.
-    # Gas tanks set a full 2x3 shape in code because their valves do not fill both
-    # cells of the first row. Minerals use the native ore's irregular mask below.
+    # Gas cylinders, ores, plasma cells and the reactor set their footprint in code,
+    # so sampled-cell coverage is not the authority for them. The checks below still
+    # guard the artwork itself; ores keep the native ore's transparent top corners
+    # while ItemFactory reserves their full 3x2 area.
     uses_explicit_shape = (name.startswith("elem_laboratory_bay")
-                           or name.endswith("_cylinder.png")
-                           or name in {"elem_iron_oxide.png", "elem_silica.png"})
+                           or name.startswith("elem_hydrogen_fuel_cell")
+                           or name in {"elem_iron_oxide.png", "elem_silica.png", "elem_chemical_reactor.png"})
     if not uses_explicit_shape and size_ok:
         missing_cells = [(x // 16, y // 16) for y in range(8, h, 16) for x in range(8, w, 16)
                          if im.getpixel((x, y))[3] == 0]

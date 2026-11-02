@@ -94,7 +94,11 @@ def item_details(item):
     if item.get("gas"):
         details.extend((f"气体 {item['gas']}", "新购含量 100 克", "同种气体可堆叠合并"))
     if item.get("chemLiquid"):
-        details.append(f"溶液包 {item.get('chemML', 0)} 毫升")
+        details.append(f"溶液包 {item.get('chemML', 0) + item.get('chemWaterML', 0)} 毫升")
+    if item.get("finisherVolume"):
+        details.append(f"原版制剂机：每件取用 {item['finisherVolume'] / 1000:g} 毫升")
+        if item.get("finisherDry"):
+            details.append("先用原版蒸发器浓缩至干燥")
     if item.get("chemicalProductIngredient"):
         details.append("纯度随原料品质变化")
     if item.get("stackable") and not item.get("gas"):
@@ -180,7 +184,15 @@ def machine_entry(machine, locale, module_names, recipes):
         "footprint": footprint,
         "image": image,
         "details": machine_details(machine, recipes),
-        "variants": [],
+        "variants": (
+            [{"image": f"Textures/Items/{name}.png", "label": label}
+             for name, label in (
+                 ("elem_hydrogen_fuel_cell", "空仓"),
+                 ("elem_hydrogen_fuel_cell_h2", "氢气"),
+                 ("elem_hydrogen_fuel_cell_h2_o2", "氢 + 氧"),
+             )]
+            if machine_id == "elem_hydrogen_fuel_cell" else []
+        ),
     }
 
 
